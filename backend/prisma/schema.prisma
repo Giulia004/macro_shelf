@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model product {
+  id        String   @id
+  barcode   String?  @unique(map: "Product_barcode_key")
+  name      String
+  brand     String?
+  calories  Float
+  proteins  Float
+  carbs     Float
+  fats      Float
+  unit      String   @default("g")
+  createdAt DateTime @default(now())
+}
+
+model user {
+  id             String   @id
+  name           String?
+  surname        String?
+  email          String   @unique()
+  password       String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime
+  targetCalories Int      @default(2000)
+  targetProtein  Int      @default(150)
+  targetCarbs    Int      @default(200)
+  targetFats     Int      @default(70)
+  goal           String   @default("MAINTENANCE")
+
+  isPremium Boolean @default(false)
+}

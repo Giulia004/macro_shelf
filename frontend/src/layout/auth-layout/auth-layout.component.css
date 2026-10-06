@@ -1,0 +1,12 @@
+.auth-layout-app {
+  --background: #0f172a;
+  background-color: var(--background);
+  color: #f8fafc;
+  font-family: var(--ion-font-family, inherit);
+}
+
+ion-router-outlet {
+  display: block;
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,50 @@
+/* Sfondo principale coordinato con la dashboard */
+.fitness-bg {
+    --background: #12161f;
+    background-color: #12161f;
+    color: #ffffff;
+}
+
+/* Toolbar personalizzata */
+.fitness-toolbar {
+    --background: #12161f;
+    --color: #ffffff;
+}
+
+/* Container principale */
+.dashboard-container {
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Card in stile Soft Dark */
+.fitness-card {
+    background: #1a202c !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 1.5rem !important;
+    color: #ffffff;
+    margin: 0 !important;
+}
+
+/* Form inputs e select personalizzati per integrarsi col tema scuro */
+.form-control,
+.form-select {
+    background-color: #12161f !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #2dd36f !important;
+    box-shadow: 0 0 0 2px rgba(45, 211, 111, 0.25) !important;
+    outline: none;
+}
+
+/* Stile per le etichette e testi di supporto */
+label {
+    letter-spacing: 0.03em;
+}

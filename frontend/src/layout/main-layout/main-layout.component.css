@@ -1,0 +1,200 @@
+ion-split-pane {
+  --side-width: 290px;
+}
+
+ion-menu {
+  --background: var(--ms-bg-main);
+  --width: 290px;
+  border-right: 1px solid var(--ms-border);
+}
+
+.menu-header-toolbar {
+  --background: var(--ms-bg-main);
+}
+
+.menu-brand {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ms-border);
+  background: radial-gradient(ellipse at 8% 0%, rgba(163, 230, 53, 0.12), transparent 65%), var(--ms-bg-main);
+}
+
+.menu-logo-badge {
+  background: linear-gradient(135deg, rgba(163, 230, 53, 0.2), rgba(52, 211, 153, 0.1));
+  border: 1px solid rgba(163, 230, 53, 0.3);
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(163, 230, 53, 0.1);
+}
+
+.menu-logo-icon {
+  color: var(--ms-primary);
+  font-size: 27px;
+}
+
+.menu-content {
+  --background: var(--ms-bg-main);
+}
+
+/* Card Account nel Menu */
+.menu-account-card {
+  background: var(--ms-bg-card);
+  border: 1px solid var(--ms-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.menu-account-avatar {
+  font-size: 38px;
+  color: var(--ms-primary);
+  display: flex;
+  align-items: center;
+}
+
+.menu-account-details {
+  min-width: 0;
+}
+
+.menu-account-details strong {
+  font-size: 0.95rem;
+  color: var(--ms-text-main);
+}
+
+.menu-account-details span {
+  color: var(--ms-text-muted);
+  font-size: 0.8rem;
+}
+
+.menu-list {
+  background: transparent;
+  padding-top: 8px;
+}
+
+.menu-item {
+  --background: transparent;
+  --color: var(--ms-text-muted);
+  --border-radius: 14px;
+  --padding-start: 10px;
+  --inner-padding-end: 12px;
+  min-height: 56px;
+  margin-bottom: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  --background: var(--ms-bg-card);
+  --color: var(--ms-text-main);
+  transform: translateX(2px);
+}
+
+.menu-item:hover .menu-icon-wrapper {
+  background: var(--ms-bg-elevated);
+}
+
+.menu-item:hover .menu-icon {
+  color: var(--ms-primary);
+}
+
+.menu-icon-wrapper {
+  width: 38px;
+  height: 38px;
+  background: var(--ms-bg-card);
+  border-radius: 10px;
+  transition: background 0.25s ease;
+}
+
+.menu-icon {
+  color: var(--ms-text-muted);
+  font-size: 20px;
+}
+
+.menu-item-active {
+  --background: rgba(163, 230, 53, 0.1);
+  --color: var(--ms-primary);
+  border: 1px solid rgba(163, 230, 53, 0.16);
+}
+
+.menu-item-active ion-label {
+  color: var(--ms-primary) !important;
+}
+
+.menu-item-active .menu-icon-wrapper {
+  background: rgba(163, 230, 53, 0.15);
+}
+
+.menu-item-active .menu-icon {
+  color: var(--ms-primary);
+}
+
+/* Profilo nel menu */
+.profile-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  border-radius: 12px;
+  background: rgba(52, 211, 153, 0.1);
+}
+
+.profile-menu-icon {
+  color: var(--ms-secondary);
+  font-size: 25px;
+}
+
+.profile-menu-item:hover .profile-icon-wrapper,
+.profile-menu-item.menu-item-active .profile-icon-wrapper {
+  background: rgba(52, 211, 153, 0.17);
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+/* Footer Menu / Logout */
+.menu-footer {
+  background: var(--ms-bg-main);
+  border-top: 1px solid var(--ms-border);
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.logout-item {
+  --color: var(--ms-danger);
+}
+
+.logout-item .logout-wrapper {
+  background: rgba(251, 113, 133, 0.12);
+  border: 1px solid rgba(251, 113, 133, 0.15);
+}
+
+.logout-item:hover {
+  --background: rgba(251, 113, 133, 0.15);
+}
+
+/* Pagina principale e Toolbar */
+.ion-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.main-toolbar {
+  --background: var(--ms-bg-main);
+  border-bottom: 1px solid var(--ms-border);
+  min-height: 60px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  letter-spacing: -0.5px;
+}
+
+.custom-menu-btn {
+  --color: var(--ms-text-main);
+}
+
+.ion-page>ion-router-outlet {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+}

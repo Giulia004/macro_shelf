@@ -1,0 +1,112 @@
+.fitness-bg {
+  --background: var(--ms-bg-main);
+  color: var(--ms-text-main);
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 520px;
+  padding: 28px 4px 32px;
+}
+
+.profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.profile-icon {
+  display: grid;
+  flex: 0 0 58px;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: 18px;
+  background: rgba(52, 211, 153, 0.12);
+  color: var(--ms-secondary);
+  font-size: 36px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--ms-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.profile-heading h1 {
+  margin: 0;
+  color: var(--ms-text-main);
+  font-size: 1.6rem;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.profile-description {
+  margin: 4px 0 0;
+  color: var(--ms-text-muted);
+  font-size: 0.9rem;
+}
+
+.profile-card {
+  margin: 0;
+  border: 1px solid var(--ms-border);
+  border-radius: 22px;
+  background: var(--ms-bg-card);
+  box-shadow: 0 16px 36px -20px rgba(0, 0, 0, 0.7);
+}
+
+.profile-card ion-card-content {
+  padding: 20px;
+}
+
+.profile-fields {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.profile-field {
+  --background: var(--ms-bg-subcard);
+  --color: var(--ms-text-main);
+  --border-radius: 14px;
+  --padding-start: 14px;
+  --inner-padding-end: 12px;
+  border: 1px solid var(--ms-border);
+  border-radius: 14px;
+}
+
+.profile-field:focus-within {
+  border-color: rgba(163, 230, 53, 0.65);
+  box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.1);
+}
+
+.profile-field > ion-icon {
+  color: var(--ms-text-subtle);
+  font-size: 20px;
+}
+
+.profile-field ion-input {
+  --color: var(--ms-text-main);
+  --placeholder-color: var(--ms-text-subtle);
+  --placeholder-opacity: 1;
+}
+
+.email-field {
+  opacity: 0.8;
+}
+
+.save-profile-button {
+  --background: var(--ms-primary);
+  --background-hover: var(--ms-primary-hover);
+  --background-activated: #72b51d;
+  --color: #17210c;
+  --border-radius: 14px;
+  --box-shadow: 0 6px 18px rgba(163, 230, 53, 0.18);
+  height: 50px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+}

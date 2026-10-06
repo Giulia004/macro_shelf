@@ -1,0 +1,56 @@
+<ion-content class="ion-padding fitness-bg">
+  <div class="login-container d-flex flex-column justify-content-between h-100 mx-auto">
+
+    <!-- Top Nav con freccia pulita -->
+    <div class="top-nav d-flex justify-content-start">
+      <ion-button fill="clear" routerLink="/" class="back-btn">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Blocco Centrale (Badge, Titolo, Form, Azioni) -->
+    <div class="login-content-center d-flex flex-column align-items-center w-100">
+
+      <div class="login-header text-center mb-4">
+        <div class="mini-badge mx-auto d-flex align-items-center justify-content-center mb-3">
+          <ion-icon name="nutrition-outline"></ion-icon>
+        </div>
+        <h1 class="fw-bold text-white mb-1">Bentornato</h1>
+        <p class="fw-bold text-white small">Inserisci le tue credenziali per accedere alla dispensa.</p>
+      </div>
+
+      <div class="form-group d-flex flex-column gap-3 w-100 mb-4">
+        <ion-item class="custom-item" lines="none">
+          <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input label="Email" labelPlacement="stacked" type="email" name="email" [(ngModel)]="email"
+            placeholder="nome@esempio.com"></ion-input>
+        </ion-item>
+
+        <ion-item class="custom-item" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+          <ion-input label="Password" labelPlacement="stacked" type="password" name="password" [(ngModel)]="password"
+            placeholder="••••••••"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="login-actions w-100 text-center position-relative" style="z-index: 10;">
+        <p *ngIf="loginMessage" class="login-message" role="alert" aria-live="assertive">
+          {{ loginMessage }}
+        </p>
+
+        <ion-button expand="block" (click)="onLogin()" [disabled]="isLoggingIn" class="btn-primary-fitness mb-3">
+          <ion-icon name="log-in-outline" slot="start"></ion-icon>
+          {{ isLoggingIn ? 'ACCESSO IN CORSO…' : 'ACCEDI' }}
+        </ion-button>
+
+        <a routerLink="/register" class="text-decoration-none btn-link-fitness d-inline-block mt-2">
+          Non hai un account? <span>Registrati</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="bottom-spacer"></div>
+
+  </div>
+</ion-content>

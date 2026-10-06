@@ -1,0 +1,68 @@
+<ion-content class="fitness-bg ion-padding">
+  <main class="profile-container mx-auto">
+    <header class="profile-heading">
+      <div class="profile-icon">
+        <ion-icon name="person-circle-outline" aria-hidden="true"></ion-icon>
+      </div>
+      <div>
+        <p class="eyebrow">ACCOUNT</p>
+        <h1>Il tuo profilo</h1>
+        <p class="profile-description">Aggiorna i tuoi dati personali.</p>
+      </div>
+    </header>
+
+    <ion-card class="profile-card">
+      <ion-card-content>
+        <div class="profile-fields">
+          <ion-item class="profile-field" lines="none">
+            <ion-icon name="person-outline" slot="start" aria-hidden="true"></ion-icon>
+            <ion-input
+              label="Nome"
+              labelPlacement="stacked"
+              name="name"
+              autocomplete="given-name"
+              maxlength="80"
+              [(ngModel)]="name"
+              placeholder="Inserisci il tuo nome"
+              [disabled]="isLoading || isSaving">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="profile-field" lines="none">
+            <ion-icon name="person-outline" slot="start" aria-hidden="true"></ion-icon>
+            <ion-input
+              label="Cognome"
+              labelPlacement="stacked"
+              name="surname"
+              autocomplete="family-name"
+              maxlength="80"
+              [(ngModel)]="surname"
+              placeholder="Inserisci il tuo cognome"
+              [disabled]="isLoading || isSaving">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="profile-field email-field" lines="none">
+            <ion-icon name="mail-outline" slot="start" aria-hidden="true"></ion-icon>
+            <ion-input
+              label="Email"
+              labelPlacement="stacked"
+              type="email"
+              [value]="email"
+              readonly>
+            </ion-input>
+          </ion-item>
+        </div>
+
+        <ion-button
+          expand="block"
+          class="save-profile-button"
+          (click)="saveProfile()"
+          [disabled]="isLoading || isSaving">
+          <ion-icon name="save-outline" slot="start" aria-hidden="true"></ion-icon>
+          {{ isSaving ? 'SALVATAGGIO...' : 'SALVA PROFILO' }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </main>
+</ion-content>

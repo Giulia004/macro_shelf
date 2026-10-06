@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="fitness-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-white fw-bold">I Miei Obiettivi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fitness-bg ion-padding">
+  <div class="dashboard-container mx-auto py-2">
+
+    <form (ngSubmit)="saveGoal()" class="d-flex flex-column gap-3">
+
+      <!-- Selezione Obiettivo -->
+      <ion-card class="fitness-card p-4">
+        <label class="text-muted small text-uppercase fw-semibold mb-2 d-block">Tipo di Obiettivo</label>
+        <select [(ngModel)]="goal" name="goal" class="form-select bg-dark text-white border-secondary rounded-3 py-2">
+          <option value="CUTTING">Definizione (Perdita peso)</option>
+          <option value="MAINTENANCE">Mantenimento</option>
+          <option value="BULKING">Massa (Aumento muscolare)</option>
+        </select>
+      </ion-card>
+
+      <!-- Target Calorico e Macro -->
+      <ion-card class="fitness-card p-4">
+        <label class="text-muted small text-uppercase fw-semibold mb-3 d-block">Target Giornalieri</label>
+
+        <div class="mb-3">
+          <label class="text-white small mb-1">Calorie Totali (kcal)</label>
+          <input type="number" [(ngModel)]="targetCalories" name="targetCalories"
+            class="form-control bg-dark text-white border-secondary rounded-3">
+        </div>
+
+        <div class="row g-2">
+          <div class="col-4">
+            <label class="text-white small mb-1">Proteine (g)</label>
+            <input type="number" [(ngModel)]="targetProtein" name="targetProtein"
+              class="form-control bg-dark text-white border-secondary rounded-3 text-center">
+          </div>
+          <div class="col-4">
+            <label class="text-white small mb-1">Carbo (g)</label>
+            <input type="number" [(ngModel)]="targetCarbs" name="targetCarbs"
+              class="form-control bg-dark text-white border-secondary rounded-3 text-center">
+          </div>
+          <div class="col-4">
+            <label class="text-white small mb-1">Grassi (g)</label>
+            <input type="number" [(ngModel)]="targetFats" name="targetFats"
+              class="form-control bg-dark text-white border-secondary rounded-3 text-center">
+          </div>
+        </div>
+      </ion-card>
+
+      <!-- Pulsante Salva -->
+      <button type="submit" class="btn btn-success w-100 py-3 rounded-4 fw-bold mt-3 shadow-sm">
+        Salva Modifiche
+      </button>
+
+    </form>
+
+  </div>
+</ion-content>

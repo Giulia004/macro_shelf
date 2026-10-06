@@ -1,0 +1,102 @@
+.fitness-bg {
+    --background: var(--ms-bg-main);
+    color: var(--ms-text-main);
+}
+
+.register-container {
+    max-width: 400px;
+    padding: 10px 0 20px 0;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.back-btn {
+    --color: var(--ms-text-muted);
+    font-size: 1.2rem;
+    padding: 0;
+    height: 40px;
+    width: 40px;
+}
+
+.mini-badge {
+    background: rgba(163, 230, 53, 0.12);
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    border: 1px solid rgba(163, 230, 53, 0.25);
+}
+
+.mini-badge ion-icon {
+    font-size: 26px;
+    color: var(--ms-primary);
+}
+
+.register-header h1 {
+    font-size: 2.2rem;
+    letter-spacing: -0.5px;
+}
+
+.register-header p {
+    color: var(--ms-text-muted);
+    max-width: 320px;
+}
+
+.custom-item {
+    --background: var(--ms-bg-card);
+    border-radius: 16px;
+    padding: 8px 14px;
+    border: 1px solid var(--ms-border);
+    transition: all 0.3s ease;
+}
+
+.custom-item:focus-within {
+    border-color: var(--ms-primary);
+    box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.15);
+}
+
+.input-icon {
+    color: var(--ms-text-subtle);
+    margin-right: 4px;
+    font-size: 20px;
+}
+
+.custom-item ion-input {
+    color: var(--ms-text-main);
+    --placeholder-color: var(--ms-text-subtle);
+    --placeholder-opacity: 1;
+}
+
+.btn-primary-fitness {
+    --background: var(--ms-primary);
+    --background-hover: var(--ms-primary-hover);
+    --background-activated: #72b51d;
+    --color: #17210c;
+    --border-radius: 14px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    --box-shadow: 0 4px 20px rgba(163, 230, 53, 0.25);
+}
+
+.btn-link-fitness {
+    color: var(--ms-text-muted);
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.btn-link-fitness:hover {
+    color: var(--ms-text-main);
+}
+
+.btn-link-fitness span {
+    color: var(--ms-primary);
+    font-weight: 600;
+}
+
+.bottom-spacer {
+    height: 40px;
+}

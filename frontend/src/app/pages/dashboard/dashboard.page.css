@@ -1,0 +1,125 @@
+.fitness-bg {
+    --background: var(--ms-bg-main);
+    color: var(--ms-text-main);
+}
+
+.fitness-bg .text-muted {
+    color: var(--ms-text-muted) !important;
+}
+
+.fitness-bg .text-success {
+    color: var(--ms-primary) !important;
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    padding: 28px 15px 32px;
+}
+
+.user-avatar-badge {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--ms-primary), var(--ms-secondary));
+    border-radius: 14px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 16px rgba(163, 230, 53, 0.2);
+}
+
+.logout-btn {
+    --color: var(--ms-text-muted);
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.logout-btn:hover {
+    --color: var(--ms-danger);
+}
+
+.goal-pill {
+    background: var(--ms-bg-card);
+    border: 1px solid var(--ms-border);
+}
+
+.fitness-card {
+    background: var(--ms-bg-card);
+    border-radius: 20px;
+    border: 1px solid var(--ms-border);
+    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.55);
+    margin: 0 0 1.5rem;
+}
+
+.icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.flame-badge {
+    background: rgba(163, 230, 53, 0.13);
+    color: var(--ms-primary);
+}
+
+.custom-progress {
+    height: 10px;
+    background-color: var(--ms-bg-elevated);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.macro-subcard {
+    background: var(--ms-bg-subcard);
+    border: 1px solid var(--ms-border);
+}
+
+.macro-line {
+    height: 3px;
+    border-radius: 2px;
+    width: 100%;
+}
+
+.protein-line {
+    background-color: var(--ms-protein);
+}
+
+.carbs-line {
+    background-color: var(--ms-carbs);
+}
+
+.fats-line {
+    background-color: var(--ms-fats);
+}
+
+.action-card {
+    background: var(--ms-bg-card);
+    border: 1px solid var(--ms-border);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.action-card:hover {
+    border-color: rgba(163, 230, 53, 0.55);
+    background: var(--ms-bg-elevated);
+}
+
+.action-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+.pantry-badge {
+    background: rgba(56, 189, 248, 0.14);
+    color: var(--ms-protein);
+}
+
+.nutrition-badge {
+    background: rgba(251, 191, 36, 0.14);
+    color: var(--ms-carbs);
+}

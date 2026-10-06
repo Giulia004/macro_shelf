@@ -1,0 +1,82 @@
+<ion-split-pane content-id="main-content" when="md">
+
+  <!-- Menu Laterale a scomparsa -->
+  <ion-menu content-id="main-content" menuId="main-menu" type="overlay">
+    <ion-header class="ion-no-border">
+      <ion-toolbar class="menu-header-toolbar">
+        <div class="menu-brand d-flex align-items-center gap-3 px-3 py-4">
+          <div class="menu-logo-badge d-flex align-items-center justify-content-center flex-shrink-0">
+            <ion-icon name="nutrition-outline" class="menu-logo-icon"></ion-icon>
+          </div>
+          <div class="overflow-hidden">
+            <h4 class="text-white fw-bold m-0 tracking-tight text-truncate">MacroShelf</h4>
+          </div>
+        </div>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="menu-content ion-padding-top">
+      <div class="menu-account-card mx-3 mb-3 d-flex align-items-center gap-3 p-3 rounded-4">
+        <div class="menu-account-avatar flex-shrink-0">
+          <ion-icon name="person-circle-outline" aria-hidden="true"></ion-icon>
+        </div>
+        <div class="menu-account-details overflow-hidden">
+          <strong class="text-white text-truncate d-block">{{ displayName }}</strong>
+          <span class="text-muted text-truncate d-block small">{{ user?.email || 'Profilo personale' }}</span>
+        </div>
+      </div>
+
+      <ion-list lines="none" class="menu-list px-2">
+        <ion-item routerLink="/dashboard" routerDirection="root" routerLinkActive="menu-item-active"
+          [routerLinkActiveOptions]="{ exact: true }" class="menu-item rounded-4 mb-2" detail="false">
+          <div class="menu-icon-wrapper me-3 d-flex align-items-center justify-content-center flex-shrink-0">
+            <ion-icon name="home-outline" class="menu-icon"></ion-icon>
+          </div>
+          <ion-label class="fw-semibold text-white">Dashboard</ion-label>
+        </ion-item>
+
+        <ion-item routerLink="/pantry" routerDirection="root" routerLinkActive="menu-item-active"
+          class="menu-item rounded-4 mb-2" detail="false">
+          <div class="menu-icon-wrapper me-3 d-flex align-items-center justify-content-center flex-shrink-0">
+            <ion-icon name="basket-outline" class="menu-icon"></ion-icon>
+          </div>
+          <ion-label class="fw-semibold text-white">Dispensa</ion-label>
+        </ion-item>
+
+        <ion-item routerLink="/profile" routerDirection="root" routerLinkActive="menu-item-active"
+          class="menu-item profile-menu-item rounded-4 mb-2" detail="false">
+          <div class="menu-icon-wrapper profile-icon-wrapper me-3 d-flex align-items-center justify-content-center flex-shrink-0">
+            <ion-icon name="person-circle-outline" class="menu-icon profile-menu-icon"></ion-icon>
+          </div>
+          <ion-label class="fw-semibold text-white">Gestisci profilo</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+    <!-- Footer del Menu con tasto Logout -->
+    <div class="menu-footer p-3">
+      <ion-item (click)="logout()" class="menu-item logout-item rounded-4" lines="none" detail="false" button>
+        <div class="menu-icon-wrapper logout-wrapper me-3 d-flex align-items-center justify-content-center flex-shrink-0">
+          <ion-icon name="log-out-outline" class="text-danger"></ion-icon>
+        </div>
+        <ion-label class="fw-semibold text-danger">Esci dall'account</ion-label>
+      </ion-item>
+    </div>
+  </ion-menu>
+
+  <!-- Contenitore Principale delle Pagine -->
+  <div id="main-content" class="ion-page">
+    <ion-header class="ion-no-border">
+      <ion-toolbar class="main-toolbar px-2">
+        <ion-buttons slot="start">
+          <ion-menu-button color="light" class="custom-menu-btn"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="text-white fw-bold brand-title">MacroShelf</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <!-- Outlet dove verranno caricate le viste -->
+    <ion-router-outlet></ion-router-outlet>
+  </div>
+
+</ion-split-pane>
