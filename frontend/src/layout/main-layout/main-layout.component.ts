@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar } from '@ionic/angular';
+import { IonApp, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { basketOutline, homeOutline, logOutOutline, menuOutline, nutritionOutline, personCircleOutline } from 'ionicons/icons';
 import { User, UserService } from '../../services/user.service';
@@ -10,15 +10,16 @@ import { User, UserService } from '../../services/user.service';
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.css'],
-  imports: [CommonModule,IonSplitPane,IonMenu,IonContent,IonList,IonItem,IonLabel,IonIcon,IonRouterOutlet,IonHeader,IonToolbar,IonTitle,IonButtons,IonMenuButton,RouterModule],
+  standalone:true,
+  imports: [IonApp, CommonModule, IonSplitPane, IonMenu, IonContent, IonList, IonItem, IonLabel, IonIcon, IonRouterOutlet, IonHeader, IonToolbar,IonButtons, IonMenuButton, RouterModule],
 })
 export class MainLayoutComponent implements OnInit {
   user: User | null = null;
 
-  constructor(private router:Router, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService) {
     addIcons({
       homeOutline,
-      basketOutline,personCircleOutline,nutritionOutline,logOutOutline,menuOutline
+      basketOutline, personCircleOutline, nutritionOutline, logOutOutline, menuOutline
     })
   }
 
