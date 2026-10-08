@@ -1,79 +1,85 @@
 {
-  "hash": "a2ce5caa",
-  "configHash": "7a13f171",
+  "hash": "d22fc159",
+  "configHash": "27762d89",
   "lockfileHash": "1b78c0ad",
-  "browserHash": "40e98044",
+  "browserHash": "39b793b1",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "75b922dc",
+      "fileHash": "191ab027",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "8598e27a",
+      "fileHash": "0a646e80",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "6d7929c5",
+      "fileHash": "15c496a1",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "84eff806",
+      "fileHash": "4f0e3e50",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "721029ce",
+      "fileHash": "7e22fe24",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "00b846f1",
+      "fileHash": "e05aa358",
       "needsInterop": false
     },
     "@capacitor-community/sqlite": {
       "src": "../../../../../../node_modules/@capacitor-community/sqlite/dist/esm/index.js",
       "file": "@capacitor-community_sqlite.js",
-      "fileHash": "f3c70d1f",
+      "fileHash": "9435eb29",
       "needsInterop": false
     },
     "@capacitor/core": {
       "src": "../../../../../../node_modules/@capacitor/core/dist/index.js",
       "file": "@capacitor_core.js",
-      "fileHash": "bb3424bc",
+      "fileHash": "43195298",
       "needsInterop": false
     },
     "@ionic/angular": {
       "src": "../../../../../../node_modules/@ionic/angular/dist/standalone/index.js",
       "file": "@ionic_angular.js",
-      "fileHash": "96a9f0d7",
+      "fileHash": "e9f7b4d8",
       "needsInterop": false
     },
     "ionicons": {
       "src": "../../../../../../node_modules/ionicons/dist/index.js",
       "file": "ionicons.js",
-      "fileHash": "bd9294a7",
+      "fileHash": "c8c8186c",
       "needsInterop": false
     },
     "ionicons/icons": {
       "src": "../../../../../../node_modules/ionicons/icons/index.mjs",
       "file": "ionicons_icons.js",
-      "fileHash": "ef578d2e",
+      "fileHash": "ae40224c",
+      "needsInterop": false
+    },
+    "jeep-sqlite": {
+      "src": "../../../../../../node_modules/jeep-sqlite/dist/index.js",
+      "file": "jeep-sqlite.js",
+      "fileHash": "9e0da678",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "e1d61bc0",
+      "fileHash": "9f8c2c07",
       "needsInterop": false
     }
   },

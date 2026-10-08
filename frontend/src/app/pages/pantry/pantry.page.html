@@ -1,0 +1,91 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="fitness-toolbar px-2">
+    <ion-title class="text-white fw-bold">La Tua Dispensa</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar class="fitness-toolbar px-3 pb-2">
+    <ion-searchbar [value]="searchTerm()" (ionInput)="searchTerm.set($event.detail.value || '')"
+      placeholder="Cerca nella tua dispensa..." animated="true" color="dark" class="custom-searchbar">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fitness-bg ion-padding">
+  <div class="dashboard-container mx-auto py-2 d-flex flex-column gap-3">
+
+    @if (isLoading()) {
+    <div class="text-center py-5">
+      <ion-spinner name="crescent" color="success"></ion-spinner>
+      <p class="text-muted small mt-2">Caricamento dispensa...</p>
+    </div>
+    } @else if (pantryItems().length === 0) {
+    <div class="text-center py-5 px-3">
+      <ion-icon name="nutrition-outline" class="fs-1 text-muted mb-2"></ion-icon>
+      <h6 class="text-white fw-bold">La tua dispensa è vuota</h6>
+      <p class="text-muted small">Aggiungi i prodotti direttamente dal catalogo globale.</p>
+    </div>
+    } @else if (filteredItems().length === 0) {
+    <!-- Caso 2: Ci sono prodotti, ma la ricerca non ha trovato corrispondenze -->
+    <div class="text-center py-5 px-3">
+      <ion-icon name="search-outline" class="fs-1 text-muted mb-2"></ion-icon>
+      <h6 class="text-white fw-bold">Nessun prodotto trovato</h6>
+      <p class="text-muted small">Prova a cercare con un altro termine.</p>
+    </div>
+    } @else {
+    <!-- Lista dei prodotti filtrati -->
+    <div class="d-flex flex-column gap-3">
+      @for (item of filteredItems(); track item.id) {
+      <ion-card class="fitness-card p-3">
+        <div class="d-flex align-items-start justify-content-between mb-2">
+          <div>
+            <h6 class="text-white fw-bold m-0 fs-6">{{ item.name }}</h6>
+            @if (item.brand) {
+            <span class="product-brand d-flex align-items-center gap-1 mt-1">
+              <ion-icon name="business-outline"></ion-icon> {{ item.brand }}
+            </span>
+            }
+          </div>
+
+          <!-- Quantità in dispensa -->
+          <span class="badge bg-success text-dark px-2.5 py-1 fw-bold rounded-pill">
+            {{ item.quantity }} {{ item.unit }}
+          </span>
+        </div>
+
+        <!-- Scadenza -->
+        @if (item.expiryDate) {
+        <div class="mb-2">
+          <span class="extra-small-label text-muted d-block">
+            Scadenza: <strong class="text-white">{{ item.expiryDate }}</strong>
+          </span>
+        </div>
+        }
+
+        <!-- Macronutrienti -->
+        <div class="row g-2 text-center mt-2 pt-2 border-top border-secondary border-opacity-25 align-items-center">
+          <div class="col-3">
+            <span class="extra-small-label text-muted d-block">Kcal (100g)</span>
+            <strong class="text-white small">{{ item.calories | number:'1.0-0' }}</strong>
+          </div>
+          <div class="col-3">
+            <span class="extra-small-label text-muted d-block">Proteine</span>
+            <strong class="text-white small">{{ item.proteins }}g</strong>
+          </div>
+          <div class="col-3">
+            <span class="extra-small-label text-muted d-block">Carbo / Grassi</span>
+            <strong class="text-white small">{{ item.carbs }}g / {{ item.fats }}g</strong>
+          </div>
+          <!-- Tasto rimuovi -->
+          <div class="col-3 text-end">
+            <ion-button fill="clear" color="danger" class="p-0 m-0" (click)="removeItem(item)">
+              <ion-icon name="trash-outline" class="fs-5"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-card>
+      }
+    </div>
+    }
+
+  </div>
+</ion-content>

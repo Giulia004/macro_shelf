@@ -10,9 +10,7 @@ export class DatabaseService {
     private db!: SQLiteDBConnection;
     private isDbReady: boolean = false;
 
-    contructor() {
-
-    }
+    constructor() {}
 
     async initDatabase() {
         if (this.isDbReady) return;

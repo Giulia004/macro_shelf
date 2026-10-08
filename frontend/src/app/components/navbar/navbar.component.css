@@ -1,0 +1,54 @@
+/* Toolbar superiore minimale */
+.fitness-toolbar {
+    --background: #121212 !important;
+    --border-color: rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Sfondo generale del menu */
+.fitness-bg {
+    --background: #0f172a;
+}
+
+/* Avatar circolare con gradiente e glow */
+.user-avatar-badge {
+    width: 54px;
+    height: 54px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-radius: 50%;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Stile voci di menu */
+.menu-item {
+    --background: rgba(255, 255, 255, 0.03);
+    --background-hover: rgba(34, 197, 94, 0.1);
+    --border-radius: 12px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    border-color: rgba(34, 197, 94, 0.3);
+    transform: translateX(4px);
+}
+
+/* Stile specifico per il Logout nel menu */
+.logout-menu-item {
+    --background: rgba(239, 68, 68, 0.05);
+    --background-hover: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.logout-menu-item:hover {
+    border-color: rgba(239, 68, 68, 0.4);
+    transform: translateX(4px);
+}
+
+.tracking-wide {
+    letter-spacing: 0.5px;
+}

@@ -1,3 +1,74 @@
-<p>
-  edit-goal-modal works!
-</p>
+<ion-header class="ion-no-border">
+  <ion-toolbar class="modal-toolbar px-3">
+    <ion-title class="text-white fw-bold fs-6">Modifica Obiettivo</ion-title>
+    <ion-buttons slot="end">
+      <button (click)="dismiss()" class="modal-close-btn d-flex align-items-center justify-content-center">
+        <ion-icon name="close-circle-outline" class="text-white fs-4"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-bg ion-padding">
+  <div class="modal-container mx-auto py-2 d-flex flex-column gap-3">
+
+    <!-- Selezione Tipo Obiettivo -->
+    <ion-card class="modal-card p-4">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <div class="icon-badge nutrition-badge">
+          <ion-icon name="flag-outline"></ion-icon>
+        </div>
+        <span class="text-white fw-bold">Tipo di Obiettivo</span>
+      </div>
+      <select [(ngModel)]="currentGoal" class="form-select text-white rounded-3 py-2.5">
+        <option value="CUTTING">Definizione (Perdita peso)</option>
+        <option value="MAINTENANCE">Mantenimento</option>
+        <option value="BULKING">Massa (Aumento muscolare)</option>
+      </select>
+    </ion-card>
+
+    <!-- Target Calorico e Macro -->
+    <ion-card class="modal-card p-4">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <div class="icon-badge flame-badge">
+          <ion-icon name="options-outline"></ion-icon>
+        </div>
+        <span class="text-white fw-bold">Target Giornalieri</span>
+      </div>
+
+      <div class="mb-3">
+        <label class="text-light-custom small mb-1 d-block fw-semibold text-uppercase">Calorie Totali (kcal)</label>
+        <input type="number" [(ngModel)]="currentCalories" class="form-control text-white rounded-3 fw-bold fs-6">
+      </div>
+
+      <div class="row g-2">
+        <div class="col-4">
+          <label class="text-light-custom small mb-1 d-block text-center fw-semibold">Proteine</label>
+          <input type="number" [(ngModel)]="currentProtein"
+            class="form-control text-white rounded-3 text-center fw-semibold">
+          <span class="extra-small-label text-center d-block mt-1">grammi</span>
+        </div>
+        <div class="col-4">
+          <label class="text-light-custom small mb-1 d-block text-center fw-semibold">Carbo</label>
+          <input type="number" [(ngModel)]="currentCarbs"
+            class="form-control text-white rounded-3 text-center fw-semibold">
+          <span class="extra-small-label text-center d-block mt-1">grammi</span>
+        </div>
+        <div class="col-4">
+          <label class="text-light-custom small mb-1 d-block text-center fw-semibold">Grassi</label>
+          <input type="number" [(ngModel)]="currentFats"
+            class="form-control text-white rounded-3 text-center fw-semibold">
+          <span class="extra-small-label text-center d-block mt-1">grammi</span>
+        </div>
+      </div>
+    </ion-card>
+
+    <!-- Pulsante di Conferma -->
+    <button (click)="save()"
+      class="btn btn-success w-100 py-3 rounded-4 fw-bold mt-2 shadow-sm d-flex align-items-center justify-content-center gap-2 action-save-btn">
+      <ion-icon name="checkmark-circle-outline" class="fs-5"></ion-icon>
+      Salva Modifiche
+    </button>
+
+  </div>
+</ion-content>

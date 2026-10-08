@@ -1,33 +1,31 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonButtons, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton } from '@ionic/angular';
-import { UserService } from '../../../services/user.service';
-import { Router } from '@angular/router';
+import { IonButtons, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonIcon, ModalController, ToastController } from '@ionic/angular';
+import { User, UserService } from '../../../services/user.service';
 import { addIcons } from 'ionicons';
-import { fastFoodOutline, flagOutline, saveOutline } from 'ionicons/icons';
+import { addCircleOutline, checkmarkCircleOutline, fastFoodOutline, flagOutline, optionsOutline, saveOutline } from 'ionicons/icons';
+import { EditGoalModalComponent } from '../../components/edit-goal-modal/edit-goal-modal.component';
+import { MilestonesComponent } from '../../components/milestones/milestones.component';
+import { GoalStatsTrendComponent } from '../../components/goal-stats-trend/goal-stats-trend.component';
 
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.page.html',
   styleUrls: ['./goal.page.css'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonButtons, IonBackButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonButtons, IonBackButton, IonIcon,MilestonesComponent,GoalStatsTrendComponent]
 })
 export class GoalPage implements OnInit {
   private userService = inject(UserService);
-  private router = inject(Router);
+  private modalCtrl = inject(ModalController);
+  private toastController = inject(ToastController);
 
-  // Campi del form associati all'obiettivo e ai macro
-  goal: string = 'MAINTENANCE';
-  targetCalories: number = 2000;
-  targetProtein: number = 120;
-  targetCarbs: number = 200;
-  targetFats: number = 60;
+  user = signal<User | null>(null);
 
   constructor() {
     addIcons({
-      flagOutline, saveOutline, fastFoodOutline
+      flagOutline, saveOutline, fastFoodOutline, addCircleOutline, optionsOutline, checkmarkCircleOutline
     });
   }
 
@@ -36,30 +34,42 @@ export class GoalPage implements OnInit {
   }
 
   loadUserData() {
-    this.userService.profile$.subscribe(user => {
-      if (user) {
-        if (user.goal) this.goal = user.goal;
-        if (user.targetCalories) this.targetCalories = user.targetCalories;
-        if (user.targetProtein) this.targetProtein = user.targetProtein;
-        if (user.targetCarbs) this.targetCarbs = user.targetCarbs;
-        if (user.targetFats) this.targetFats = user.targetFats;
+    this.userService.profile$.subscribe({
+      next: (userProfile) => {
+        if (userProfile) this.user.set(userProfile);
+      }, error: async (err) => {
+        console.error("Errore nel caricamento dei dati del profilo", err);
+        const toast = await this.toastController.create({
+          message: "Impossibile caricare i dati dell'obiettivo.",
+          duration: 2500,
+          color: 'danger',
+          position: 'bottom',
+          icon: 'alert-circle-outline'
+        });
+
+        await toast.present();
       }
     });
   }
 
-  saveGoal() {
-    const payload = {
-      goal: this.goal,
-      targetCalories: Number(this.targetCalories),
-      targetProtein: Number(this.targetProtein),
-      targetCarbs: Number(this.targetCarbs),
-      targetFats: Number(this.targetFats),
-    }
-
-    this.userService.updateGoalAndMacros(payload).subscribe({
-      next: (updatedUser) => this.loadUserData(),
-      error: (err) => console.error("Qualcosa e' andato storto")
+  async openEditModal() {
+    const currentUser = this.user();
+    const modal = await this.modalCtrl.create({
+      component: EditGoalModalComponent,
+      componentProps: {
+        currentGoal: currentUser?.goal || 'MAINTENANCE',
+        currentCalories: currentUser?.targetCalories || 2000,
+        currentProtein: currentUser?.targetProtein || 120,
+        currentCarbs: currentUser?.targetCarbs || 200,
+        currentFats: currentUser?.targetFats || 60
+      }
     });
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data)
+      this.loadUserData();
   }
 
 }

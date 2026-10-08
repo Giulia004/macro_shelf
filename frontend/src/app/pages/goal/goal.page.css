@@ -1,14 +1,15 @@
-/* Sfondo principale coordinato con la dashboard */
+/* Sfondo principale */
 .fitness-bg {
-    --background: #12161f;
-    background-color: #12161f;
-    color: #ffffff;
+    --background: var(--ms-bg-main);
+    background-color: var(--ms-bg-main);
+    color: var(--ms-text-main);
 }
 
-/* Toolbar personalizzata */
+/* Toolbar */
 .fitness-toolbar {
-    --background: #12161f;
-    --color: #ffffff;
+    --background: var(--ms-bg-main);
+    --color: var(--ms-text-main);
+    border-bottom: 1px solid var(--ms-border);
 }
 
 /* Container principale */
@@ -19,32 +20,83 @@
 
 /* Card in stile Soft Dark */
 .fitness-card {
-    background: #1a202c !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    border-radius: 1.5rem !important;
+    background: linear-gradient(145deg, var(--ms-bg-card), rgba(30, 41, 59, 0.4)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.55);
+    border-radius: 20px !important;
     color: #ffffff;
     margin: 0 !important;
 }
 
-/* Form inputs e select personalizzati per integrarsi col tema scuro */
+/* Etichette e testi di supporto (Forzati chiari per evitare problemi di leggibilità) */
+.fitness-card label,
+.fitness-card .text-muted,
+.fitness-card span {
+    color: #cbd5e1 !important;
+    /* Grigio chiaro ad altissima leggibilità */
+}
+
+/* Form inputs e select personalizzati */
 .form-control,
 .form-select {
     background-color: #12161f !important;
     color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     font-size: 0.95rem;
     padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+}
+
+/* Placeholder dei campi input ben visibili */
+.form-control::placeholder {
+    color: #64748b !important;
+    opacity: 1;
 }
 
 .form-control:focus,
 .form-select:focus {
-    border-color: #2dd36f !important;
-    box-shadow: 0 0 0 2px rgba(45, 211, 111, 0.25) !important;
+    border-color: var(--ms-primary) !important;
+    box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.2) !important;
     outline: none;
+    color: #ffffff !important;
 }
 
-/* Stile per le etichette e testi di supporto */
-label {
-    letter-spacing: 0.03em;
+.extra-small {
+    font-size: 0.75rem;
+    color: #94a3b8 !important;
+}
+
+/* Badge delle icone */
+.icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.flame-badge {
+    background: rgba(163, 230, 53, 0.15);
+    color: var(--ms-primary);
+}
+
+.nutrition-badge {
+    background: rgba(251, 191, 36, 0.14);
+    color: var(--ms-carbs);
+}
+
+/* Pulsante Salva / Modifica */
+.action-save-btn {
+    background-color: var(--ms-primary) !important;
+    border: none;
+    color: #12161f !important;
+    font-weight: 700;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    &:active {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
 }

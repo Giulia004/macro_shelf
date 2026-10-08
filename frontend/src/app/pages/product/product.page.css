@@ -1,0 +1,45 @@
+.fitness-bg {
+    --background: var(--ms-bg-main);
+    background-color: var(--ms-bg-main);
+    color: var(--ms-text-main);
+}
+
+.fitness-toolbar {
+    --background: var(--ms-bg-main);
+    --color: var(--ms-text-main);
+}
+
+.fitness-card {
+    background: linear-gradient(145deg, var(--ms-bg-card), rgba(30, 41, 59, 0.4)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.55);
+    border-radius: 20px !important;
+    color: #ffffff;
+    margin: 0 !important;
+}
+
+.product-brand {
+    font-size: 0.75rem;
+    color: #38bdf8 !important;
+    font-weight: 500;
+}
+
+.product-barcode {
+    font-size: 0.7rem;
+    color: #cbd5e1 !important;
+    letter-spacing: 0.5px;
+}
+
+.extra-small-label {
+    font-size: 0.7rem;
+    color: #94a3b8 !important;
+}
+
+ion-searchbar.custom-searchbar {
+    --background: var(--ms-bg-card);
+    --color: #ffffff;
+    --placeholder-color: #94a3b8;
+    --icon-color: #94a3b8;
+    --border-radius: 14px;
+    padding: 0;
+}

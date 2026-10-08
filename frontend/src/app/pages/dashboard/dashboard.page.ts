@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonCard, IonContent, IonIcon, IonRouterLink } from '@ionic/angular';
-import { User, UserService } from '../../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { addIcons } from 'ionicons';
@@ -16,7 +16,11 @@ import { basketOutline, chevronForwardOutline, flagOutline, flameOutline, logOut
   imports: [CommonModule, FormsModule, IonContent, IonIcon, IonCard, IonRouterLink,RouterLink]
 })
 export class DashboardPage implements OnInit {
-  user: User | null = null;
+  private authService = inject(AuthService);
+  private userService = inject(UserService);
+  private router = inject(Router);
+
+  currentUser = this.authService.currentUser;
 
   //Statistiche con valori di fallback nel caso in cui il DB non abbia ancora i dati
   stats = {
@@ -27,8 +31,7 @@ export class DashboardPage implements OnInit {
     fats: 60
   };
 
-  private authService = inject(AuthService);
-  constructor(private router: Router, private userService: UserService) {
+  constructor() {
     addIcons({
       logOutOutline, nutritionOutline, basketOutline, flameOutline, chevronForwardOutline,flagOutline
     });
@@ -39,20 +42,21 @@ export class DashboardPage implements OnInit {
   }
 
   get displayName(): string {
-    if (!this.user) return 'MacroShelf User';
+    const user = this.currentUser();
 
-    const name = this.user.name?.trim() || '';
-    const surname = this.user.surname?.trim() || '';
+    if (!user) return 'MacroShelf User';
+
+    const name = user.name?.trim() || '';
+    const surname = user.surname?.trim() || '';
     const fullName = `${name} ${surname}`.trim();
 
-    return fullName || this.user.email || 'MacroShelf User';
+    return fullName || user.email || 'MacroShelf User';
   }
 
   loadUserProfile() {
     this.userService.getProfile().subscribe({
-      next: (userData) => {
-        this.user = userData;
-        console.log(this.user);
+      next: (userData:any) => {
+        this.authService.setUserProfile(userData);
 
         if (userData.targetCalories) this.stats.caloriesTarget = userData.targetCalories;
         if (userData.targetProtein) this.stats.protein = userData.targetProtein;

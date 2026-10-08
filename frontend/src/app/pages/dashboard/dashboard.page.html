@@ -5,8 +5,8 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
       <div class="d-flex align-items-center gap-3">
         <div class="user-avatar-badge d-flex align-items-center justify-content-center text-white fw-bold">
-          @if (user?.email) {
-          {{ user!.email.charAt(0).toUpperCase() }}
+          @if (currentUser()?.email) {
+          {{ currentUser()?.email.charAt(0).toUpperCase() }}
           } @else {
           M
           }
@@ -21,13 +21,13 @@
     </div>
 
     <!-- Obiettivo e Stato Attuale (Rifinito con effetto glow soft) -->
-    @if (user?.goal) {
+    @if (currentUser()?.goal) {
     <div class="goal-pill mb-4 px-3 py-2.5 rounded-4 d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-2">
         <ion-icon name="flag-outline" class="text-success fs-5"></ion-icon>
         <span class="text-muted small">Obiettivo attuale:</span>
       </div>
-      <span class="text-white fw-semibold small text-uppercase px-2 py-1 rounded-3 goal-badge-text">{{ user.goal
+      <span class="text-white fw-semibold small text-uppercase px-2 py-1 rounded-3 goal-badge-text">{{ currentUser()?.goal
         }}</span>
     </div>
     }
@@ -83,7 +83,22 @@
       <h6 class="text-muted text-uppercase fw-bold mb-3 small tracking-wide">Azioni Rapide</h6>
 
       <div class="d-flex flex-column gap-3">
-        <!-- Azione Gestisci Dispensa (Puoi aggiungere routerLink se lo hai) -->
+
+        <!-- Azione Catalogo Prodotti Globali -->
+        <div class="action-card d-flex align-items-center justify-content-between p-3 rounded-4" routerLink="/catalog">
+          <div class="d-flex align-items-center gap-3">
+            <div class="action-icon-badge products-badge d-flex align-items-center justify-content-center">
+              <ion-icon name="nutrition-outline"></ion-icon>
+            </div>
+            <div>
+              <h6 class="text-white fw-semibold m-0">Catalogo Prodotti</h6>
+              <p class="text-muted small m-0">Esplora l'archivio globale degli alimenti</p>
+            </div>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="text-muted chevron-icon"></ion-icon>
+        </div>
+
+        <!-- Azione Gestisci Dispensa -->
         <div class="action-card d-flex align-items-center justify-content-between p-3 rounded-4" routerLink="/pantry">
           <div class="d-flex align-items-center gap-3">
             <div class="action-icon-badge pantry-badge d-flex align-items-center justify-content-center">

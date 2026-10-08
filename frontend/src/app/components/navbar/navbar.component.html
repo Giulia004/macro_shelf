@@ -1,0 +1,82 @@
+<ion-app>
+  <ion-split-pane content-id="main-content">
+
+    <!-- Menu laterale -->
+    <ion-menu content-id="main-content" menuId="main-menu">
+      <ion-content class="fitness-bg">
+
+        <!-- Header del Menu con Avatar -->
+        <div
+          class="p-4 text-center border-bottom border-secondary border-opacity-25 d-flex flex-column align-items-center gap-2">
+          <div class="user-avatar-badge d-flex align-items-center justify-content-center text-white fw-bold">
+            @if (currentUser()?.name) {
+            {{ currentUser()?.name?.charAt(0)?.toUpperCase() }}
+            } @else {
+            <ion-icon name="person-outline" class="fs-4">{{'M'}}</ion-icon>
+            }
+          </div>
+          <div class="mt-1">
+            <h6 class="text-white fw-bold m-0 text-truncate" style="max-width: 220px;">
+              {{ currentUser()?.name ? (currentUser()?.name + ' ' + (currentUser()?.surname || '')) : 'MacroShelf User'
+              }}
+            </h6>
+            <p class="text-white small m-0 text-truncate" style="max-width: 220px;">{{ currentUser()?.email || 'Fitness
+              & Nutrition' }}</p>
+          </div>
+        </div>
+
+        <!-- Lista di navigazione -->
+        <ion-list lines="none" class="bg-transparent mt-3 px-3">
+          <ion-item routerLink="/dashboard" class="menu-item">
+            <ion-icon name="home-outline" slot="start" class="text-success fs-5 me-2"></ion-icon>
+            <ion-label class="text-white fw-semibold">Dashboard</ion-label>
+          </ion-item>
+
+          <ion-item routerLink="/catalog" class="menu-item">
+            <ion-icon name="nutrition-outline" slot="start" class="text-success fs-5 me-2"></ion-icon>
+            <ion-label class="text-white fw-semibold">Catalogo Prodotti</ion-label>
+          </ion-item>
+
+          <ion-item routerLink="/pantry" class="menu-item">
+            <ion-icon name="basket-outline" slot="start" class="text-success fs-5 me-2"></ion-icon>
+            <ion-label class="text-white fw-semibold">Dispensa</ion-label>
+          </ion-item>
+
+          <ion-item routerLink="/goal" class="menu-item">
+            <ion-icon name="flag-outline" slot="start" class="text-success fs-5 me-2"></ion-icon>
+            <ion-label class="text-white fw-semibold">Obiettivi</ion-label>
+          </ion-item>
+
+          <!-- Voce di Logout nel Menu -->
+          <ion-item (click)="logout()" class="menu-item logout-menu-item mt-4">
+            <ion-icon name="log-out-outline" slot="start" class="text-danger fs-5 me-2"></ion-icon>
+            <ion-label class="text-danger fw-semibold">Esci</ion-label>
+          </ion-item>
+        </ion-list>
+
+      </ion-content>
+    </ion-menu>
+
+    <!-- Contenuto Principale con ID corretto per collegare il menu -->
+    <div id="main-content" class="ion-page">
+      <ion-header class="ion-no-border">
+        <ion-toolbar class="fitness-toolbar px-3">
+          <!-- Semplificato: ion-menu-button nativo mostra automaticamente le tre linee -->
+          <ion-buttons slot="start">
+            <ion-menu-button color="success" menu="main-menu"></ion-menu-button>
+          </ion-buttons>
+
+          <div class="d-flex align-items-center gap-2">
+            <span class="text-white fw-bold fs-6 tracking-wide">MacroShelf</span>
+          </div>
+        </ion-toolbar>
+      </ion-header>
+
+      <!-- Il router-outlet deve trovarsi all'interno di un ion-content con fullscreen o padding corretto per evitare la sovrapposizione -->
+      <ion-content class="fitness-bg">
+        <ion-router-outlet></ion-router-outlet>
+      </ion-content>
+    </div>
+
+  </ion-split-pane>
+</ion-app>

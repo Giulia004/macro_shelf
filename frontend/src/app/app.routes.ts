@@ -37,6 +37,14 @@ export const routes: Routes = [
         path: 'goal',
         loadComponent: () => import('./pages/goal/goal.page').then((m) => m.GoalPage)
       },
+      {
+        path: 'catalog',
+        loadComponent: () => import('./pages/product/product.page').then((m) => m.ProductPage)
+      },
+      {
+        path: 'pantry',
+        loadComponent: () => import('./pages/pantry/pantry.page').then((m) => m.PantryPage)
+      },
       /*{
         path: 'profile',
         loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage)
@@ -47,10 +55,6 @@ export const routes: Routes = [
   //Fallback per le rotte che non esistono
   {
     path: '**',
-    redirectTo: ''
-  },
-  {
-    path: 'goal',
-    loadComponent: () => import('./pages/goal/goal.page').then(m => m.GoalPage)
+    redirectTo: 'login'
   }
 ];

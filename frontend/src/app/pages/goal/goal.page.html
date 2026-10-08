@@ -1,62 +1,60 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar class="fitness-toolbar">
+  <ion-toolbar class="fitness-toolbar px-2">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/dashboard" color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title class="text-white fw-bold">I Miei Obiettivi</ion-title>
+    <ion-title class="text-white fw-bold brand-title">Gestione Obiettivi</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="fitness-bg ion-padding">
-  <div class="dashboard-container mx-auto py-2">
+  <div class="dashboard-container mx-auto py-2 d-flex flex-column gap-3">
 
-    <form (ngSubmit)="saveGoal()" class="d-flex flex-column gap-3">
-
-      <!-- Selezione Obiettivo -->
-      <ion-card class="fitness-card p-4">
-        <label class="text-muted small text-uppercase fw-semibold mb-2 d-block">Tipo di Obiettivo</label>
-        <select [(ngModel)]="goal" name="goal" class="form-select bg-dark text-white border-secondary rounded-3 py-2">
-          <option value="CUTTING">Definizione (Perdita peso)</option>
-          <option value="MAINTENANCE">Mantenimento</option>
-          <option value="BULKING">Massa (Aumento muscolare)</option>
-        </select>
-      </ion-card>
-
-      <!-- Target Calorico e Macro -->
-      <ion-card class="fitness-card p-4">
-        <label class="text-muted small text-uppercase fw-semibold mb-3 d-block">Target Giornalieri</label>
-
-        <div class="mb-3">
-          <label class="text-white small mb-1">Calorie Totali (kcal)</label>
-          <input type="number" [(ngModel)]="targetCalories" name="targetCalories"
-            class="form-control bg-dark text-white border-secondary rounded-3">
+    <!-- Card di Riepilogo Obiettivo Attuale -->
+    <ion-card class="fitness-card p-4">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <div class="icon-badge nutrition-badge">
+            <ion-icon name="flag-outline"></ion-icon>
+          </div>
+          <span class="text-white fw-bold">Obiettivo Attuale</span>
         </div>
+        <span class="badge bg-success text-dark px-3 py-2 fw-bold rounded-pill">{{ user()?.goal || 'MAINTENANCE'
+          }}</span>
+      </div>
 
-        <div class="row g-2">
-          <div class="col-4">
-            <label class="text-white small mb-1">Proteine (g)</label>
-            <input type="number" [(ngModel)]="targetProtein" name="targetProtein"
-              class="form-control bg-dark text-white border-secondary rounded-3 text-center">
-          </div>
-          <div class="col-4">
-            <label class="text-white small mb-1">Carbo (g)</label>
-            <input type="number" [(ngModel)]="targetCarbs" name="targetCarbs"
-              class="form-control bg-dark text-white border-secondary rounded-3 text-center">
-          </div>
-          <div class="col-4">
-            <label class="text-white small mb-1">Grassi (g)</label>
-            <input type="number" [(ngModel)]="targetFats" name="targetFats"
-              class="form-control bg-dark text-white border-secondary rounded-3 text-center">
-          </div>
+      <div class="row text-center mt-3 g-2">
+        <div class="col-3">
+          <span class="text-muted extra-small-label d-block">Calorie</span>
+          <strong class="text-white fs-6">{{ user()?.targetCalories || 2000 }}</strong>
         </div>
-      </ion-card>
+        <div class="col-3">
+          <span class="text-muted extra-small-label d-block">Proteine</span>
+          <strong class="text-white fs-6">{{ user()?.targetProtein || 120 }}g</strong>
+        </div>
+        <div class="col-3">
+          <span class="text-muted extra-small-label d-block">Carbo</span>
+          <strong class="text-white fs-6">{{ user()?.targetCarbs || 200 }}g</strong>
+        </div>
+        <div class="col-3">
+          <span class="text-muted extra-small-label d-block">Grassi</span>
+          <strong class="text-white fs-6">{{ user()?.targetFats || 60 }}g</strong>
+        </div>
+      </div>
+    </ion-card>
 
-      <!-- Pulsante Salva -->
-      <button type="submit" class="btn btn-success w-100 py-3 rounded-4 fw-bold mt-3 shadow-sm">
-        Salva Modifiche
-      </button>
+    <!-- Pulsante per aprire il Modale di Modifica -->
+    <button (click)="openEditModal()"
+      class="btn btn-success w-100 py-3 rounded-4 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2 action-save-btn">
+      <ion-icon name="create-outline" class="fs-5"></ion-icon>
+      Modifica Obiettivo & Target
+    </button>
 
-    </form>
+    <!-- Componente Milestone -->
+    <app-milestones></app-milestones>
+
+    <!-- Componente Trend Statistiche -->
+    <app-goal-stats-trend [user]="user()"></app-goal-stats-trend>
 
   </div>
 </ion-content>

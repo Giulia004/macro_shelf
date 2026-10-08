@@ -1,7 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service.js";
-import { randomUUID } from "node:crypto";
-import * as bcrypt from 'bcrypt';
 import { UpdateGoalDto } from "./dto/update-goal.dto.js";
 
 export interface UserResponse {
@@ -19,8 +17,7 @@ export interface UserResponse {
 }
 
 @Injectable()
-
-class UsersService {
+export class UsersService {
     constructor(private prisma: PrismaService) { }
 
     //Recupero del profilo dell'utente tramite il suo id
@@ -89,5 +86,3 @@ class UsersService {
         return result as UserResponse;
     }
 }
-
-export { UsersService };

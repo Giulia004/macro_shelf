@@ -28,8 +28,11 @@ export class UsersController {
     }
 
     @Patch('goal')
+    @UseGuards(JwtAuthGuard)
     async updateGoal(@Req() req: AuthRequest, @Body() update: UpdateGoalDto): Promise<UserResponse> {
         const userId = req.user?.sub;
+
+        if (!userId) throw new UnauthorizedException("Utente non autorizzato");
 
         return this.usersService.updateGoalAndMacro(userId, update);
     }

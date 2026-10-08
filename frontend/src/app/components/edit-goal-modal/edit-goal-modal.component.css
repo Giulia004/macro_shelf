@@ -1,0 +1,108 @@
+.modal-bg {
+    --background: var(--ms-bg-main);
+    background-color: var(--ms-bg-main);
+    color: var(--ms-text-main);
+}
+
+.modal-toolbar {
+    --background: var(--ms-bg-main);
+    --color: var(--ms-text-main);
+    border-bottom: 1px solid var(--ms-border);
+    min-height: 60px;
+}
+
+.modal-header-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    background: rgba(163, 230, 53, 0.12);
+    border-radius: 10px;
+}
+
+.modal-close-btn {
+    background: var(--ms-bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: var(--ms-bg-elevated);
+}
+
+.modal-container {
+    max-width: 500px;
+    width: 100%;
+}
+
+.modal-card {
+    background: linear-gradient(145deg, var(--ms-bg-card), rgba(30, 41, 59, 0.4)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.55);
+    border-radius: 20px !important;
+    color: #ffffff;
+    margin: 0 !important;
+}
+
+.modal-card label,
+.text-light-custom {
+    color: #e2e8f0 !important;
+}
+
+.extra-small-label {
+    font-size: 0.75rem;
+    color: #94a3b8 !important;
+}
+
+.form-control,
+.form-select {
+    background-color: var(--ms-bg-main) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--ms-primary) !important;
+    box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.2) !important;
+    outline: none;
+    color: #ffffff !important;
+}
+
+.icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.flame-badge {
+    background: rgba(163, 230, 53, 0.15);
+    color: var(--ms-primary);
+}
+
+.nutrition-badge {
+    background: rgba(251, 191, 36, 0.14);
+    color: var(--ms-carbs);
+}
+
+.action-save-btn {
+    background-color: var(--ms-primary) !important;
+    border: none;
+    color: #12161f !important;
+    font-weight: 700;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.action-save-btn:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+}

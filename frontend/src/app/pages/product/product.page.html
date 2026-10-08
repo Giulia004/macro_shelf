@@ -1,0 +1,82 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="fitness-toolbar px-2">
+    <ion-title class="text-white fw-bold">Catalogo Prodotti Globali</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar class="fitness-toolbar px-3 pb-2">
+    <ion-searchbar [value]="searchTerm()" (ionInput)="searchTerm.set($event.detail.value || '')"
+      placeholder="Cerca per nome, marca o barcode..." animated="true" color="dark" class="custom-searchbar">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fitness-bg ion-padding">
+  <div class="dashboard-container mx-auto py-2 d-flex flex-column gap-3">
+
+    @if (isLoading()) {
+    <div class="text-center py-5">
+      <ion-spinner name="crescent" color="success"></ion-spinner>
+      <p class="text-muted small mt-2">Caricamento prodotti...</p>
+    </div>
+    } @else if (filteredProducts().length === 0) {
+    <div class="text-center py-5 px-3">
+      <ion-icon name="nutrition-outline" class="fs-1 text-muted mb-2"></ion-icon>
+      <h6 class="text-white fw-bold">Nessun prodotto trovato</h6>
+      <p class="text-muted small">Prova a modificare i termini di ricerca.</p>
+    </div>
+    } @else {
+    <div class="d-flex flex-column gap-3">
+      @for (product of filteredProducts(); track product.id) {
+      <ion-card class="fitness-card p-3">
+        <div class="d-flex align-items-start justify-content-between mb-2">
+          <div>
+            <h6 class="text-white fw-bold m-0 fs-6">{{ product.name }}</h6>
+            @if (product.brand) {
+            <span class="product-brand d-flex align-items-center gap-1 mt-1">
+              <ion-icon name="business-outline"></ion-icon> {{ product.brand }}
+            </span>
+            }
+          </div>
+
+          <div class="d-flex align-items-center gap-2">
+            <!-- Badge delle calorie -->
+            <span class="badge bg-success text-dark px-2.5 py-1 fw-bold rounded-pill">
+              {{ product.calories | number:'1.0-0' }} kcal / 100{{ product.unit }}
+            </span>
+
+            <!-- Pulsante di aggiunta rapida alla dispensa -->
+            <ion-button fill="clear" color="light" class="p-0 m-0" (click)="addToPantry(product)">
+              <ion-icon name="add-circle-outline" class="fs-4 text-success"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+
+        @if (product.barcode) {
+        <div class="mb-2">
+          <span class="product-barcode d-flex align-items-center gap-1">
+            <ion-icon name="barcode-outline"></ion-icon> {{ product.barcode }}
+          </span>
+        </div>
+        }
+
+        <div class="row g-2 text-center mt-2 pt-2 border-top border-secondary border-opacity-25">
+          <div class="col-4">
+            <span class="extra-small-label text-muted d-block">Proteine</span>
+            <strong class="text-white small">{{ product.proteins }}g</strong>
+          </div>
+          <div class="col-4">
+            <span class="extra-small-label text-muted d-block">Carbo</span>
+            <strong class="text-white small">{{ product.carbs }}g</strong>
+          </div>
+          <div class="col-4">
+            <span class="extra-small-label text-muted d-block">Grassi</span>
+            <strong class="text-white small">{{ product.fats }}g</strong>
+          </div>
+        </div>
+      </ion-card>
+      }
+    </div>
+    }
+
+  </div>
+</ion-content>

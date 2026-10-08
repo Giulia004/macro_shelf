@@ -1,0 +1,56 @@
+.fitness-card {
+    background: linear-gradient(145deg, var(--ms-bg-card), rgba(30, 41, 59, 0.4)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.55);
+    border-radius: 20px !important;
+    color: #ffffff;
+    margin: 0 !important;
+}
+
+.icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.trophy-badge {
+    background: rgba(251, 191, 36, 0.15);
+    color: var(--ms-carbs);
+}
+
+.milestone-item {
+    background: var(--ms-bg-main);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.milestone-item.unlocked {
+    border-color: rgba(163, 230, 53, 0.25);
+    background: rgba(163, 230, 53, 0.03);
+}
+
+.milestone-item .milestone-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 20px;
+    color: var(--ms-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.milestone-item h6 {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.milestone-item p {
+    color: #cbd5e1 !important;
+    font-size: 0.85rem;
+}

@@ -1,0 +1,54 @@
+.fitness-card {
+    background: linear-gradient(145deg, var(--ms-bg-card), rgba(30, 41, 59, 0.4)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.55);
+    border-radius: 20px !important;
+    color: #ffffff;
+    margin: 0 !important;
+}
+
+.icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.stats-badge {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+.stats-summary-banner {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stats-summary-banner span,
+.stats-summary-banner .text-muted,
+.text-muted {
+    color: #f1f5f9 !important;
+    font-weight: 500;
+}
+
+.macro-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.extra-small-label {
+    font-size: 0.75rem;
+    color: #94a3b8 !important;
+}
+
+.macro-box strong {
+    color: #ffffff !important;
+    font-size: 1rem;
+}
+
+.fitness-card span.fw-bold {
+    color: #ffffff !important;
+}
