@@ -7,32 +7,207 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model product {
-  id        String   @id
-  barcode   String?  @unique(map: "Product_barcode_key")
-  name      String
-  brand     String?
-  calories  Float
-  proteins  Float
-  carbs     Float
-  fats      Float
-  unit      String   @default("g")
-  createdAt DateTime @default(now())
+enum Gender {
+  MALE
+  FEMALE
 }
 
-model user {
-  id             String   @id
-  name           String?
-  surname        String?
-  email          String   @unique()
-  password       String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime
-  targetCalories Int      @default(2000)
-  targetProtein  Int      @default(150)
-  targetCarbs    Int      @default(200)
-  targetFats     Int      @default(70)
-  goal           String   @default("MAINTENANCE")
+enum ActivityLevel {
+  SEDENTARY // Poco o nessun esercizio, lavoro d'ufficio (PAL 1.2)
+  LIGHTLY_ACTIVE // Esercizio leggero 1-3 giorni/settimana (PAL 1.375)
+  MODERATELY_ACTIVE // Esercizio moderato 3-5 giorni/settimana (PAL 1.55)
+  VERY_ACTIVE // Esercizio intenso 6-7 giorni/settimana (PAL 1.725)
+}
+
+enum Goal {
+  LOSE_WEIGHT // Deficit calorico (-15%/-20%)
+  MAINTAIN_WEIGHT // Mantenimento (TDEE)
+  GAIN_WEIGHT // Surplus calorico (+10%/+15%)
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+model Product {
+  id       String  @id @default(uuid())
+  barcode  String? @unique
+  name     String
+  brand    String?
+  calories Float
+  proteins Float
+  carbs    Float
+  fats     Float
+  unit     String  @default("g")
+  imageUrl String?
+
+  // Micro/Macro accessori opzionali per etichette nutrizionali complete
+  fiber        Float?
+  sugar        Float?
+  saturatedFat Float?
+  salt         Float?
+
+  nutritionBaseValue Float  @default(100)
+  nutritionBaseUnit  String @default("g")
+
+  // Supporto per cibi personalizzati inseriti dall'utente
+  isCustom Boolean @default(false)
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Provenienza e verifica dei dati
+  dataSource String?
+  isVerified Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  recipeIngredients RecipeIngredient[]
+  mealEntries       MealEntry[]
+
+  @@index([name])
+  @@index([userId])
+}
+
+model User {
+  id       String  @id @default(uuid())
+  name     String?
+  surname  String?
+  email    String  @unique
+  password String
+
+  // Parametri antropometrici per il calcolo del BMR/TDEE
+  gender        Gender?
+  age           Int?
+  height        Float? // in cm
+  weight        Float? // in kg
+  activityLevel ActivityLevel? @default(SEDENTARY)
+  goal          Goal?          @default(MAINTAIN_WEIGHT)
+
+  // Flag di completamento onboarding
+  isOnboardingCompleted Boolean @default(false) @map("isOnBoardingCompleted")
+
+  // Obiettivi nutrizionali calcolati (o personalizzati dall'utente)
+  targetCalories Int @default(2000)
+  targetProtein  Int @default(150)
+  targetCarbs    Int @default(200)
+  targetFats     Int @default(70)
+
+  // Relazioni
+  mealEntries    MealEntry[]
+  recipes        Recipe[]
+  customProducts Product[]
+  weightLogs     WeightLog[]
 
   isPremium Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Recipe {
+  id              String  @id @default(uuid())
+  slug            String  @unique
+  title           String
+  description     String? @db.Text
+  imageUrl        String?
+  prepTimeMinutes Int     @default(0)
+  cookTimeMinutes Int     @default(0)
+  difficulty      String  @default("EASY")
+  servings        Int     @default(2)
+  instructions    String  @db.Text
+  published       Boolean @default(false)
+
+  // Autore e visibilità
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  isPublic Boolean @default(false)
+
+  // Valori nutrizionali calcolati per porzione
+  caloriesPerServing Float @default(0)
+  proteinsPerServing Float @default(0)
+  carbsPerServing    Float @default(0)
+  fatsPerServing     Float @default(0)
+
+  ingredients RecipeIngredient[]
+  mealEntries MealEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([title])
+  @@index([published])
+  @@index([userId])
+}
+
+model RecipeIngredient {
+  id String @id @default(uuid())
+
+  recipeId  String
+  productId String
+
+  quantity   Float
+  unit       String  @default("g")
+  isOptional Boolean @default(false)
+  notes      String?
+
+  recipe  Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([recipeId])
+  @@index([productId])
+}
+
+model MealEntry {
+  id        String  @id @default(uuid())
+  userId    String
+  productId String?
+  recipeId  String?
+
+  mealType MealType @default(SNACK)
+  quantity Float    @default(1)
+
+  unit String
+
+  consumedAt DateTime @default(now())
+  notes      String?  @db.Text
+
+  // Valori nutrizionali della quantità consumata (Snapshot)
+  calories Float
+  proteins Float
+  carbs    Float
+  fats     Float
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  product Product? @relation(fields: [productId], references: [id], onDelete: Restrict)
+  recipe  Recipe?  @relation(fields: [recipeId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, consumedAt])
+  @@index([userId, mealType, consumedAt])
+  @@index([productId])
+  @@index([recipeId])
+}
+
+model WeightLog {
+  id       String   @id @default(uuid())
+  userId   String
+  weight   Float
+  loggedAt DateTime @default(now())
+  notes    String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, loggedAt])
 }

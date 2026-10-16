@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 
-// Categorie chiave da cui attingere per popolare il catalogo iniziale
 const categoriesToFetch = ['pasta', 'latte', 'riso', 'avena', 'petto di pollo', 'tonno', 'olio extravergine'];
 
 async function fetchAndSeedFromOpenFoodFacts() {
@@ -20,19 +19,17 @@ async function fetchAndSeedFromOpenFoodFacts() {
                 continue;
             }
 
-            // Verifichiamo che la risposta sia effettivamente JSON e non HTML di errore
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
                 console.warn(`⚠️ Risposta non JSON ricevuta per "${term}". Saltiamo.`);
                 continue;
             }
-            
+
             const data = await response.json();
 
             if (!data.products || data.products.length === 0) continue;
 
             for (const item of data.products) {
-                //Filtro i prodotti che non hanno un nome o dati nutrizionali essenziali
                 if (!item.product_name || !item.nutriments) continue;
 
                 const barcode = item.code || null;
@@ -41,16 +38,20 @@ async function fetchAndSeedFromOpenFoodFacts() {
                 const name = item.product_name;
                 const brand = item.brands || null;
 
-                // Estrazione sicura dei macro per 100g dall'API di Open Food Facts
+                // Estrazione dell'URL dell'immagine da Open Food Facts
+                const imageUrl = item.image_front_url || item.image_url || null;
+
+                // Estrazione sicura dei macro per 100g
                 const calories = item.nutriments['energy-kcal_100g'] || item.nutriments['energy-kcal'] || 0;
                 const proteins = item.nutriments['proteins_100g'] || 0;
                 const carbs = item.nutriments['carbohydrates_100g'] || 0;
                 const fats = item.nutriments['fat_100g'] || 0;
 
-                // Inserimento sul DB MySQL (se il barcode esiste già, non fa duplicati)
                 await prisma.product.upsert({
                     where: { barcode },
-                    update: {},
+                    update: {
+                        imageUrl // Aggiorna l'immagine se il prodotto esiste già
+                    },
                     create: {
                         id: uuidv4(),
                         barcode,
@@ -61,11 +62,11 @@ async function fetchAndSeedFromOpenFoodFacts() {
                         carbs: Number(carbs),
                         fats: Number(fats),
                         unit: 'g',
+                        imageUrl, // Salvataggio della foto nel catalogo
                     },
                 });
             }
 
-            //Piccola pausa per rispettare il rate limit dell'API pubblica
             await new Promise((resolve) => setTimeout(resolve, 1000));
         } catch (error) {
             console.error(`⚠️ Errore durante il fetch della categoria ${term}:`, error);

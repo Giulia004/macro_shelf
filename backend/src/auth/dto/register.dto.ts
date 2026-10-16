@@ -1,7 +1,8 @@
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class RegisterDto {
     @IsEmail({}, { message: "Formato email non valido" })
+    @IsNotEmpty({ message: "L'email è obbligatoria" })
     email: string;
 
     @IsString()
@@ -9,8 +10,10 @@ export class RegisterDto {
     password: string;
 
     @IsString()
+    @IsNotEmpty({ message: "Il nome è obbligatorio" })
     name: string;
 
     @IsString()
+    @IsNotEmpty({ message: "Il cognome è obbligatorio" })
     surname: string;
 }

@@ -1,12 +1,10 @@
-import { IsIn, IsNumber, IsOptional, IsString, Max, Min } from "class-validator";
+import { Goal } from "@prisma/client";
+import { IsEnum, IsNumber, IsOptional,  Max, Min } from "class-validator";
 
 export class UpdateGoalDto {
     @IsOptional()
-    @IsString()
-    @IsIn(['CUTTING', 'MAINTENANCE', 'BULKING'], {
-        message: 'L\'obiettivo deve essere CUTTING, MAINTENANCE o BULKING',
-    })
-    goal?: string;
+    @IsEnum(Goal, { message: "Obiettivo non valido" })
+    goal?: Goal;
 
     @IsOptional()
     @IsNumber({}, { message: 'Il target calorico deve essere un numero' })
