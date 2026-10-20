@@ -1,29 +1,23 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from '../layout/auth-layout/auth-layout.component';
-import { MainLayoutComponent } from '../layout/main-layout/main-layout.component';
 import { authGuard } from './guards/auth.guard';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: AuthLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-      },
-      {
-        path: 'login',
-        loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
-      },
-      {
-        path: 'register',
-        loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
-      },
-    ]
+    pathMatch: 'full',
+    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
-
-  //Rotte protette racchiuse nel MainLayout
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
+  },
+  
+  //Pagine protette
   {
     path: '',
     component: MainLayoutComponent,
@@ -31,11 +25,8 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
+        canActivate: [authGuard],
         loadComponent: () => import('./pages/dashboard/dashboard.page').then((m) => m.DashboardPage)
-      },
-      {
-        path: 'goal',
-        loadComponent: () => import('./pages/goal/goal.page').then((m) => m.GoalPage)
       },
       {
         path: 'catalog',
@@ -55,6 +46,6 @@ export const routes: Routes = [
   //Fallback per le rotte che non esistono
   {
     path: '**',
-    redirectTo: 'login'
+    redirectTo: ''
   }
 ];

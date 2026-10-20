@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IonSearchbar } from '@ionic/angular';
 
 @Component({
   selector: 'app-searchbar',
   templateUrl: './searchbar.component.html',
-  styleUrls: ['./searchbar.component.scss'],
-  imports: [],
+  styleUrls: ['./searchbar.component.css'],
+  standalone: true,
+  imports: [IonSearchbar],
 })
-export class SearchbarComponent  implements OnInit {
+export class SearchbarComponent {
+  @Input() placeholder: string = "Cerca...";
+  @Output() searchChange = new EventEmitter<string>();
 
-  constructor() { }
-
-  ngOnInit() {}
+  onInput(event: any) {
+    const value = event.detail.value || '';
+    this.searchChange.emit(value);
+  }
 
 }

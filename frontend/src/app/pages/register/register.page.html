@@ -1,65 +1,82 @@
-<ion-content class="ion-padding fitness-bg">
-  <div class="register-container d-flex flex-column justify-content-between h-100 mx-auto">
-
-    <!-- Top Nav con freccia per tornare al login o home -->
-    <div class="top-nav d-flex justify-content-start">
-      <ion-button fill="clear" routerLink="/login" class="back-btn">
+<ion-content class="register-bg">
+  <main class="register-container">
+    <div class="top-nav">
+      <ion-button fill="clear" routerLink="/login" class="back-button" aria-label="Torna al login">
         <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </div>
 
-    <!-- Blocco Centrale (Badge, Titolo, Form, Azioni) -->
-    <div class="register-content-center d-flex flex-column align-items-center w-100">
-
-      <div class="register-header text-center mb-4">
-        <div class="mini-badge mx-auto d-flex align-items-center justify-content-center mb-3">
-          <ion-icon name="nutrition-outline"></ion-icon>
-        </div>
-        <h1 class="fw-bold text-white mb-1">Crea Account</h1>
-        <p class="fw-bold text-white small">Inizia a gestire la tua dispensa con MacroShelf.</p>
+    <section class="register-header">
+      <div class="brand-mark">
+        <ion-icon name="leaf-outline"></ion-icon>
       </div>
 
-      <div class="form-group d-flex flex-column gap-3 w-100 mb-4">
-        <ion-item class="custom-item" lines="none">
-          <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
-          <ion-input label="Nome" labelPlacement="stacked" type="text" name="name" [(ngModel)]="name"
-            autocomplete="given-name" maxlength="80" placeholder="Il tuo nome"></ion-input>
-        </ion-item>
+      <span class="register-eyebrow">INDISPENSA</span>
+      <h1>Crea il tuo account</h1>
+      <p>
+        Organizza la tua dispensa, scopri nuove ricette e riduci gli sprechi
+        alimentari.
+      </p>
+    </section>
 
+    <section class="register-card">
+      <div class="form-field">
         <ion-item class="custom-item" lines="none">
-          <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
-          <ion-input label="Cognome" labelPlacement="stacked" type="text" name="surname" [(ngModel)]="surname"
-            autocomplete="family-name" maxlength="80" placeholder="Il tuo cognome"></ion-input>
-        </ion-item>
-
-        <ion-item class="custom-item" lines="none">
-          <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
-          <ion-input label="Email" labelPlacement="stacked" type="email" [(ngModel)]="email"
-            placeholder="nome@esempio.com"></ion-input>
-        </ion-item>
-
-        <ion-item class="custom-item" lines="none">
-          <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
-          <ion-input label="Password" labelPlacement="stacked" type="password" [(ngModel)]="password"
-            placeholder="••••••••"></ion-input>
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input label="Nome" labelPlacement="floating" type="text" name="name" [(ngModel)]="name"
+            autocomplete="given-name" maxlength="80" placeholder="Il tuo nome" required></ion-input>
         </ion-item>
       </div>
 
-      <div class="register-actions w-100 text-center">
-        <ion-button expand="block" (click)="onRegister()" class="btn-primary-fitness mb-3">
-          <ion-icon name="person-add-outline" slot="start"></ion-icon>
-          REGISTRATI
-        </ion-button>
-
-        <a routerLink="/login" class="text-decoration-none btn-link-fitness d-inline-block mt-2">
-          Hai già un account? <span class="ms-1">Accedi</span>
-        </a>
+      <div class="form-field">
+        <ion-item class="custom-item" lines="none">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input label="Cognome" labelPlacement="floating" type="text" name="surname" [(ngModel)]="surname"
+            autocomplete="family-name" maxlength="80" placeholder="Il tuo cognome" required></ion-input>
+        </ion-item>
       </div>
 
-    </div>
+      <div class="form-field">
+        <ion-item class="custom-item" lines="none">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input label="Email" labelPlacement="floating" type="email" name="email" [(ngModel)]="email"
+            autocomplete="email" inputmode="email" placeholder="nome@esempio.com" required></ion-input>
+        </ion-item>
+      </div>
 
-    <!-- Spaziatore vuoto per bilanciare la top-nav -->
-    <div class="bottom-spacer"></div>
+      <div class="form-field">
+        <ion-item class="custom-item" lines="none">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input label="Password" labelPlacement="floating" type="password" name="password" [(ngModel)]="password"
+            autocomplete="new-password" placeholder="Crea una password" required></ion-input>
+        </ion-item>
+      </div>
 
-  </div>
+      @if (registerMessage) {
+      <p class="register-message" role="alert">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        {{ registerMessage }}
+      </p>
+      }
+
+      <ion-button expand="block" class="register-submit" (click)="onRegister()" [disabled]="isRegistering">
+        @if (isRegistering) {
+        <ion-spinner name="crescent" slot="start"></ion-spinner>
+        } @else {
+        <ion-icon name="person-add-outline" slot="start"></ion-icon>
+        }
+
+        {{ isRegistering ? 'Registrazione in corso...' : 'Crea account' }}
+      </ion-button>
+
+      <p class="login-prompt">
+        Hai già un account?
+        <a routerLink="/login">Accedi</a>
+      </p>
+    </section>
+
+    <footer class="register-footer">
+      Meno sprechi, più idee in cucina.
+    </footer>
+  </main>
 </ion-content>

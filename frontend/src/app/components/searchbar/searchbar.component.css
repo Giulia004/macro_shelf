@@ -1,0 +1,14 @@
+ion-searchbar {
+  --border-radius: 8px;
+  --box-shadow: none;
+  --color: #000000 !important;
+  /* Forza il colore del testo digitato */
+  --placeholder-color: #8A9387;
+}
+
+/* Intercetta l'input nativo interno di Ionic */
+ion-searchbar input.searchbar-input,
+ion-searchbar input {
+  color: #000000!important;
+  -webkit-text-fill-color: #000000 !important;
+}

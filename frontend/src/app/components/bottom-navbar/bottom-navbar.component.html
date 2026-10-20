@@ -1,0 +1,52 @@
+<nav class="bottom-navbar" aria-label="Navigazione principale">
+
+  <a class="nav-item" routerLink="/dashboard" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }"
+    aria-label="Home">
+    <ion-icon name="home-outline" aria-hidden="true"></ion-icon>
+    <span>Home</span>
+  </a>
+
+  <a class="nav-item" routerLink="/pantry" routerLinkActive="is-active" aria-label="Dispensa">
+    <ion-icon name="basket-outline" aria-hidden="true"></ion-icon>
+    <span>Dispensa</span>
+  </a>
+
+  <a class="nav-item" routerLink="/catalog" routerLinkActive="is-active" aria-label="Catalogo">
+    <ion-icon name="library-outline" aria-hidden="true"></ion-icon>
+    <span>Catalogo</span>
+  </a>
+
+  <!-- Pulsante profilo -->
+  <button type="button" class="profile-trigger" [class.is-open]="isProfileMenuOpen()"
+    [attr.aria-expanded]="isProfileMenuOpen()" aria-label="Apri menu account" aria-haspopup="true"
+    (click)="toggleProfileMenu($event)">
+
+    <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+    <span class="online-dot"></span>
+  </button>
+
+  <!-- Menu profilo -->
+  @if (isProfileMenuOpen()) {
+  <div class="profile-menu" role="menu">
+
+    <div class="profile-menu-header">
+      <div class="profile-avatar">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
+      <div class="profile-heading">
+        <strong>Il mio account</strong>
+        <span>Sessione attiva</span>
+      </div>
+    </div>
+
+    <div class="profile-menu-divider"></div>
+
+    <button type="button" class="profile-menu-item logout-item" role="menuitem" (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      <span>Esci dall'account</span>
+    </button>
+
+  </div>
+  }
+
+</nav>

@@ -1,8 +1,14 @@
-import { Injectable, signal } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { environment } from "../environments/environment";
-import { BehaviorSubject, tap } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { User } from "./user.service";
+import { Router } from "@angular/router";
+
+export interface AuthResponse {
+    access_token: string;
+    user: Pick<User, 'id' | 'email' | 'name' | 'surname' | 'isOnboardingCompleted' | 'isPremium'>;
+}
 
 @Injectable({
     providedIn: "root",
@@ -11,7 +17,7 @@ import { User } from "./user.service";
 export class AuthService {
     private apiUrl = `${environment.apiUrl}/auth`;
 
-    private currentUserSignal = signal<User | null>(null);
+    private currentUserSignal = signal<Partial<User> | null>(null);
 
     //Pubblico di sola lettura per i componenti
     readonly currentUser = this.currentUserSignal.asReadonly();
@@ -38,12 +44,12 @@ export class AuthService {
         }
     }
 
-    register(email: string, password: string, name: string, surname: string) {
-        return this.http.post(`${this.apiUrl}/register`, { email, password, name, surname });
+    register(email: string, password: string, name: string, surname: string): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.apiUrl}/register`, { email, password, name, surname });
     }
 
-    login(email: string, password: string) {
-        return this.http.post<{ access_token: string, user?: User }>(`${this.apiUrl}/login`, { email, password }).pipe(
+    login(email: string, password: string): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
             tap((res) => {
                 localStorage.setItem('access_token', res.access_token);
 
@@ -57,7 +63,7 @@ export class AuthService {
     }
 
     setUserProfile(user: User) {
-        localStorage.setItem('ser_profile', JSON.stringify(user));
+        localStorage.setItem('user_profile', JSON.stringify(user));
         this.currentUserSignal.set(user);
     }
 

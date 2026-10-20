@@ -1,22 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { IonContent, IonIcon } from '@ionic/angular';
+import { Router, RouterModule } from '@angular/router';
+import { IonButton, IonContent, IonIcon, IonRouterLink } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { basketOutline, logInOutline, nutritionOutline, personAddOutline } from 'ionicons/icons';
+import { fileTrayStackedOutline, leafOutline, logInOutline, nutritionOutline, personAddOutline, restaurantOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.css'],
   standalone:true,
-  imports: [IonContent,CommonModule,RouterModule,IonIcon],
+  imports: [IonContent,CommonModule,RouterModule,IonIcon,IonRouterLink,IonButton],
 })
 export class HomePage {
-  constructor() {
+  constructor(private router:Router) {
     addIcons({
-      logInOutline, personAddOutline,
-      basketOutline,nutritionOutline
+      leafOutline,restaurantOutline,fileTrayStackedOutline,logInOutline,nutritionOutline,personAddOutline
     });
   }
 }

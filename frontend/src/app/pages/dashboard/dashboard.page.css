@@ -1,142 +1,595 @@
-.fitness-bg {
-    --background: var(--ms-bg-main);
-    color: var(--ms-text-main);
+:host {
+    display: block;
 }
 
-.fitness-bg .text-muted {
-    color: var(--ms-text-muted) !important;
-}
-
-.fitness-bg .text-success {
-    color: var(--ms-primary) !important;
+.dashboard-bg {
+    --background: var(--app-background, #f7f7f2);
+    --color: var(--app-text, #26342b);
 }
 
 .dashboard-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: calc(24px + var(--ion-safe-area-top, 0px)) 20px 36px;
     box-sizing: border-box;
-    padding: 24px 16px 36px;
 }
 
-.user-avatar-badge {
-    width: 46px;
-    height: 46px;
-    background: linear-gradient(135deg, var(--ms-primary), var(--ms-secondary));
-    border-radius: 14px;
-    font-size: 1.25rem;
-    box-shadow: 0 6px 18px rgba(163, 230, 53, 0.22);
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
-.goal-pill {
-    background: var(--ms-bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.header-copy {
+    min-width: 0;
 }
 
-.goal-badge-text {
-    background: rgba(163, 230, 53, 0.1);
-    color: var(--ms-primary);
-    border: 1px solid rgba(163, 230, 53, 0.2);
+.eyebrow {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--app-primary, #527a62);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
 }
 
-.fitness-card {
-    background: linear-gradient(145deg, var(--ms-bg-card), rgba(30, 41, 59, 0.4));
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.55);
-    margin: 0 0 1.5rem;
+.header-copy h1 {
+    margin: 0;
+    color: var(--app-text, #26342b);
+    font-size: clamp(1.45rem, 5vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.8px;
 }
 
-.icon-badge {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
+.header-copy h1 span {
+    font-size: 0.85em;
+}
+
+.header-copy p {
+    margin: 8px 0 0;
+    color: var(--app-text-muted, #748075);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.brand-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 19px;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 17px;
+    background: var(--app-primary-light, #e8f0e8);
+    color: var(--app-primary, #527a62);
 }
 
-.flame-badge {
-    background: rgba(163, 230, 53, 0.15);
-    color: var(--ms-primary);
+.brand-icon ion-icon {
+    font-size: 27px;
 }
 
-.custom-progress {
-    height: 10px;
-    background-color: var(--ms-bg-elevated);
-    border-radius: 8px;
+/* Hero */
+
+.hero-card {
+    position: relative;
+    display: flex;
+    align-items: center;
     overflow: hidden;
+    min-height: 300px;
+    margin-bottom: 32px;
+    border-radius: 25px;
+    background: #244b3a;
+    isolation: isolate;
 }
 
-.macro-subcard {
-    background: var(--ms-bg-subcard);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    transition: transform 0.2s ease;
-}
-
-.macro-subcard:hover {
-    transform: translateY(-2px);
-}
-
-.macro-line {
-    height: 3px;
-    border-radius: 2px;
+.hero-image,
+.hero-overlay {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
     width: 100%;
+    height: 100%;
 }
 
-.protein-line {
-    background-color: var(--ms-protein);
+.hero-image {
+    object-fit: cover;
+    object-position: center;
 }
 
-.carbs-line {
-    background-color: var(--ms-carbs);
+.hero-overlay {
+    background: linear-gradient(90deg,
+            rgba(24, 57, 42, 0.96) 0%,
+            rgba(24, 57, 42, 0.87) 43%,
+            rgba(24, 57, 42, 0.25) 100%);
 }
 
-.fats-line {
-    background-color: var(--ms-fats);
+.hero-content {
+    width: 100%;
+    max-width: 430px;
+    padding: 28px 24px;
+    color: #ffffff;
 }
 
-.action-card {
-    background: var(--ms-bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
+.hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 17px;
+    color: #d8efda;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 1.1px;
 }
 
-.action-card:hover {
-    border-color: rgba(163, 230, 53, 0.4);
-    background: var(--ms-bg-elevated);
-    transform: translateX(3px);
+.hero-label ion-icon {
+    font-size: 17px;
 }
 
-.action-card:hover .chevron-icon {
-    transform: translateX(3px);
-    color: var(--ms-primary) !important;
+.hero-content h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(1.8rem, 6vw, 2.45rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.8px;
 }
 
-.action-card:active {
-    transform: scale(0.98);
-    background: var(--ms-bg-elevated);
+.hero-content p {
+    max-width: 290px;
+    margin: 13px 0 20px;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.88rem;
+    line-height: 1.6;
 }
 
-.chevron-icon {
-    transition: all 0.2s ease;
+.hero-button {
+    --background: #e0edda;
+    --background-activated: #cddfc6;
+    --color: #294d37;
+    --border-radius: 12px;
+    --box-shadow: none;
+
+    min-height: 44px;
+    margin: 0;
+    font-size: 0.84rem;
+    font-weight: 750;
+    text-transform: none;
 }
 
-.action-icon-badge {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+/* Intestazioni delle sezioni */
+
+.daily-section,
+.quick-section {
+    margin-bottom: 32px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.section-heading .eyebrow {
+    margin-bottom: 5px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--app-text, #26342b);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+.section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #fff0df;
+    color: #c78338;
+}
+
+.section-icon ion-icon {
+    font-size: 23px;
+}
+
+/* Calorie */
+
+.calorie-card {
+    padding: 22px 20px 18px;
+    border: 1px solid var(--app-border, #e4e8df);
+    border-radius: 22px;
+    background: var(--app-surface, #ffffff);
+    box-shadow: var(--app-shadow-card, 0 4px 18px rgba(38, 52, 43, 0.06));
+}
+
+.calorie-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.calorie-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    border-radius: 17px;
+    background: var(--app-primary-light, #e8f0e8);
+    color: var(--app-primary, #527a62);
+}
+
+.calorie-icon ion-icon {
+    font-size: 27px;
+}
+
+.calorie-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--app-text-muted, #748075);
+    font-size: 0.8rem;
+}
+
+.calorie-value {
+    color: var(--app-text, #26342b);
+    font-size: clamp(1.9rem, 7vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.15;
+}
+
+.calorie-value span {
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: 0;
+}
+
+.calorie-caption {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin: 15px 0 20px;
+    color: var(--app-text-muted, #748075);
+    font-size: 0.77rem;
+    line-height: 1.5;
+}
+
+.calorie-caption ion-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--app-primary, #527a62);
+    font-size: 16px;
+}
+
+/* Macronutrienti */
+
+.macro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding-top: 17px;
+    border-top: 1px solid var(--app-border, #e4e8df);
+}
+
+.macro-item {
+    display: grid;
+    grid-template-columns: 9px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 6px;
+    row-gap: 8px;
+    min-width: 0;
+}
+
+.macro-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.protein .macro-dot {
+    background: #527a62;
+}
+
+.carbs .macro-dot {
+    background: #d99a58;
+}
+
+.fats .macro-dot {
+    background: #8d80c5;
+}
+
+.macro-name {
+    overflow: hidden;
+    color: var(--app-text-muted, #748075);
+    font-size: 0.73rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.macro-item strong {
+    grid-column: 2;
+    color: var(--app-text, #26342b);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+/* Card esplorazione */
+
+.quick-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.quick-card {
+    overflow: hidden;
+    min-width: 0;
+    border: 1px solid var(--app-border, #e4e8df);
+    border-radius: 20px;
+    background: var(--app-surface, #ffffff);
+    box-shadow: 0 4px 16px rgba(38, 52, 43, 0.045);
+    text-decoration: none;
+    transition: transform 0.15s ease;
+}
+
+.quick-card:active {
+    transform: scale(0.985);
+}
+
+.quick-image {
+    overflow: hidden;
+    height: 125px;
+    background: #e8f0e8;
+}
+
+.quick-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+}
+
+.quick-card:active .quick-image img {
+    transform: scale(1.03);
+}
+
+.quick-card-content {
+    padding: 15px;
+}
+
+.quick-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    margin-top: -34px;
+    margin-bottom: 13px;
+    position: relative;
+    border: 3px solid #ffffff;
+    border-radius: 14px;
+    background: var(--app-primary, #527a62);
+    color: #ffffff;
+}
+
+.quick-icon ion-icon {
     font-size: 20px;
 }
 
-.pantry-badge {
-    background: rgba(56, 189, 248, 0.14);
-    color: var(--ms-protein);
+.catalog-card .quick-icon {
+    background: #d99a58;
 }
 
-.nutrition-badge {
-    background: rgba(251, 191, 36, 0.14);
-    color: var(--ms-carbs);
+.quick-card-content h3 {
+    margin: 0 0 7px;
+    color: var(--app-text, #26342b);
+    font-size: 0.98rem;
+    font-weight: 800;
+}
+
+.quick-card-content p {
+    min-height: 42px;
+    margin: 0;
+    color: var(--app-text-muted, #748075);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.quick-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 14px;
+    color: var(--app-primary, #527a62);
+    font-size: 0.74rem;
+    font-weight: 800;
+}
+
+.quick-link ion-icon {
+    flex-shrink: 0;
+    font-size: 17px;
+}
+
+/* Banner anti-spreco */
+
+.ideas-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 112px;
+    gap: 12px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    padding: 20px 0 20px 20px;
+    border: 1px solid #dce7d8;
+    border-radius: 22px;
+    background: #edf3e8;
+}
+
+.ideas-copy {
+    min-width: 0;
+}
+
+.ideas-copy .eyebrow {
+    font-size: 0.62rem;
+}
+
+.ideas-copy h2 {
+    margin: 0;
+    color: #294d37;
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.ideas-copy p {
+    margin: 10px 0 15px;
+    color: #637466;
+    font-size: 0.79rem;
+    line-height: 1.55;
+}
+
+.ideas-button {
+    --color: #365641;
+    --border-color: #9eb59d;
+    --border-radius: 11px;
+    --background: transparent;
+
+    min-height: 38px;
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 750;
+    text-transform: none;
+}
+
+.ideas-image {
+    align-self: center;
+    overflow: hidden;
+    width: 112px;
+    height: 170px;
+    border-radius: 18px 0 0 18px;
+}
+
+.ideas-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Footer */
+
+.dashboard-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0 12px;
+    color: var(--app-text-muted, #748075);
+    font-size: 0.78rem;
+}
+
+.dashboard-footer ion-icon {
+    color: var(--app-primary, #527a62);
+    font-size: 18px;
+}
+
+/* Responsive */
+
+@media (min-width: 650px) {
+    .dashboard-container {
+        padding-top: 32px;
+    }
+
+    .hero-card {
+        min-height: 340px;
+    }
+
+    .hero-content {
+        padding: 36px;
+    }
+
+    .quick-image {
+        height: 170px;
+    }
+
+    .quick-card-content {
+        padding: 18px;
+    }
+
+    .ideas-card {
+        grid-template-columns: minmax(0, 1fr) 180px;
+        padding-left: 26px;
+    }
+
+    .ideas-image {
+        width: 180px;
+        height: 190px;
+    }
+}
+
+@media (max-width: 360px) {
+    .dashboard-container {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .hero-card {
+        min-height: 280px;
+    }
+
+    .hero-content {
+        padding: 22px 18px;
+    }
+
+    .calorie-card {
+        padding: 18px 14px;
+    }
+
+    .macro-grid {
+        gap: 6px;
+    }
+
+    .macro-name {
+        font-size: 0.67rem;
+    }
+
+    .quick-grid {
+        gap: 10px;
+    }
+
+    .quick-card-content {
+        padding: 12px;
+    }
+
+    .quick-card-content h3 {
+        font-size: 0.9rem;
+    }
+
+    .quick-card-content p {
+        font-size: 0.74rem;
+    }
+
+    .quick-link {
+        font-size: 0.68rem;
+    }
+
+    .ideas-card {
+        grid-template-columns: minmax(0, 1fr) 82px;
+        padding-left: 14px;
+    }
+
+    .ideas-image {
+        width: 82px;
+        height: 160px;
+    }
 }

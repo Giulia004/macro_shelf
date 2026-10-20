@@ -1,0 +1,183 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Aggiungi alla dispensa</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()" aria-label="Chiudi">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button expand="block" (click)="scanBarcode()" [disabled]="scanning() || loading() || saving()">
+    <ion-icon name="scan-outline" slot="start"></ion-icon>
+    {{ scanning() ? 'Scansione in corso...' : 'Scansiona barcode' }}
+  </ion-button>
+
+  <form [formGroup]="form" (ngSubmit)="searchBarcode()">
+    <ion-item>
+      <ion-input label="Barcode" labelPlacement="stacked" formControlName="barcode" placeholder="Inserisci il codice"
+        inputmode="numeric"></ion-input>
+      <ion-button slot="end" type="submit" fill="clear" [disabled]="loading() || saving()" aria-label="Cerca prodotto">
+        <ion-icon name="search-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </form>
+
+  @if (loading()) {
+  <div class="status">
+    <ion-spinner name="crescent"></ion-spinner>
+    <span>Ricerca prodotto...</span>
+  </div>
+  }
+
+  @if (message()) {
+  <ion-note color="success">{{ message() }}</ion-note>
+  }
+
+  @if (error()) {
+  <ion-note color="danger">{{ error() }}</ion-note>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <section>
+      <h2>Prodotto</h2>
+
+      @if (form.controls.imageUrl.value) {
+      <div class="product-image">
+        <img [src]="form.controls.imageUrl.value" alt="Immagine prodotto" />
+      </div>
+      }
+
+      <ion-item>
+        <ion-input label="Nome *" labelPlacement="stacked" formControlName="name" required></ion-input>
+      </ion-item>
+
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+      <ion-note color="danger">Inserisci il nome del prodotto.</ion-note>
+      }
+
+      <ion-item>
+        <ion-input label="Marca" labelPlacement="stacked" formControlName="brand"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="URL immagine" labelPlacement="stacked" formControlName="imageUrl"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select label="Categoria" labelPlacement="stacked" formControlName="category">
+          <ion-select-option value="frutta-verdura">Frutta e verdura</ion-select-option>
+          <ion-select-option value="carne-pesce">Carne e pesce</ion-select-option>
+          <ion-select-option value="latticini">Latticini</ion-select-option>
+          <ion-select-option value="dispensa">Dispensa</ion-select-option>
+          <ion-select-option value="bevande">Bevande</ion-select-option>
+          <ion-select-option value="altro">Altro</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </section>
+
+    <section>
+      <h2>Valori nutrizionali</h2>
+      <p class="hint">Valori per 100 g o 100 ml, se riportati sulla confezione.</p>
+
+      <ion-item>
+        <ion-input label="Base nutrizionale" labelPlacement="stacked" type="number"
+          formControlName="nutritionBaseValue"></ion-input>
+        <ion-select formControlName="nutritionBaseUnit" aria-label="Unità nutrizionale">
+          <ion-select-option value="g">g</ion-select-option>
+          <ion-select-option value="ml">ml</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div class="nutrition-grid">
+        <ion-item>
+          <ion-input label="Calorie (kcal)" labelPlacement="stacked" type="number"
+            formControlName="calories"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Proteine (g)" labelPlacement="stacked" type="number" formControlName="proteins"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Carboidrati (g)" labelPlacement="stacked" type="number" formControlName="carbs"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Grassi (g)" labelPlacement="stacked" type="number" formControlName="fats"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Fibre (g)" labelPlacement="stacked" type="number" formControlName="fiber"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Zuccheri (g)" labelPlacement="stacked" type="number" formControlName="sugar"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Grassi saturi (g)" labelPlacement="stacked" type="number"
+            formControlName="saturatedFat"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Sale (g)" labelPlacement="stacked" type="number" formControlName="salt"></ion-input>
+        </ion-item>
+      </div>
+    </section>
+
+    <section>
+      <h2>Quantità in dispensa</h2>
+
+      <div class="quantity-grid">
+        <ion-item>
+          <ion-input label="Quantità *" labelPlacement="stacked" type="number" min="0.01" formControlName="quantity"
+            required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-select label="Unità" labelPlacement="stacked" formControlName="unit">
+            <ion-select-option value="pz">Pezzi</ion-select-option>
+            <ion-select-option value="g">Grammi</ion-select-option>
+            <ion-select-option value="kg">Kg</ion-select-option>
+            <ion-select-option value="ml">Ml</ion-select-option>
+            <ion-select-option value="l">Litri</ion-select-option>
+            <ion-select-option value="confezioni">Confezioni</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <ion-item>
+        <ion-input label="Scadenza" labelPlacement="stacked" type="date" formControlName="expiryDate"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Soglia minima scorte" labelPlacement="stacked" type="number" min="0"
+          formControlName="minThreshold"></ion-input>
+      </ion-item>
+    </section>
+
+    @if (source() === 'openfoodfacts') {
+    <ion-note color="warning">
+      Prodotto importato da Open Food Facts: verifica i dati prima di confermare.
+    </ion-note>
+    }
+
+    @if (source() === 'manual') {
+    <ion-note color="medium">
+      Il prodotto verrà creato nel catalogo quando confermi il salvataggio.
+    </ion-note>
+    }
+
+    <div class="actions">
+      <ion-button expand="block" type="submit" [disabled]="saving() || loading()">
+        @if (saving()) {
+        <ion-spinner name="crescent" slot="start"></ion-spinner>
+        Salvataggio...
+        } @else {
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        Conferma e aggiungi
+        }
+      </ion-button>
+
+      <ion-button expand="block" fill="clear" color="medium" type="button" (click)="cancel()" [disabled]="saving()">
+        Annulla
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

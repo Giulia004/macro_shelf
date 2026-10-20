@@ -1,111 +1,243 @@
-/* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
-
-/* Optional CSS utils */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/* Ionic Dark Mode */
-@import '@ionic/angular/css/palettes/dark.system.css';
-@import "bootstrap/dist/css/bootstrap.min.css";
-
-/**
- * ------------------------------------------------------------------
- * MACROSHELF CUSTOM PALETTE & GLOBAL VARIABLES
- * ------------------------------------------------------------------
- */
-:root {
-    --ms-bg-main: #0b1220;
-    --ms-bg-card: #151f32;
-    --ms-bg-elevated: #1c2a40;
-    --ms-bg-subcard: #101a2b;
-
-    --ms-primary: #a3e635;
-    --ms-primary-hover: #84cc16;
-    --ms-secondary: #34d399;
-    --ms-danger: #fb7185;
-
-    --ms-protein: #38bdf8;
-    --ms-carbs: #fbbf24;
-    --ms-fats: #fb7185;
-
-    --ms-text-main: #f8fafc;
-    --ms-text-muted: #a9b8cc;
-    --ms-text-subtle: #7f91aa;
-    --ms-border: rgba(148, 163, 184, 0.18);
-
-    --ion-color-primary: var(--ms-primary);
-    --ion-color-primary-rgb: 163, 230, 53;
-    --ion-color-primary-contrast: #17210c;
-    --ion-color-primary-contrast-rgb: 23, 33, 12;
-    --ion-color-primary-shade: #8fca2f;
-    --ion-color-primary-tint: #ade94a;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* Stili globali */
+html {
+  font-family: var(--ion-font-family);
+  background: var(--app-background);
+  /* Previene lo zoom indesiderato su input nei dispositivi mobili */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-    background-color: var(--ms-bg-main);
-    color: var(--ms-text-main);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  color: var(--app-text);
+  background: var(--app-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ion-app {
+  font-family: var(--ion-font-family);
+  color: var(--app-text);
 }
 
 ion-content {
-    --background: var(--ms-bg-main);
-    color: var(--ms-text-main);
+  --background: var(--app-background);
+  --color: var(--app-text);
+  --ion-background-color: var(--app-background, #f7f7f2);
 }
 
-app-main-layout .menu-account-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 12px;
-    border: 1px solid var(--ms-border);
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--ms-bg-card), var(--ms-bg-subcard));
+ion-header {
+  padding-top: env(safe-area-inset-top);
 }
 
-app-main-layout .menu-account-avatar {
-    display: grid;
-    flex: 0 0 42px;
-    width: 42px;
-    height: 42px;
-    place-items: center;
-    border: 1px solid rgba(52, 211, 153, 0.3);
-    border-radius: 13px;
-    background: rgba(52, 211, 153, 0.12);
-    color: var(--ms-secondary);
-    font-size: 28px;
+ion-toolbar {
+  --background: var(--ion-toolbar-background);
+  --color: var(--ion-toolbar-color);
+  --border-color: transparent;
 }
 
-app-main-layout .menu-account-details {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: 3px;
+ion-title {
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
-app-main-layout .menu-account-details strong,
-app-main-layout .menu-account-details span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+ion-card {
+  margin: 0;
+  border-radius: var(--app-radius-md, 16px);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow-card);
+  width: 100%;
 }
 
-app-main-layout .menu-account-details strong {
-    color: var(--ms-text-main);
-    font-size: 0.9rem;
+ion-card-title {
+  color: var(--app-text);
+  font-weight: 700;
 }
 
-app-main-layout .menu-account-details span {
-    color: var(--ms-text-muted);
-    font-size: 0.75rem;
+ion-card-subtitle {
+  color: var(--app-text-muted);
+}
+
+ion-item {
+  --background: var(--app-surface);
+  --color: var(--app-text);
+  --border-color: var(--app-border);
+  --highlight-color-focused: var(--app-primary);
+  --border-radius: var(--app-radius-sm, 12px);
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  --color: var(--app-text);
+  --placeholder-color: var(--app-text-muted);
+}
+
+ion-button {
+  --border-radius: 12px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+ion-button.button-solid {
+  --box-shadow: none;
+}
+
+ion-searchbar {
+  --background: var(--app-surface);
+  --color: var(--app-text);
+  --placeholder-color: var(--app-text-muted);
+  --icon-color: var(--app-text-muted);
+  --border-radius: 14px;
+  padding-inline: 0;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-menu {
+  --background: var(--app-surface);
+}
+
+ion-tab-bar {
+  --background: var(--app-surface);
+  --border: 1px solid var(--app-border);
+  --color: var(--app-text-muted);
+  --color-selected: var(--app-primary);
+}
+
+ion-button,
+ion-card,
+ion-chip,
+a,
+button {
+  touch-action: manipulation;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Contenitore adattivo fluido */
+.app-container {
+  width: 100%;
+  max-width: var(--app-content-width, 800px);
+  margin-inline: auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Griglia automatica responsive per Cataloghi, Dispensa e Ricette */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.app-section {
+  margin-bottom: 24px;
+}
+
+.app-section-title {
+  margin: 0 0 6px;
+  color: var(--app-text);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.app-section-subtitle {
+  margin: 0;
+  color: var(--app-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.app-card {
+  padding: 18px;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-md, 16px);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow-card);
+}
+
+.app-muted {
+  color: var(--app-text-muted);
+}
+
+.app-divider {
+  height: 1px;
+  background: var(--app-border);
+  border: 0;
+  margin: 20px 0;
+}
+
+/* Form helpers */
+.app-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-form-error {
+  color: var(--app-danger);
+  font-size: 0.85rem;
+  margin: 4px 0 0;
+}
+
+.app-form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--app-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding: 32px 24px;
+    max-width: var(--app-content-width, 1000px);
+  }
+
+  .app-section {
+    margin-bottom: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-container {
+    max-width: var(--app-content-width, 1200px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

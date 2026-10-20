@@ -1,0 +1,246 @@
+:host {
+    display: block;
+    color: var(--ion-text-color);
+}
+
+ion-header {
+    box-shadow: none;
+}
+
+ion-toolbar {
+    --background: var(--ion-background-color);
+    --border-color: var(--ion-border-color);
+}
+
+ion-content {
+    --background: var(--ion-background-color);
+}
+
+ion-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px;
+    padding-bottom: 32px;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--ion-color-light-shade);
+    border-radius: 14px;
+    background: var(--ion-card-background, var(--ion-background-color));
+}
+
+.section-title {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.section-description {
+    margin: 0;
+    color: var(--ion-color-medium);
+    font-size: 0.875rem;
+    line-height: 1.45;
+}
+
+.barcode-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.barcode-field {
+    flex: 1;
+    min-width: 0;
+}
+
+.barcode-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field label {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.form-field ion-input,
+.form-field ion-select,
+.form-field ion-textarea {
+    --background: var(--ion-color-light);
+    --padding-start: 12px;
+    --padding-end: 12px;
+    border-radius: 10px;
+}
+
+.form-field ion-input,
+.form-field ion-select {
+    min-height: 46px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.product-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--ion-color-light);
+}
+
+.product-image {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.product-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--ion-color-light-shade);
+}
+
+.product-info {
+    min-width: 0;
+}
+
+.product-name {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.product-brand {
+    margin: 4px 0 0;
+    color: var(--ion-color-medium);
+    font-size: 0.85rem;
+}
+
+.status-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.status-message ion-icon {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+.status-info {
+    color: var(--ion-color-primary-shade);
+    background: var(--ion-color-primary-tint);
+}
+
+.status-success {
+    color: var(--ion-color-success-shade);
+    background: var(--ion-color-success-tint);
+}
+
+.status-error {
+    color: var(--ion-color-danger-shade);
+    background: var(--ion-color-danger-tint);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.form-actions ion-button {
+    flex: 1;
+    margin: 0;
+    min-height: 46px;
+    font-weight: 600;
+}
+
+.required-note {
+    color: var(--ion-color-medium);
+    font-size: 0.8rem;
+}
+
+@media (min-width: 600px) {
+    .form-container {
+        padding: 24px;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+
+    .nutrition-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 380px) {
+    .form-container {
+        gap: 14px;
+        padding: 12px;
+    }
+
+    .form-section {
+        padding: 12px;
+    }
+
+    .barcode-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .barcode-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+}

@@ -1,19 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonCard, IonContent, IonIcon, IonRouterLink } from '@ionic/angular';
+import { IonContent, IonIcon } from '@ionic/angular';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { BottomNavbarComponent } from '../../components/bottom-navbar/bottom-navbar.component';
 import { addIcons } from 'ionicons';
-import { basketOutline, chevronForwardOutline, flagOutline, flameOutline, logOutOutline, nutritionOutline } from 'ionicons/icons';
+import { arrowForwardOutline, basketOutline, flameOutline, informationCircleOutline, leafOutline, nutritionOutline, restaurantOutline, sparklesOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   standalone: true,
   styleUrls: ['./dashboard.page.css'],
-  imports: [CommonModule, FormsModule, IonContent, IonIcon, IonCard, IonRouterLink,RouterLink]
+  imports: [CommonModule, FormsModule, IonContent, IonIcon, RouterLink, BottomNavbarComponent]
 })
 export class DashboardPage implements OnInit {
   private authService = inject(AuthService);
@@ -31,9 +32,10 @@ export class DashboardPage implements OnInit {
     fats: 60
   };
 
+  readonly Math = Math;
   constructor() {
     addIcons({
-      logOutOutline, nutritionOutline, basketOutline, flameOutline, chevronForwardOutline,flagOutline
+      arrowForwardOutline,basketOutline,flameOutline,informationCircleOutline,leafOutline,nutritionOutline,restaurantOutline,sparklesOutline
     });
   }
 

@@ -1,23 +1,74 @@
-<ion-content class="ion-padding fitness-bg">
-  <div class="welcome-container">
-    <div class="hero-section">
-      <div class="icon-badge">
-        <ion-icon name="nutrition-outline" class="welcome-icon"></ion-icon>
-      </div>
-      <h1>MacroShelf</h1>
-      <p>Ottimizza i tuoi macro, gestisci la tua dispensa smart. Offline-first, pensata per il fitness.</p>
-    </div>
+<ion-content class="ion-padding home-bg">
+  <main class="welcome-container">
 
-    <div class="welcome-actions">
-      <ion-button expand="block" routerLink="/login" class="btn-primary-fitness ion-margin-bottom">
+    <!-- Brand e presentazione -->
+    <section class="hero-section">
+
+      <div class="icon-badge">
+        <ion-icon name="leaf-outline" class="welcome-icon">
+        </ion-icon>
+      </div>
+
+      <span class="welcome-eyebrow">
+        LA TUA CUCINA, PIÙ SEMPLICE
+      </span>
+
+      <h1>Macro<span>Shelf</span></h1>
+
+      <p class="welcome-description">
+        Scopri cosa cucinare con quello che hai già in casa.
+        Organizza la tua dispensa, trova nuove ricette
+        e tieni sotto controllo calorie e macronutrienti.
+      </p>
+
+      <!-- Benefici principali -->
+      <div class="welcome-features">
+
+        <div class="feature-item">
+          <ion-icon name="file-tray-stacked-outline"></ion-icon>
+          <div>
+            <strong>La tua dispensa</strong>
+            <span>Ingredienti sempre sotto controllo</span>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <ion-icon name="restaurant-outline"></ion-icon>
+          <div>
+            <strong>Idee per ogni pasto</strong>
+            <span>Ricette basate sugli ingredienti disponibili</span>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <ion-icon name="nutrition-outline"></ion-icon>
+          <div>
+            <strong>Informazioni nutrizionali</strong>
+            <span>Calorie e macronutrienti per porzione</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Azioni principali -->
+    <section class="welcome-actions">
+
+      <ion-button expand="block" routerLink="/login" class="btn-primary-app">
         <ion-icon name="log-in-outline" slot="start"></ion-icon>
         Accedi
       </ion-button>
 
-      <ion-button expand="block" fill="outline" routerLink="/register" class="btn-outline-fitness">
+      <ion-button expand="block" fill="outline" routerLink="/register" class="btn-outline-app">
         <ion-icon name="person-add-outline" slot="start"></ion-icon>
-        Crea Account
+        Crea un account
       </ion-button>
-    </div>
-  </div>
+
+      <p class="welcome-footer">
+        Meno sprechi, più idee in cucina.
+      </p>
+
+    </section>
+
+  </main>
 </ion-content>

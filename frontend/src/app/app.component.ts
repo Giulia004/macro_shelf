@@ -5,6 +5,7 @@ import { DatabaseService } from '../services/database.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
+  standalone:true,
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent implements OnInit {

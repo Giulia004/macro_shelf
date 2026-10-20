@@ -1,43 +1,52 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonCard, IonContent, IonHeader, IonIcon, IonSearchbar, IonSpinner, IonTitle, IonToolbar, ToastController, IonButton } from '@ionic/angular';
+import { IonCard, IonContent, IonHeader, IonIcon, IonSpinner, IonTitle, IonToolbar, ToastController, IonButton, IonButtons, IonBackButton } from '@ionic/angular';
 import { Product, ProductService } from '../../../services/product.service';
 import { addIcons } from 'ionicons';
-import { addCircleOutline, alertCircleOutline, barcodeOutline, businessOutline, nutritionOutline, searchOutline } from 'ionicons/icons';
-import { DatabaseService } from '../../../services/database.service';
+import { addOutline, alertCircleOutline, barcodeOutline, businessOutline, nutritionOutline, searchOutline } from 'ionicons/icons';
+import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
+import { PantryService } from '../../../services/pantry.service';
+import { FilterComponent, PantryFilter } from '../../components/filter/filter.component';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.page.html',
   styleUrls: ['./product.page.css'],
-  imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonToolbar, IonHeader, IonTitle, IonSearchbar, IonContent, IonCard, IonIcon, IonSpinner]
+  standalone: true,
+  imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonToolbar, IonHeader, IonTitle, IonContent, IonCard, IonIcon, IonSpinner, SearchbarComponent, IonButtons, IonBackButton, SearchbarComponent, FilterComponent]
 })
 export class ProductPage implements OnInit {
   private productService = inject(ProductService);
-  private databaseService = inject(DatabaseService);
+  private pantryService = inject(PantryService);
   private toastController = inject(ToastController);
 
   products = signal<Product[]>([]);
   searchTerm = signal<string>('');
   isLoading = signal<boolean>(false);
+  activeFilter = signal<PantryFilter>('all');
 
   filteredProducts = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();
-    const allProducts = this.products();
+    const filter = this.activeFilter();
 
-    if (!term) return allProducts;
+    return this.products().filter(product => {
+      const matchesSearch =
+        !term ||
+        product.name.toLowerCase().includes(term) ||
+        (product.brand?.toLowerCase().includes(term) ?? false) ||
+        (product.barcode?.toLowerCase().includes(term) ?? false);
+      const matchesCategory =
+        filter === 'all' ||
+        product.category === filter;
 
-    return allProducts.filter(p =>
-      p.name.toLowerCase().includes(term) ||
-      (p.brand && p.brand.toLowerCase().includes(term)) ||
-      (p.barcode && p.barcode.toLowerCase().includes(term))
-    );
+      return matchesSearch && matchesCategory;
+    });
   });
 
   constructor() {
     addIcons({
-      searchOutline, nutritionOutline, alertCircleOutline, barcodeOutline, businessOutline, addCircleOutline
+      searchOutline, nutritionOutline, alertCircleOutline, barcodeOutline, businessOutline, addOutline
     });
   }
 
@@ -51,6 +60,7 @@ export class ProductPage implements OnInit {
       next: (data) => {
         this.products.set(data);
         this.isLoading.set(false);
+        console.log("Prodotti catalogo:",data);
       },
       error: async (err) => {
         console.error("Errore durante il caricamento dei prodotti", err);
@@ -67,41 +77,43 @@ export class ProductPage implements OnInit {
     });
   }
 
-  onSearchInput(event: any) {
-    const value = event.detail.value || '';
-    this.searchTerm.set(value);
+  onFilterChange(filter: PantryFilter): void {
+    this.activeFilter.set(filter);
+  }
+  onSearchInput(term: string) {
+    this.searchTerm.set(term);
   }
 
-  async addToPantry(product: Product) {
-    try {
-      //Creiamo un id unico
-      const pantryItem = {
-        id: 'pantry_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9),
-        productId: product.id,
-        name: product.name,
-        brand: product.brand || undefined,
-        quantity: 100, //(100g oppure 1 unità)
-        expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-        minThreshold: 50,
-        calories: product.calories,
-        proteins: product.proteins,
-        carbs: product.carbs,
-        fats: product.fats,
-        unit: product.unit || 'g'
-      };
+  getCategoryLabel(category: string | null): string {
+    const labels: Record<string, string> = {
+      'frutta-verdura': 'Frutta e verdura',
+      'carne-pesce': 'Carne e pesce',
+      latticini: 'Latticini',
+      dispensa: 'Dispensa',
+      bevande: 'Bevande',
+      altro: 'Altro',
+    };
 
-      await this.databaseService.addPantryItem(pantryItem);
+    return category ? labels[category] ?? category : 'Non categorizzato';
+  }
+
+  async addToPantry(product: Product): Promise<void> {
+    try {
+      const expiryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+      await this.pantryService.addItem(product, 1, expiryDate, 50, product.unit || 'g');
 
       const toast = await this.toastController.create({
         message: `"${product.name}" aggiunto alla dispensa!`,
         duration: 2000,
         color: 'success',
         position: 'bottom',
-        icon: 'add-circle-outline'
+        icon: 'add--outline'
       });
+      console.log(this.pantryService.getItems());
       await toast.present();
     } catch (error) {
-      console.error("Errore salvataggio dispensa:", error);
+      console.error("Errore salvataggio in dispensa:", error);
       const toast = await this.toastController.create({
         message: "Errore durante l'aggiunta alla dispensa.",
         duration: 2000,

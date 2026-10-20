@@ -1,79 +1,202 @@
-.fitness-bg {
-  --background: var(--ms-bg-main);
-  color: var(--ms-text-main);
+:host {
+  display: block;
+}
+
+.home-bg {
+  --background: var(--app-background);
 }
 
 .welcome-container {
+  width: 100%;
+  max-width: 560px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 36px 8px 24px;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 40px 20px;
+  justify-content: center;
+  gap: 36px;
 }
+
+/* Hero */
 
 .hero-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  text-align: center;
 }
 
 .icon-badge {
-  background: rgba(163, 230, 53, 0.14);
-  padding: 26px;
-  border-radius: 50%;
+  width: 76px;
+  height: 76px;
   margin-bottom: 24px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(163, 230, 53, 0.3);
+
+  background: var(--app-primary-light);
+  border: 1px solid rgba(82, 122, 98, 0.12);
+  border-radius: 24px;
 }
 
-.welcome-container .welcome-icon {
-  font-size: 52px;
-  color: var(--ms-primary);
+.welcome-icon {
+  font-size: 38px;
+  color: var(--app-primary);
 }
 
-.welcome-container h1 {
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: #ffffff;
+.welcome-eyebrow {
   margin-bottom: 12px;
-  letter-spacing: -0.5px;
+
+  color: var(--app-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
-.welcome-container p {
-  color: var(--ms-text-muted);
-  font-size: 1.05rem;
-  line-height: 1.5;
-  margin-bottom: 0;
+h1 {
+  margin: 0;
+
+  color: var(--app-text);
+  font-size: clamp(2.5rem, 9vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.1;
 }
+
+h1 span {
+  color: var(--app-primary);
+}
+
+.welcome-description {
+  max-width: 430px;
+  margin: 20px 0 28px;
+
+  color: var(--app-text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Feature list */
+
+.welcome-features {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 15px 16px;
+
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-md);
+  box-shadow: var(--app-shadow-card);
+}
+
+.feature-item>ion-icon {
+  flex-shrink: 0;
+  font-size: 25px;
+  color: var(--app-primary);
+}
+
+.feature-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feature-item strong {
+  color: var(--app-text);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.feature-item span {
+  color: var(--app-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+/* Actions */
 
 .welcome-actions {
   width: 100%;
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.btn-primary-fitness {
-  --background: var(--ms-primary);
-  --background-hover: var(--ms-primary-hover);
-  --background-activated: #72b51d;
-  --color: #17210c;
+.btn-primary-app {
+  --background: var(--app-primary);
+  --background-hover: var(--app-primary-dark);
+  --background-activated: var(--app-primary-dark);
+  --color: #ffffff;
   --border-radius: 14px;
+
+  height: 52px;
+  font-size: 1rem;
   font-weight: 700;
-  font-size: 1rem;
-  --box-shadow: 0 4px 20px rgba(163, 230, 53, 0.25);
 }
 
-.btn-outline-fitness {
-  --border-color: var(--ms-bg-elevated);
-  --color: var(--ms-text-main);
+.btn-outline-app {
+  --color: var(--app-primary);
+  --border-color: var(--app-primary);
+  --border-width: 1.5px;
   --border-radius: 14px;
-  --background-hover: rgba(255, 255, 255, 0.05);
-  font-weight: 600;
+
+  height: 52px;
   font-size: 1rem;
+  font-weight: 700;
+}
+
+.welcome-footer {
+  margin: 12px 0 0;
+
+  color: var(--app-text-muted);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .welcome-container {
+    max-width: 600px;
+    padding: 48px 24px;
+    gap: 40px;
+  }
+
+  .welcome-description {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .welcome-container {
+    justify-content: flex-start;
+    gap: 24px;
+    padding-top: 24px;
+  }
+
+  .icon-badge {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+  }
+
+  .welcome-icon {
+    font-size: 30px;
+  }
+
+  .welcome-description {
+    margin: 14px 0 20px;
+  }
 }

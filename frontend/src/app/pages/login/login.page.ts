@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IonButton, IonContent, IonIcon, IonInput, IonItem } from '@ionic/angular';
+import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonSpinner } from '@ionic/angular';
 import { TimeoutError, finalize, timeout } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { lockClosedOutline, mailOutline, logInOutline } from 'ionicons/icons';
+import { lockClosedOutline, mailOutline, logInOutline, alertCircleOutline, arrowBackCircleOutline, leafOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.css'],
-  imports: [IonContent, CommonModule, FormsModule, IonItem, IonButton, IonIcon, RouterModule, IonInput]
+  imports: [IonContent, CommonModule, FormsModule, IonItem, IonButton, IonIcon, RouterModule, IonInput,IonSpinner]
 })
 export class LoginPage {
   email = '';
@@ -22,7 +22,7 @@ export class LoginPage {
   isLoggingIn = false;
 
   constructor(private authService: AuthService, private router: Router) {
-    addIcons({ mailOutline, lockClosedOutline, logInOutline });
+    addIcons({ mailOutline, lockClosedOutline, logInOutline,alertCircleOutline,arrowBackCircleOutline,leafOutline });
   }
 
   onLogin() {

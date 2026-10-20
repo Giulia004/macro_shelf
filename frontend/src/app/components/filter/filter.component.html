@@ -1,0 +1,43 @@
+<div class="filter-container">
+  <div class="filter-list" [attr.aria-label]="showExpiring ? 'Filtri della dispensa' : 'Filtri del catalogo'">
+    <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'all'" (click)="selectFilter('all')">
+      <ion-label>Tutti</ion-label>
+    </ion-chip>
+
+    @if (showExpiring) {
+      <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'expiring'"
+        (click)="selectFilter('expiring')">
+        <ion-label>In scadenza</ion-label>
+      </ion-chip>
+    }
+
+    <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'frutta-verdura'"
+      (click)="selectFilter('frutta-verdura')">
+      <ion-label>Frutta e verdura</ion-label>
+    </ion-chip>
+
+    <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'carne-pesce'"
+      (click)="selectFilter('carne-pesce')">
+      <ion-label>Carne e pesce</ion-label>
+    </ion-chip>
+
+    <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'latticini'"
+      (click)="selectFilter('latticini')">
+      <ion-label>Latticini</ion-label>
+    </ion-chip>
+
+    <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'dispensa'"
+      (click)="selectFilter('dispensa')">
+      <ion-label>Dispensa</ion-label>
+    </ion-chip>
+
+    <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'bevande'"
+      (click)="selectFilter('bevande')">
+      <ion-label>Bevande</ion-label>
+    </ion-chip>
+
+    <ion-chip class="filter-chip" [class.active-filter]="selectedFilter === 'altro'" (click)="selectFilter('altro')">
+      <ion-label>Altro</ion-label>
+    </ion-chip>
+  </div>
+</div>

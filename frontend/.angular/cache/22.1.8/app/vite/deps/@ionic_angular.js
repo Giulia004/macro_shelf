@@ -1,4 +1,4 @@
-import { a as __exportAll, i as i$13, r as h$20, t as n } from "./p-D0YpjgON-DlbOmPwz.js";
+import { s as __exportAll } from "./definitions-DNz7OgUt.js";
 import { $n as Output, Al as ɵɵinject, Dc as Injector, Do as ɵɵgetCurrentView, Ea as ɵɵcontentQuery, Ec as InjectionToken, El as ɵɵdefineInjectable, En as ElementRef, Er as ViewContainerRef, Fc as NgZone, Fl as ɵɵresetView, Fn as Injectable, Hs as ɵɵtemplate, Il as ɵɵrestoreView, In as Input, Lo as ɵɵinjectAttribute, M as createComponent, Oo as ɵɵgetInheritedFactory, Pn as Inject, Qn as Optional, S as ViewChild, Wi as setClassMetadata, Xo as ɵɵloadQuery, Xt as APP_INITIALIZER, Yo as ɵɵlistener, Zo as ɵɵnextContext, _o as ɵɵelementContainer, a as ContentChildren, an as ChangeDetectionStrategy, as as ɵɵprojectionDef, bc as EventEmitter, bo as ɵɵelementEnd, ca as ɵɵInheritDefinitionFeature, cn as Component, da as ɵɵadvance, ft as reflectComponentType, i as ContentChild, is as ɵɵprojection, kn as HostListener, la as ɵɵNgOnChangesFeature, lo as ɵɵdomElementContainerEnd, mc as DOCUMENT, nn as Attribute, no as ɵɵdefineDirective, oo as ɵɵdirectiveInject, os as ɵɵproperty, pl as makeEnvironmentProviders, pr as SkipSelf, r as ChangeDetectorRef, rl as forwardRef, sc as ɵɵviewQuery, sl as inject, tn as ApplicationRef, to as ɵɵdefineComponent, ua as ɵɵProvidersFeature, uo as ɵɵdomElementContainerStart, vc as EnvironmentInjector, vr as TemplateRef, vs as ɵɵqueryRefresh, wn as Directive, xo as ɵɵelementStart } from "./core-DdWYGfAL.js";
 import { Qn as Subject, Xt as filter, Zn as BehaviorSubject, b as switchMap, fr as __decorate, gt as distinctUntilChanged, hn as combineLatest, jn as of, sn as fromEvent } from "./esm5-CHDWW1NC.js";
 import { Mt as LocationStrategy, Y as NgTemplateOutlet, jt as Location, x as CommonModule, z as NgIf } from "./common-D5RT8dtH.js";
@@ -7,7 +7,8 @@ import { Q as PRIMARY_OUTLET, R as ChildrenOutletContexts, W as NavigationCancel
 import { _ as oe$1, a as Pt$1, c as Un, d as a$22, f as d$21, g as o$16, h as n$18, i as Lt, l as Y$5, n as J$5, o as Qt, p as e$12, r as Jn, s as Rt$1, t as A$5, u as Yn, v as qt$1, x as z$11, y as s$20 } from "./p-BriaEJK8-Ct-bkoym.js";
 import { n as o$17, t as d$22 } from "./p-ZjP4CjeZ-BnW-oeAv.js";
 import { a as c$34, c as s$21, d as x$12, f as r, i as W$6, l as t$16, n as M$8, o as l$26, r as U$4, s as r$33, t as L$5, u as v$14 } from "./p-CVVUo4J1-DcDOacO0.js";
-import { S as r$35, _ as u$22, a as d$23, b as x$13, c as j$7, d as n$19, f as o$18, g as s$22, h as r$34, i as c$35, l as l$27, m as q$5, n as _$4, o as f$28, p as p$28, r as b$21, s as h$21, t as E$7, u as m$25, v as v$15, y as w$14 } from "./p-DlUdjUlf-Ce_fbjmq.js";
+import { S as r$35, _ as u$22, a as d$23, b as x$13, c as j$7, d as n$19, f as o$18, g as s$22, h as r$34, i as c$35, l as l$27, m as q$5, n as _$4, o as f$28, p as p$28, r as b$21, s as h$20, t as E$7, u as m$25, v as v$15, y as w$14 } from "./p-DlUdjUlf-Ce_fbjmq.js";
+import { i as i$13, r as h$21, t as n } from "./p-D0YpjgON-CFPypUnW.js";
 import { a as f$29, c as l$28, d as p$29, f as r$36, l as m$26, p as u$23, r as d$24, s as i$14, t as a$23, u as n$20 } from "./p-B8HBLiYi-DfmT8SOs.js";
 import { n as t$17, r as r$37, t as e$14 } from "./p-BMPN55of-Bt4HbXz4.js";
 //#region node_modules/@ionic/angular/dist/common/providers/dom-controller.js
@@ -4431,7 +4432,7 @@ var w$9 = Jn(class extends A$5 {
 		const t$25 = () => {
 			this.gestureOrAnimationInProgress = !0, this.swipeHandler && this.swipeHandler.onStart();
 		};
-		this.gesture = (await import("./p-yjLe0sN2-Dbr-LKV_.js")).createSwipeBackGesture(this.el, (() => !this.gestureOrAnimationInProgress && !!this.swipeHandler && this.swipeHandler.canStart()), (() => t$25()), ((t) => this.ani?.progressStep(t)), ((t$24, i, s) => {
+		this.gesture = (await import("./p-yjLe0sN2-CkKQTA3L.js")).createSwipeBackGesture(this.el, (() => !this.gestureOrAnimationInProgress && !!this.swipeHandler && this.swipeHandler.canStart()), (() => t$25()), ((t) => this.ani?.progressStep(t)), ((t$24, i, s) => {
 			if (this.ani) {
 				this.ani.onFinish((() => {
 					this.gestureOrAnimationInProgress = !1, this.swipeHandler && this.swipeHandler.onEnd(t$24);
@@ -4852,7 +4853,7 @@ var ot$1 = async (t, i) => {
 };
 var et$2 = (t) => .00255275 * 2.71828 ** (-14.9619 * t) - 1.00255 * 2.71828 ** (-.0380968 * t) + 1;
 var at$1 = .915;
-var st$1 = (t, i) => h$21(400, t / Math.abs(1.1 * i), 500);
+var st$1 = (t, i) => h$20(400, t / Math.abs(1.1 * i), 500);
 var rt$1 = (t, i) => {
 	const o = window.innerHeight, e = t.getBoundingClientRect().top, a = Math.round(1e3 * (1 - i / (o - e))) / 1e3;
 	return Math.max(0, Math.min(1, a));
@@ -5219,7 +5220,7 @@ var wt$1 = Jn(class extends A$5 {
 				onMove: (e) => {
 					const { deltaY: a } = e;
 					a > 0 && u && p$29(u);
-					const r = e.deltaY / d, h = r >= 0 && f, p = h ? .2 : .9999, m = h$21(1e-4, h ? et$2(r / p) : r, p);
+					const r = e.deltaY / d, h = r >= 0 && f, p = h ? .2 : .9999, m = h$20(1e-4, h ? et$2(r / p) : r, p);
 					i.progressStep(m), m >= n$22 && x < n$22 ? tt$2(o) : m < n$22 && x >= n$22 && Q$3(), x = m;
 					s({
 						currentY: e.currentY,
@@ -5229,7 +5230,7 @@ var wt$1 = Jn(class extends A$5 {
 					});
 				},
 				onEnd: (o) => {
-					const a = o.velocityY, s = o.deltaY / d, h = s >= 0 && f, l = h ? .2 : .9999, x = h$21(1e-4, h ? et$2(s / l) : s, l), w = !h && (o.deltaY + 1e3 * a) / d >= n$22;
+					const a = o.velocityY, s = o.deltaY / d, h = s >= 0 && f, l = h ? .2 : .9999, x = h$20(1e-4, h ? et$2(s / l) : s, l), w = !h && (o.deltaY + 1e3 * a) / d >= n$22;
 					let g = w ? -.001 : .001;
 					w ? (i.easing("cubic-bezier(0.32, 0.72, 0, 1)"), g += t([0, 0], [.32, .72], [0, 1], [1, 1], x)[0]) : (i.easing("cubic-bezier(1, 0, 0.68, 0.28)"), g += t([0, 0], [1, 0], [.68, .28], [1, 1], x)[0]);
 					const y = st$1(w ? s * d : (1 - x) * d, a);
@@ -5385,7 +5386,7 @@ var wt$1 = Jn(class extends A$5 {
 					if (n$23 || null === E || null === M || (t.currentY >= E && "moving" === M ? $("stationary") : t.currentY < E && "stationary" === M && $("moving")), !n$23 && t.deltaY <= 0 && C) return;
 					t.deltaY > 0 && x && (x.scrollY = !1);
 					const i = r.length > 1 ? 1 - r[1] : void 0, o = 1 - A + t.deltaY / w, e = void 0 !== i && o >= i && S, a = e ? .95 : .9999;
-					Y = h$21(1e-4, e && void 0 !== i ? i + et$2((o - i) / (a - i)) : o, a), s.progressStep(Y);
+					Y = h$20(1e-4, e && void 0 !== i ? i + et$2((o - i) / (a - i)) : o, a), s.progressStep(Y);
 					const h = L(t.deltaY);
 					f({
 						currentY: t.currentY,
@@ -11901,7 +11902,7 @@ var a$10 = async (i) => {
 */
 var b$11 = (i, s) => {
 	z$11((() => {
-		const o = h$21(0, 1 - (i.scrollTop - (i.scrollHeight - i.clientHeight - 10)) / 10, 1);
+		const o = h$20(0, 1 - (i.scrollTop - (i.scrollHeight - i.clientHeight - 10)) / 10, 1);
 		J$5((() => {
 			s.style.setProperty("--opacity-scale", "" + o);
 		}));
@@ -12175,7 +12176,7 @@ var k$6 = (t, n, a) => {
 	z$11((() => {
 		const e = t.scrollTop, i = n.clientHeight, s = a ? a.clientHeight : 0;
 		if (null !== a && e < s) return n.style.setProperty("--opacity-scale", "0"), void t.style.setProperty("clip-path", `inset(${i}px 0px 0px 0px)`);
-		const r = h$21(0, (e - s) / 10, 1);
+		const r = h$20(0, (e - s) / 10, 1);
 		J$5((() => {
 			t.style.removeProperty("clip-path"), n.style.setProperty("--opacity-scale", r.toString());
 		}));
@@ -12256,7 +12257,7 @@ var v$6 = Jn(class extends A$5 {
 		}), this.intersectionObserver.observe(s.toolbars[s.toolbars.length - 1].el), this.contentScrollCallback = () => {
 			((t, n, a) => {
 				z$11((() => {
-					const e = h$21(1, 1 + -t.scrollTop / 500, 1.1);
+					const e = h$20(1, 1 + -t.scrollTop / 500, 1.1);
 					null === a.querySelector("ion-refresher.refresher-native") && J$5((() => {
 						((e = [], o = 1, t = !1) => {
 							e.forEach(((e) => {
@@ -14019,7 +14020,7 @@ var g$9 = Jn(class extends A$5 {
 		const { el: t } = this;
 		this.item = t.querySelector("ion-item"), this.contentEl = l$28(t), this.mutationObserver = r$16(t, "ion-item-option", (async () => {
 			await this.updateOptions();
-		})), await this.updateOptions(), this.gesture = (await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n)).createGesture({
+		})), await this.updateOptions(), this.gesture = (await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n)).createGesture({
 			el: t,
 			gestureName: "item-swipe",
 			gesturePriority: 100,
@@ -14971,7 +14972,7 @@ IonLoading = __decorate([ProxyCmp({
 */
 var S$1 = Jn(class extends A$5 {
 	constructor(t) {
-		super(), !1 !== t && this.__registerHost(), this.__attachShadow(), this.ionWillOpen = Qt(this, "ionWillOpen", 7), this.ionWillClose = Qt(this, "ionWillClose", 7), this.ionDidOpen = Qt(this, "ionDidOpen", 7), this.ionDidClose = Qt(this, "ionDidClose", 7), this.ionMenuChange = Qt(this, "ionMenuChange", 7), this.lastOnEnd = 0, this.blocker = h$20.createBlocker({ disableScroll: !0 }), this.didLoad = !1, this.operationCancelled = !1, this.isAnimating = !1, this._isOpen = !1, this.inheritedAttributes = {}, this.handleFocus = (t) => {
+		super(), !1 !== t && this.__registerHost(), this.__attachShadow(), this.ionWillOpen = Qt(this, "ionWillOpen", 7), this.ionWillClose = Qt(this, "ionWillClose", 7), this.ionDidOpen = Qt(this, "ionDidOpen", 7), this.ionDidClose = Qt(this, "ionDidClose", 7), this.ionMenuChange = Qt(this, "ionMenuChange", 7), this.lastOnEnd = 0, this.blocker = h$21.createBlocker({ disableScroll: !0 }), this.didLoad = !1, this.operationCancelled = !1, this.isAnimating = !1, this._isOpen = !1, this.inheritedAttributes = {}, this.handleFocus = (t) => {
 			const e = J$4(document);
 			e && !e.contains(this.el) || this.trapKeyboardFocus(t, document);
 		}, this.isPaneVisible = !1, this.isEndSide = !1, this.disabled = !1, this.side = "start", this.swipeGesture = !0, this.maxEdgeStart = 50;
@@ -14995,7 +14996,7 @@ var S$1 = Jn(class extends A$5 {
 	async connectedCallback() {
 		"undefined" != typeof customElements && null != customElements && await customElements.whenDefined("ion-menu"), void 0 === this.type && (this.type = n$18.get("menuType", "overlay"));
 		const t = void 0 !== this.contentId ? document.getElementById(this.contentId) : null;
-		null !== t ? (this.el.contains(t) && d$21("[ion-menu] - The \"contentId\" should refer to the main view's ion-content, not the ion-content inside of the ion-menu."), this.contentEl = t, t.classList.add("menu-content"), this.typeChanged(this.type, void 0), this.sideChanged(), p$25._register(this), this.menuChanged(), this.gesture = (await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n)).createGesture({
+		null !== t ? (this.el.contains(t) && d$21("[ion-menu] - The \"contentId\" should refer to the main view's ion-content, not the ion-content inside of the ion-menu."), this.contentEl = t, t.classList.add("menu-content"), this.typeChanged(this.type, void 0), this.sideChanged(), p$25._register(this), this.menuChanged(), this.gesture = (await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n)).createGesture({
 			el: document,
 			gestureName: "menu-swipe",
 			gesturePriority: 30,
@@ -15101,7 +15102,7 @@ var S$1 = Jn(class extends A$5 {
 		let u = !e && l;
 		e && !l && (u = !0), this.lastOnEnd = t$21.currentTime;
 		let b = l ? .001 : -.001;
-		b += t([0, 0], [.4, 0], [.6, 1], [1, 1], h$21(0, o < 0 ? .01 : o, .9999))[0] || 0;
+		b += t([0, 0], [.4, 0], [.6, 1], [1, 1], h$20(0, o < 0 ? .01 : o, .9999))[0] || 0;
 		const c = this._isOpen ? !l : l;
 		this.animation.easing("cubic-bezier(0.4, 0.0, 0.6, 1)").onFinish((() => this.afterAnimation(u, on)), { oneTimeCallback: !0 }).progressEnd(c ? 1 : 0, this._isOpen ? 1 - b : b, 300);
 	}
@@ -16577,7 +16578,7 @@ var b$7 = () => Rt$1("div", {
 	class: "progress-indeterminate"
 })));
 var f$9 = (i, t) => {
-	const n = h$21(0, i, 1), e = h$21(0, t, 1);
+	const n = h$20(0, i, 1), e = h$20(0, t, 1);
 	return [
 		Rt$1("div", {
 			part: "progress",
@@ -17047,7 +17048,7 @@ var c$7 = (r, t) => {
 var m$5 = (t, s, e) => {
 	J$5((() => {
 		t.forEach(((r, t) => {
-			const o = t * (1 / s), n = h$21(0, (e - o) / (1 - o), 1);
+			const o = t * (1 / s), n = h$20(0, (e - o) / (1 - o), 1);
 			r.style.setProperty("opacity", n.toString());
 		}));
 	}));
@@ -17107,14 +17108,14 @@ var O$2 = Jn(class extends A$5 {
 				const e = this.scrollEl.scrollTop, t = this.el.clientHeight;
 				if (e > 0) {
 					if (8 === this.state) {
-						const i = h$21(0, e / (.5 * t), 1);
+						const i = h$20(0, e / (.5 * t), 1);
 						J$5((() => c$7(r, 1 - i)));
 						return;
 					}
 					return;
 				}
 				this.pointerDown && (this.didStart || (this.didStart = !0, this.ionStart.emit(), this.ionPullStart.emit()), this.pointerDown && this.ionPull.emit());
-				const h = this.didStart ? 30 : 0, a = this.progress = h$21(0, (Math.abs(e) - h) / n, 1);
+				const h = this.didStart ? 30 : 0, a = this.progress = h$20(0, (Math.abs(e) - h) / n, 1);
 				if (8 === this.state || 1 === a) {
 					if (this.pointerDown && x$3(r, this.lastVelocityY), !this.didRefresh) {
 						this.beginRefresh(), this.didRefresh = !0, h$13({ style: s$15.Light });
@@ -17124,7 +17125,7 @@ var O$2 = Jn(class extends A$5 {
 				} else this.state = 2, m$5(i, o, a);
 			}));
 		}, this.scrollEl.addEventListener("scroll", this.scrollListenerCallback);
-		const { createGesture: h } = await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n);
+		const { createGesture: h } = await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n);
 		this.scrollEl && (this.gesture = h({
 			el: this.scrollEl,
 			gestureName: "refresher",
@@ -17148,7 +17149,7 @@ var O$2 = Jn(class extends A$5 {
 		null !== t$20 && null !== o && J$5((() => {
 			t$20.style.setProperty("animation", "none"), i.style.setProperty("animation-delay", "-655ms"), o.style.setProperty("animation-delay", "-655ms");
 		}));
-		const { createGesture: h } = await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n);
+		const { createGesture: h } = await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n);
 		this.scrollEl && (this.gesture = h({
 			el: this.scrollEl,
 			gestureName: "refresher",
@@ -17174,7 +17175,7 @@ var O$2 = Jn(class extends A$5 {
 						r.data.animation = h, h.progressStart(!1, 0), this.ionStart.emit(), this.ionPullStart.emit(), this.animations.push(h);
 						return;
 					}
-					this.progress = h$21(0, r.deltaY / 180 * .5, 1), r.data.animation.progressStep(this.progress), this.ionPull.emit();
+					this.progress = h$20(0, r.deltaY / 180 * .5, 1), r.data.animation.progressStep(this.progress), this.ionPull.emit();
 				}
 			},
 			onEnd: (e) => {
@@ -17209,7 +17210,7 @@ var O$2 = Jn(class extends A$5 {
 			const r = f$29(e);
 			if (this.scrollEl = await a$23(r ?? e), this.backgroundContentEl = await e.getBackgroundElement(), this.contentFullscreen = e.fullscreen, await g$6(this.el, v$13(this))) this.setupNativeRefresher(e);
 			else {
-				const { createGesture: r } = await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n);
+				const { createGesture: r } = await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n);
 				if (!e.isConnected) return;
 				this.gesture = r({
 					el: e,
@@ -17746,7 +17747,7 @@ var u$4 = Jn(class extends A$5 {
 	}
 	async connectedCallback() {
 		const t = l$28(this.el);
-		t && (this.scrollEl = await a$23(t)), this.gesture = (await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n)).createGesture({
+		t && (this.scrollEl = await a$23(t)), this.gesture = (await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n)).createGesture({
 			el: this.el,
 			gestureName: "reorder",
 			gesturePriority: 110,
@@ -21477,7 +21478,7 @@ var y$5 = Jn(class extends A$5 {
 		this.ionNavWillLoad.emit();
 	}
 	async componentDidLoad() {
-		this.didLoad = !0, this.rootChanged(), this.gesture = (await import("./p-yjLe0sN2-Dbr-LKV_.js")).createSwipeBackGesture(this.el, this.canStart.bind(this), this.onStart.bind(this), this.onMove.bind(this), this.onEnd.bind(this)), this.swipeGestureChanged();
+		this.didLoad = !0, this.rootChanged(), this.gesture = (await import("./p-yjLe0sN2-CkKQTA3L.js")).createSwipeBackGesture(this.el, this.canStart.bind(this), this.onStart.bind(this), this.onMove.bind(this), this.onEnd.bind(this)), this.swipeGestureChanged();
 	}
 	connectedCallback() {
 		this.destroyed = !1;
@@ -25590,12 +25591,12 @@ IonRadioGroup = __decorate([ProxyCmp({
 */
 var f = Jn(class extends A$5 {
 	constructor(e) {
-		super(), !1 !== e && this.__registerHost(), this.__attachShadow(), this.ionChange = Qt(this, "ionChange", 7), this.ionInput = Qt(this, "ionInput", 7), this.ionFocus = Qt(this, "ionFocus", 7), this.ionBlur = Qt(this, "ionBlur", 7), this.ionKnobMoveStart = Qt(this, "ionKnobMoveStart", 7), this.ionKnobMoveEnd = Qt(this, "ionKnobMoveEnd", 7), this.rangeId = "ion-r-" + K++, this.didLoad = !1, this.noUpdate = !1, this.hasFocus = !1, this.inheritedAttributes = {}, this.contentEl = null, this.initialContentScrollY = !0, this.focusFromPointer = !1, this.ratioA = 0, this.ratioB = 0, this.name = this.rangeId, this.dualKnobs = !1, this.min = 0, this.max = 100, this.pin = !1, this.pinFormatter = (e) => Math.round(e), this.snaps = !1, this.step = 1, this.ticks = !0, this.disabled = !1, this.value = 0, this.compareValues = (e, t) => "object" == typeof e && "object" == typeof t ? e.lower !== t.lower || e.upper !== t.upper : e !== t, this.clampBounds = (e) => h$21(this.min, e, this.max), this.ensureValueInBounds = (e) => this.dualKnobs ? {
+		super(), !1 !== e && this.__registerHost(), this.__attachShadow(), this.ionChange = Qt(this, "ionChange", 7), this.ionInput = Qt(this, "ionInput", 7), this.ionFocus = Qt(this, "ionFocus", 7), this.ionBlur = Qt(this, "ionBlur", 7), this.ionKnobMoveStart = Qt(this, "ionKnobMoveStart", 7), this.ionKnobMoveEnd = Qt(this, "ionKnobMoveEnd", 7), this.rangeId = "ion-r-" + K++, this.didLoad = !1, this.noUpdate = !1, this.hasFocus = !1, this.inheritedAttributes = {}, this.contentEl = null, this.initialContentScrollY = !0, this.focusFromPointer = !1, this.ratioA = 0, this.ratioB = 0, this.name = this.rangeId, this.dualKnobs = !1, this.min = 0, this.max = 100, this.pin = !1, this.pinFormatter = (e) => Math.round(e), this.snaps = !1, this.step = 1, this.ticks = !0, this.disabled = !1, this.value = 0, this.compareValues = (e, t) => "object" == typeof e && "object" == typeof t ? e.lower !== t.lower || e.upper !== t.upper : e !== t, this.clampBounds = (e) => h$20(this.min, e, this.max), this.ensureValueInBounds = (e) => this.dualKnobs ? {
 			lower: this.clampBounds(e.lower),
 			upper: this.clampBounds(e.upper)
 		} : this.clampBounds(e), this.labelPlacement = "start", this.setupGesture = async () => {
 			const e = this.rangeSlider;
-			e && (this.gesture = (await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n)).createGesture({
+			e && (this.gesture = (await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n)).createGesture({
 				el: e,
 				gestureName: "range",
 				gesturePriority: 100,
@@ -25616,7 +25617,7 @@ var f = Jn(class extends A$5 {
 		}, this.handleKeyboard = (e, t) => {
 			const { ensureValueInBounds: a } = this;
 			let n = this.step;
-			n = n > 0 ? n : 1, n /= this.max - this.min, t || (n *= -1), "A" === e ? this.ratioA = h$21(0, this.ratioA + n, 1) : this.ratioB = h$21(0, this.ratioB + n, 1), this.ionKnobMoveStart.emit({ value: a(this.value) }), this.updateValue(), this.emitValueChange(), this.ionKnobMoveEnd.emit({ value: a(this.value) });
+			n = n > 0 ? n : 1, n /= this.max - this.min, t || (n *= -1), "A" === e ? this.ratioA = h$20(0, this.ratioA + n, 1) : this.ratioB = h$20(0, this.ratioB + n, 1), this.ionKnobMoveStart.emit({ value: a(this.value) }), this.updateValue(), this.emitValueChange(), this.ionKnobMoveEnd.emit({ value: a(this.value) });
 		}, this.onBlur = () => {
 			this.hasFocus && (this.hasFocus = !1, this.focusedKnob = void 0, this.ionBlur.emit());
 		}, this.onFocus = () => {
@@ -25697,12 +25698,12 @@ var f = Jn(class extends A$5 {
 	}
 	update(e) {
 		const t = this.rect;
-		let a = h$21(0, (e - t.left) / t.width, 1);
+		let a = h$20(0, (e - t.left) / t.width, 1);
 		r$35(this.el) && (a = 1 - a), this.snaps && (a = z$2(y$3(a, this.min, this.max, this.step), this.min, this.max)), "A" === this.pressedKnob ? this.ratioA = a : this.ratioB = a, this.updateValue();
 	}
 	setPressedKnob(e) {
 		const t = this.rect = this.rangeSlider.getBoundingClientRect();
-		let a = h$21(0, (e - t.left) / t.width, 1);
+		let a = h$20(0, (e - t.left) / t.width, 1);
 		r$35(this.el) && (a = 1 - a), this.pressedKnob = !this.dualKnobs || Math.abs(this.ratioA - a) < Math.abs(this.ratioB - a) ? "A" : "B";
 	}
 	get valA() {
@@ -26021,9 +26022,9 @@ var y$3 = (e, t, a, n) => {
 			return E$7(e) ? e % 1 == 0 ? 0 : ("" + e).split(".")[1].length : 0;
 		}(e))));
 		return Number(e.toFixed(a));
-	}(h$21(t, r, a), t, a, n);
+	}(h$20(t, r, a), t, a, n);
 };
-var z$2 = (e, t, a) => h$21(0, (e - t) / (a - t), 1);
+var z$2 = (e, t, a) => h$20(0, (e - t) / (a - t), 1);
 var K = 0;
 var C$2 = function() {
 	"undefined" != typeof customElements && ["ion-range"].forEach(((e) => {
@@ -26628,7 +26629,7 @@ var u = Jn(class extends A$5 {
 	async componentDidLoad() {
 		this.segmentViewEl = this.getSegmentView(), this.setCheckedClasses(), f$28((() => {
 			this.scrollActiveButtonIntoView(!1);
-		})), this.gesture = (await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n)).createGesture({
+		})), this.gesture = (await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n)).createGesture({
 			el: this.el,
 			gestureName: "segment",
 			gesturePriority: 100,
@@ -28385,7 +28386,7 @@ var y = Jn(class extends A$5 {
 	constructor(t) {
 		super(), !1 !== t && this.__registerHost(), this.__attachShadow(), this.ionChange = Qt(this, "ionChange", 7), this.ionFocus = Qt(this, "ionFocus", 7), this.ionBlur = Qt(this, "ionBlur", 7), this.inputId = "ion-tg-" + z++, this.inputLabelId = this.inputId + "-lbl", this.helperTextId = this.inputId + "-helper-text", this.errorTextId = this.inputId + "-error-text", this.lastDrag = 0, this.inheritedAttributes = {}, this.didLoad = !1, this.activated = !1, this.isInvalid = !1, this.name = this.inputId, this.checked = !1, this.disabled = !1, this.value = "on", this.enableOnOffLabels = n$18.get("toggleOnOffLabels"), this.labelPlacement = "start", this.required = !1, this.setupGesture = async () => {
 			const { toggleTrack: t } = this;
-			t && (this.gesture = (await import("./p-D0YpjgON-DlbOmPwz.js").then((n) => n.n)).createGesture({
+			t && (this.gesture = (await import("./p-D0YpjgON-CFPypUnW.js").then((n) => n.n)).createGesture({
 				el: t,
 				gestureName: "toggle",
 				gesturePriority: 100,
