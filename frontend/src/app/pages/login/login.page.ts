@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonSpinner } from '@ionic/angular';
-import { TimeoutError, finalize, timeout } from 'rxjs';
+import { IonButton, IonContent, IonIcon, IonInput, IonItem} from '@ionic/angular';
+import { TimeoutError} from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
@@ -13,31 +13,26 @@ import { lockClosedOutline, mailOutline, logInOutline, alertCircleOutline, arrow
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.css'],
-  imports: [IonContent, CommonModule, FormsModule, IonItem, IonButton, IonIcon, RouterModule, IonInput,IonSpinner]
+  imports: [IonContent, CommonModule, FormsModule, IonItem, IonButton, IonIcon, RouterModule, IonInput]
 })
 export class LoginPage {
   email = '';
   password = '';
   loginMessage = '';
-  isLoggingIn = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router:Router
+  ) {
     addIcons({ mailOutline, lockClosedOutline, logInOutline,alertCircleOutline,arrowBackCircleOutline,leafOutline });
   }
 
   onLogin() {
-    if (this.isLoggingIn) return;
-
     this.loginMessage = '';
-    this.isLoggingIn = true;
-    this.authService.login(this.email, this.password).pipe(
-      timeout({ first: 15000 }),
-      finalize(() => {
-        this.isLoggingIn = false;
-      })
-    ).subscribe({
+    this.authService.login(this.email, this.password).subscribe({
       next: () => {
-        this.router.navigateByUrl('/dashboard', { replaceUrl: true });
+        this.router.navigate(['/dashboard'],{replaceUrl:true});
+        this.loginMessage = "Login avvenuto con successo";
       },
       error: (err: unknown) => {
         if (err instanceof TimeoutError) {

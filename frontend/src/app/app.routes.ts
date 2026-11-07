@@ -3,9 +3,14 @@ import { authGuard } from './guards/auth.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
+  //Reindirizzamento iniziale
   {
     path: '',
-    pathMatch: 'full',
+    redirectTo: 'home',
+    pathMatch:'full'
+  },
+  {
+    path: 'home',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
@@ -25,7 +30,6 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        canActivate: [authGuard],
         loadComponent: () => import('./pages/dashboard/dashboard.page').then((m) => m.DashboardPage)
       },
       {
@@ -35,6 +39,10 @@ export const routes: Routes = [
       {
         path: 'pantry',
         loadComponent: () => import('./pages/pantry/pantry.page').then((m) => m.PantryPage)
+      },
+      {
+        path: 'shopping-list',
+        loadComponent: () => import('./pages/shopping-list/shopping-list.page').then((m) => m.ShoppingListPage)
       },
       /*{
         path: 'profile',
@@ -46,6 +54,10 @@ export const routes: Routes = [
   //Fallback per le rotte che non esistono
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'home'
+  },
+  {
+    path: 'shopping-list',
+    loadComponent: () => import('./pages/shopping-list/shopping-list.page').then( m => m.ShoppingListPage)
   }
 ];

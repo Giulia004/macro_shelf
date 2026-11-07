@@ -1,5 +1,5 @@
 export interface JwtPayload {
-    sub: string; // ID univoco dell'utente (UUID da Prisma)
+    sub: number; // ID univoco dell'utente
     email: string;
     iat?: number; // Issued at
     exp?: number; // Expiration

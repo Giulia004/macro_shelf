@@ -1,13 +1,12 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { environment } from "../environments/environment";
 import { Observable, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { User } from "./user.service";
-import { Router } from "@angular/router";
+import { Gender, User } from "./user.service";
 
 export interface AuthResponse {
     access_token: string;
-    user: Pick<User, 'id' | 'email' | 'name' | 'surname' | 'isOnboardingCompleted' | 'isPremium'>;
+    user: Pick<User, 'id' | 'email' | 'name' | 'surname'>;
 }
 
 @Injectable({

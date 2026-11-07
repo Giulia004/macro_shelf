@@ -1,227 +1,111 @@
-import { BadRequestException, Injectable, Logger, NotFoundException, ServiceUnavailableException, UnprocessableEntityException } from "@nestjs/common";
-import { PrismaService } from "../prisma/prisma.service.js";
-import { ProductResponse } from "./interfaces/product-response.interface.js";
+import { BadGatewayException, BadRequestException, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { CreateProductDto } from "./dto/create-product.dto.js";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Product } from "./product.entity.js";
+import { UpdateProductDto } from "./dto/update-product.dto.js";
 
 @Injectable()
 export class ProductsService {
     private readonly logger = new Logger(ProductsService.name);
 
-    constructor(private prisma: PrismaService) { }
+    constructor(@InjectRepository(Product) private readonly productRepository: Repository<Product>) { }
 
-    private toProductResponse(product: any): ProductResponse {
-        return {
-            id: product.id,
-            barcode: product.barcode,
-            name: product.name,
-            brand: product.brand,
-            imageUrl: product.imageUrl,
-            unit: product.unit,
-            calories: product.calories,
-            proteins: product.proteins,
-            carbs: product.carbs,
-            fats: product.fats,
-            fiber: product.fiber ?? null,
-            sugar: product.sugar ?? null,
-            saturatedFat: product.saturatedFat ?? null,
-            salt: product.salt ?? null,
-            nutritionBaseValue: product.nutritionBaseValue,
-            nutritionBaseUnit: product.nutritionBaseUnit,
-            isCustom: product.isCustom ?? false,
-            userId: product.userId ?? null,
-            dataSource: product.dataSource,
-            isVerified: product.isVerified,
-            createdAt: new Date(product.createdAt).toISOString(),
-            updatedAt: new Date(product.updatedAt).toISOString(),
-        };
-    }
-
-    async findAll(search?: string, userId?: string): Promise<ProductResponse[]> {
-        const andConditions: any[] = [];
-
-        // Filtro di ricerca per testo
-        if (search?.trim()) {
-            andConditions.push({
-                OR: [
-                    { name: { contains: search.trim() } },
-                    { brand: { contains: search.trim() } },
-                    { barcode: { contains: search.trim() } },
-                ],
-            });
-        }
-
-        // Mostra i prodotti del catalogo pubblico OPPURE quelli creati dall'utente corrente
-        if (userId) {
-            andConditions.push({
-                OR: [
-                    { isCustom: false },
-                    { userId },
-                ],
-            });
-        } else {
-            andConditions.push({ isCustom: false });
-        }
-
-        const products = await this.prisma.product.findMany({
-            where: { AND: andConditions },
-            orderBy: { name: 'asc' },
-            take: 40,
+    //Aggiunta prodotto al catalogo
+    async create(createProductDto: CreateProductDto): Promise<Product> {
+        const existing = await this.productRepository.findOne({
+            where: { barcode: createProductDto.barcode }
         });
 
-        return products.map((product) => this.toProductResponse(product));
+        if (existing)
+            throw new BadRequestException("Esiste già questo prodotto");
+
+        const product = await this.productRepository.create(createProductDto);
+        return await this.productRepository.save(product);
     }
 
-    async findOne(id: string): Promise<ProductResponse> {
-        const product = await this.prisma.product.findUnique({
+    async findAll(): Promise<Product[]> {
+        return await this.productRepository.find();
+    }
+
+    async findOne(id: number): Promise<Product> {
+        const product = await this.productRepository.findOne({
             where: { id }
         });
 
-        if (!product) {
-            throw new NotFoundException("Prodotto non trovato nel catalogo");
-        }
+        if (!product)
+            throw new NotFoundException("Prodotto non trovato");
 
-        return this.toProductResponse(product);
+        return product;
     }
 
-    async create(dto: CreateProductDto, userId?: string): Promise<ProductResponse> {
-        // Se c'è un barcode, verifichiamo che non sia già presente
-        if (dto.barcode?.trim()) {
-            const existing = await this.prisma.product.findUnique({
-                where: { barcode: dto.barcode.trim() }
-            });
-            if (existing) {
-                throw new BadRequestException("Esiste già un prodotto registrato con questo codice a barre");
-            }
-        }
-
-        const product = await this.prisma.product.create({
-            data: {
-                name: dto.name.trim(),
-                barcode: dto.barcode?.trim() || null,
-                brand: dto.brand?.trim() || null,
-                imageUrl: dto.imageUrl || null,
-                unit: "g",
-                calories: dto.calories,
-                proteins: dto.proteins,
-                carbs: dto.carbs,
-                fats: dto.fats,
-                fiber: dto.fiber ?? null,
-                sugar: dto.sugar ?? null,
-                saturatedFat: dto.saturatedFat ?? null,
-                salt: dto.salt ?? null,
-                nutritionBaseValue: dto.nutritionBaseValue ?? 100,
-                nutritionBaseUnit: dto.nutritionBaseUnit ?? "g",
-                dataSource: dto.dataSource?.trim() || (userId ? "UserCustom" : "Manual"),
-                isCustom: !!userId,
-                userId: userId || null,
-                isVerified: false,
-            },
-        });
-
-        return this.toProductResponse(product);
-    }
-
-    async resolveByBarcode(barcode: string): Promise<ProductResponse> {
-        const normalizeBarcode = barcode.trim();
-
-        if (!normalizeBarcode) {
-            throw new UnprocessableEntityException("Il codice a barre non può essere vuoto");
-        }
-
-        // 1. Cerchiamo prima nella cache/database locale
-        const product = await this.prisma.product.findUnique({
-            where: { barcode: normalizeBarcode }
+    // Ricerca per barcode: restituisce un oggetto strutturato { product, source }
+    async findByBarcode(barcode: string): Promise<{ product: Product | null; source: 'catalog' | 'openfoodfacts' | 'none' }> {
+        // 1. Cerca nel database locale (catalogo)
+        let product = await this.productRepository.findOne({
+            where: { barcode }
         });
 
         if (product) {
-            return this.toProductResponse(product);
+            return { product, source: 'catalog' };
         }
 
-        // 2. Se non presente, interroghiamo Open Food Facts con User-Agent appropriato
-        let response: Response;
+        this.logger.log(`Prodotto con barcode ${barcode} non trovato localmente. Interrogo Open Food Facts...`);
+
+        let data: { status?: number; product?: Record<string, any> };
         try {
-            response = await fetch(
-                `https://world.openfoodfacts.org/api/v0/product/${encodeURIComponent(normalizeBarcode)}.json`,
-                {
-                    headers: {
-                        'User-Agent': 'MacroShelf - MobileApp/1.0 (contact@macroshelf.app)',
-                    },
-                    signal: AbortSignal.timeout(6000),
-                },
-            );
-        } catch (error) {
-            this.logger.warn(
-                `Open Food Facts non raggiungibile: ${error instanceof Error ? error.message : "errore sconosciuto"}`,
-            );
-            throw new ServiceUnavailableException(
-                "Il servizio di ricerca prodotti è temporaneamente indisponibile",
-            );
-        }
+            const response = await fetch(`https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(barcode)}.json`, {
+                headers: { 'User-Agent': 'MacroShelf/1.0 (dev@macroshelf.local)' },
+                signal: AbortSignal.timeout(10000),
+            });
+            if (!response.ok) {
+                throw new Error(`Open Food Facts ha risposto con HTTP ${response.status}`);
+            }
 
-        if (!response.ok) {
-            this.logger.warn(`Open Food Facts ha risposto con HTTP ${response.status}`);
-            throw new ServiceUnavailableException("Errore durante la ricerca del prodotto");
-        }
-
-        let data: any;
-        try {
             data = await response.json();
-        } catch {
-            throw new ServiceUnavailableException("Risposta non valida dal servizio prodotti");
+        } catch (error) {
+            this.logger.error(`Errore durante la chiamata a Open Food Facts: ${error}`);
+            throw new BadGatewayException('Open Food Facts non è al momento raggiungibile');
         }
 
-        if (data?.status !== 1 || !data.product) {
-            throw new NotFoundException("Prodotto non trovato su Open Food Facts");
+        if (data.status !== 1 || !data.product) {
+            return { product: null, source: 'none' };
         }
 
-        const offProduct = data.product;
-        const nutriments = offProduct.nutriments ?? {};
+        const ext = data.product;
+        const nutriments = ext.nutriments || {};
 
-        const calories = nutriments["energy-kcal_100g"];
-        const proteins = nutriments["proteins_100g"];
-        const carbs = nutriments["carbohydrates_100g"];
-        const fats = nutriments["fat_100g"];
-
-        const nutritionValues = [calories, proteins, carbs, fats];
-        const hasCompleteNutrition = nutritionValues.every(
-            (value) => typeof value === "number" && Number.isFinite(value) && value >= 0,
-        );
-
-        if (!hasCompleteNutrition) {
-            throw new UnprocessableEntityException(
-                "Il prodotto è presente, ma i dati nutrizionali di base sono incompleti",
-            );
-        }
-
-        // Estraiamo anche i macro accessori se disponibili
-        const fiber = typeof nutriments["fiber_100g"] === "number" ? nutriments["fiber_100g"] : null;
-        const sugar = typeof nutriments["sugars_100g"] === "number" ? nutriments["sugars_100g"] : null;
-        const saturatedFat = typeof nutriments["saturated-fat_100g"] === "number" ? nutriments["saturated-fat_100g"] : null;
-        const salt = typeof nutriments["salt_100g"] === "number" ? nutriments["salt_100g"] : null;
-
-        const createdProduct = await this.prisma.product.create({
-            data: {
-                barcode: normalizeBarcode,
-                name: offProduct.product_name?.trim() || "Prodotto senza nome",
-                brand: offProduct.brands || null,
-                imageUrl: offProduct.image_front_url || null,
-                unit: "g",
-                calories,
-                proteins,
-                carbs,
-                fats,
-                fiber,
-                sugar,
-                saturatedFat,
-                salt,
-                nutritionBaseValue: 100,
-                nutritionBaseUnit: "g",
-                dataSource: "OpenFoodFacts",
-                isCustom: false,
-                isVerified: false,
-            },
+        // Crea il prodotto in modo che sia già disponibile nel catalogo locale per le prossime volte
+        const newProduct = this.productRepository.create({
+            barcode,
+            name: ext.product_name || ext.product_name_it || 'Prodotto sconosciuto',
+            brand: ext.brands || null,
+            unit: 'g',
+            calories: nutriments['energy-kcal_100g'] || nutriments['energy-kcal'] || 0,
+            proteins: nutriments['proteins_100g'] || 0,
+            carbs: nutriments['carbohydrates_100g'] || 0,
+            fats: nutriments['fat_100g'] || 0,
+            sugar: nutriments['sugars_100g'] || null,
+            saturatedFat: nutriments['saturated-fat_100g'] || null,
+            fiber: nutriments['fiber_100g'] || nutriments['fibers_100g'] || null,
+            salt: nutriments['salt_100g'] || null,
+            category: ext.categories || 'Generico',
+            imageUrl: ext.image_front_url || ext.image_url || null,
         });
 
-        return this.toProductResponse(createdProduct);
+        const savedProduct = await this.productRepository.save(newProduct);
+
+        return { product: savedProduct, source: 'openfoodfacts' };
     }
+    async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
+        const product = await this.findOne(id);
+        Object.assign(product, updateProductDto);
+        return await this.productRepository.save(product);
+    }
+
+    async remove(id: number): Promise<void> {
+        const product = await this.findOne(id);
+        await this.productRepository.remove(product);
+    }
+
 }

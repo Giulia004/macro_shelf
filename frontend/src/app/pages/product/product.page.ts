@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonCard, IonContent, IonHeader, IonIcon, IonSpinner, IonTitle, IonToolbar, ToastController, IonButton, IonButtons, IonBackButton } from '@ionic/angular';
 import { Product, ProductService } from '../../../services/product.service';
 import { addIcons } from 'ionicons';
-import { addOutline, alertCircleOutline, barcodeOutline, businessOutline, nutritionOutline, searchOutline } from 'ionicons/icons';
+import { addOutline, alertCircleOutline, barcodeOutline, businessOutline, flameOutline, nutritionOutline, searchOutline } from 'ionicons/icons';
 import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
 import { PantryService } from '../../../services/pantry.service';
 import { FilterComponent, PantryFilter } from '../../components/filter/filter.component';
@@ -46,7 +46,7 @@ export class ProductPage implements OnInit {
 
   constructor() {
     addIcons({
-      searchOutline, nutritionOutline, alertCircleOutline, barcodeOutline, businessOutline, addOutline
+      searchOutline, nutritionOutline, alertCircleOutline, barcodeOutline, businessOutline, addOutline, flameOutline
     });
   }
 
@@ -56,11 +56,11 @@ export class ProductPage implements OnInit {
 
   loadProducts() {
     this.isLoading.set(true);
-    this.productService.getProducts().subscribe({
+    this.productService.getAllProducts().subscribe({
       next: (data) => {
         this.products.set(data);
         this.isLoading.set(false);
-        console.log("Prodotti catalogo:",data);
+        console.log("Prodotti catalogo:", data);
       },
       error: async (err) => {
         console.error("Errore durante il caricamento dei prodotti", err);
@@ -110,13 +110,14 @@ export class ProductPage implements OnInit {
         position: 'bottom',
         icon: 'add--outline'
       });
-      console.log(this.pantryService.getItems());
       await toast.present();
-    } catch (error) {
+      
+    } catch (error: any) {
       console.error("Errore salvataggio in dispensa:", error);
       const toast = await this.toastController.create({
-        message: "Errore durante l'aggiunta alla dispensa.",
-        duration: 2000,
+        // Mostra il messaggio reale dell'errore sullo schermo del telefono
+        message: "Errore: " + (error?.message || JSON.stringify(error)),
+        duration: 5000,
         color: 'danger',
         position: 'bottom',
         icon: 'alert-circle-outline'

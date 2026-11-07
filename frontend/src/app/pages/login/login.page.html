@@ -53,15 +53,8 @@
       }
 
       <!-- Accesso -->
-      <ion-button expand="block" class="login-submit" (click)="onLogin()" [disabled]="isLoggingIn">
-
-        @if(isLoggingIn){
-        <ion-spinner name="crescent" slot="start"></ion-spinner>
-        }@else {
-        <ion-icon name="log-in-outline" slot="start"> </ion-icon>
-        }
-
-        {{ isLoggingIn ? 'Accesso in corso...' : 'Accedi' }}
+      <ion-button expand="block" class="login-submit" (click)="onLogin()">
+        <ion-icon name="log-in-outline" slot="start"> <span>Entra</span></ion-icon>
       </ion-button>
 
       <p class="register-prompt">

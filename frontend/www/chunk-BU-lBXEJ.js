@@ -1,1 +1,0 @@
-var t={production:!0,apiUrl:`http://${window.location.hostname}:3000`};export{t};

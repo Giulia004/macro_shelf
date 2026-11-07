@@ -1,91 +1,103 @@
 {
-  "hash": "00f5670c",
-  "configHash": "d1f3076b",
-  "lockfileHash": "15b941e5",
-  "browserHash": "7a5e7c21",
+  "hash": "a7b4ca34",
+  "configHash": "bd5fc605",
+  "lockfileHash": "506c67eb",
+  "browserHash": "490be2ff",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "fe51dd1f",
+      "fileHash": "fd6ee8f8",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "1902abfb",
+      "fileHash": "5660a9a9",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "6ccb1895",
+      "fileHash": "d01dc4b8",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "6427dd56",
+      "fileHash": "6705c988",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "e02b6f62",
+      "fileHash": "9b1dd1f3",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "45fac0ea",
+      "fileHash": "824faf79",
       "needsInterop": false
     },
     "@capacitor-community/sqlite": {
       "src": "../../../../../../node_modules/@capacitor-community/sqlite/dist/esm/index.js",
       "file": "@capacitor-community_sqlite.js",
-      "fileHash": "c58a8d23",
+      "fileHash": "ed2472bf",
+      "needsInterop": false
+    },
+    "@capacitor/app": {
+      "src": "../../../../../../node_modules/@capacitor/app/dist/esm/index.js",
+      "file": "@capacitor_app.js",
+      "fileHash": "4c76752f",
       "needsInterop": false
     },
     "@capacitor/barcode-scanner": {
       "src": "../../../../../../node_modules/@capacitor/barcode-scanner/dist/esm/index.js",
       "file": "@capacitor_barcode-scanner.js",
-      "fileHash": "151c72c1",
+      "fileHash": "20e871c7",
       "needsInterop": false
     },
     "@capacitor/core": {
       "src": "../../../../../../node_modules/@capacitor/core/dist/index.js",
       "file": "@capacitor_core.js",
-      "fileHash": "96269ab4",
+      "fileHash": "70167241",
+      "needsInterop": false
+    },
+    "@capacitor/local-notifications": {
+      "src": "../../../../../../node_modules/@capacitor/local-notifications/dist/esm/index.js",
+      "file": "@capacitor_local-notifications.js",
+      "fileHash": "ae1d44cb",
       "needsInterop": false
     },
     "@ionic/angular": {
       "src": "../../../../../../node_modules/@ionic/angular/dist/standalone/index.js",
       "file": "@ionic_angular.js",
-      "fileHash": "61b22e48",
+      "fileHash": "381c9d4f",
       "needsInterop": false
     },
     "ionicons": {
       "src": "../../../../../../node_modules/ionicons/dist/index.js",
       "file": "ionicons.js",
-      "fileHash": "e8a4af2b",
+      "fileHash": "fb002b47",
       "needsInterop": false
     },
     "ionicons/icons": {
       "src": "../../../../../../node_modules/ionicons/icons/index.mjs",
       "file": "ionicons_icons.js",
-      "fileHash": "6f2dd7bb",
+      "fileHash": "c1f2af81",
       "needsInterop": false
     },
     "jeep-sqlite": {
       "src": "../../../../../../node_modules/jeep-sqlite/dist/index.js",
       "file": "jeep-sqlite.js",
-      "fileHash": "cd5ed3ab",
+      "fileHash": "73dfd3ae",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "3b28603e",
+      "fileHash": "18b87616",
       "needsInterop": false
     }
   },
@@ -170,8 +182,16 @@
       "file": "web-5HRmOAZ0.js",
       "isDynamicEntry": true
     },
+    "web-8YuiPUEH": {
+      "file": "web-8YuiPUEH.js",
+      "isDynamicEntry": true
+    },
     "web-aJY9TuDV": {
       "file": "web-aJY9TuDV.js",
+      "isDynamicEntry": true
+    },
+    "web-qs773if8": {
+      "file": "web-qs773if8.js",
       "isDynamicEntry": true
     }
   }

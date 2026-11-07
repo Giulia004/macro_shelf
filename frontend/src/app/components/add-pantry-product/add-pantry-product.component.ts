@@ -1,22 +1,23 @@
-import { Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { PantryService } from '../../../services/pantry.service';
-import { CreateProductPayload, Product, ProductCategory, ProductService } from '../../../services/product.service';
+import { CreateProductPayload, PantryCategory, Product, ProductService } from '../../../services/product.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonNote, IonSelectOption, IonSpinner, IonTitle, IonToolbar, ModalController } from '@ionic/angular';
+import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonInput, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar, ModalController } from '@ionic/angular';
 import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { scanOutline, searchOutline } from 'ionicons/icons';
+import { alertCircleOutline, checkmarkCircleOutline, closeOutline, scanOutline, searchOutline } from 'ionicons/icons';
 
 type ProductSource = 'catalog' | 'cache' | 'openfoodfacts' | 'manual';
+type MessageType = 'warning' | 'success';
 
 @Component({
   selector: 'app-add-pantry-product',
   templateUrl: './add-pantry-product.component.html',
   styleUrls: ['./add-pantry-product.component.css'],
   standalone: true,
-  imports: [IonContent,IonHeader,IonToolbar,IonTitle,IonButtons,IonButton,IonIcon,IonItem,IonInput,CommonModule,FormsModule,ReactiveFormsModule,IonSpinner,IonNote,IonSelectOption],
+  imports: [IonContent,IonFooter,IonHeader,IonToolbar,IonTitle,IonButtons,IonButton,IonSelectOption,IonSelect,IonIcon,IonInput,CommonModule,FormsModule,ReactiveFormsModule,IonSpinner],
 })
 export class AddPantryProductComponent {
 
@@ -24,7 +25,7 @@ export class AddPantryProductComponent {
 
   constructor() {
     addIcons({
-      searchOutline, scanOutline
+      searchOutline, scanOutline,checkmarkCircleOutline,closeOutline,alertCircleOutline
     });
   }
   private readonly fb = inject(FormBuilder);
@@ -37,6 +38,7 @@ export class AddPantryProductComponent {
   readonly saving = signal(false);
   readonly error = signal('');
   readonly message = signal('');
+  readonly messageType = signal<MessageType>('warning');
   readonly source = signal<ProductSource>('manual');
   readonly foundProduct = signal(false);
 
@@ -45,7 +47,7 @@ export class AddPantryProductComponent {
     name: ['', [Validators.required, Validators.maxLength(150)]],
     brand: [''],
     imageUrl: [''],
-    category: ['altro' as ProductCategory, Validators.required],
+    category: ['altro' as PantryCategory, Validators.required],
 
     calories: [0, [Validators.min(0)]],
     proteins: [0, [Validators.min(0)]],
@@ -73,6 +75,7 @@ export class AddPantryProductComponent {
   async scanBarcode(): Promise<void> {
     this.error.set('');
     this.message.set('');
+    this.messageType.set('warning');
     this.scanning.set(true);
 
     try {
@@ -109,11 +112,12 @@ export class AddPantryProductComponent {
     this.loading.set(true);
     this.error.set('');
     this.message.set('');
+    this.messageType.set('warning');
     this.existingProduct = null;
     this.foundProduct.set(false);
 
     try {
-      const result = await this.products.findByBarcode(barcode);
+      const result = await firstValueFrom(this.products.findByBarcode(barcode));
 
       if (!result.product) {
         this.form.patchValue({
@@ -133,6 +137,7 @@ export class AddPantryProductComponent {
         });
 
         this.source.set('manual');
+        this.messageType.set('warning');
         this.message.set(
           'Prodotto non trovato. Puoi inserire i dati manualmente.'
         );
@@ -140,8 +145,9 @@ export class AddPantryProductComponent {
       }
 
       const product = result.product;
-      this.existingProduct = result.source === 'catalog' ? product : null;
-      this.source.set(result.source === 'none' ? 'manual' : result.source);
+      // The backend also saves Open Food Facts results in the local catalog.
+      this.existingProduct = product;
+      this.source.set(result.source);
       this.foundProduct.set(true);
 
       this.form.patchValue({
@@ -165,10 +171,9 @@ export class AddPantryProductComponent {
       this.message.set(
         result.source === 'catalog'
           ? 'Prodotto trovato nel catalogo globale.'
-          : result.source === 'cache'
-            ? 'Prodotto trovato nella cache locale.'
-            : 'Prodotto trovato online. Controlla i dati prima di confermare.'
+          : 'Prodotto trovato online. Controlla i dati prima di confermare.'
       );
+      this.messageType.set('success');
     } catch (error) {
       console.error('Ricerca barcode:', error);
       this.error.set('Ricerca non riuscita. Puoi compilare i dati manualmente.');
@@ -177,7 +182,7 @@ export class AddPantryProductComponent {
     }
   }
 
-  private normalizeCategory(value: string | null): ProductCategory {
+  private normalizeCategory(value: string | null): PantryCategory {
     const category = (value ?? '').toLowerCase();
 
     if (category.includes('frutta') || category.includes('verdura')) {

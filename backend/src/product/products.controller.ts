@@ -1,36 +1,47 @@
-import { Body, Controller, Get, Param, Post, Query, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { ProductsService } from "./products.service.js";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard.js";
-import { ProductResponse } from "./interfaces/product-response.interface.js";
+import { PaginatedProductsResponse, ProductResponse } from "./dto/product-response.dto.js";
 import { CreateProductDto } from "./dto/create-product.dto.js";
 import type { AuthRequest } from "../auth/interfaces/auth-request.interface.js";
+import { UpdateProductDto } from "./dto/update-product.dto.js";
 
 @UseGuards(JwtAuthGuard)
 @Controller('products')
 export class ProductsController {
     constructor(private productsService: ProductsService) { }
 
-    @Get()
-    findAll(@Req() req: AuthRequest, @Query('search') search?: string): Promise<ProductResponse[]> {
-        const userId = req.user?.sub;
-        return this.productsService.findAll(search,userId);
+    @Post()
+    create(@Body() createProductDto: CreateProductDto) {
+        return this.productsService.create(createProductDto);
     }
 
-    //Endpoint per il codice a barre
-    @Get('barcode/:barcode')
-    resolveByBarcode(@Param('barcode') barcode: string): Promise<ProductResponse> {
-        return this.productsService.resolveByBarcode(barcode);
+    //Lista di tutti i prodotti presenti nel catalogo
+    @Get()
+    findAll() {
+        return this.productsService.findAll();
     }
-    
+
+    //Recupero del prodotto mediante barcode
+    @Get('barcode/:barcode')
+    findByBarcode(@Param('barcode') barcode: string) {
+        return this.productsService.findByBarcode(barcode);
+    }
+
+    //Recupero del prodotto mediante l'id
     @Get(':id')
-    async findOne(@Param('id') id: string): Promise<ProductResponse> {
+    findOne(@Param('id', ParseIntPipe) id:number) {
         return this.productsService.findOne(id);
     }
 
-    @Post()
-    create(@Req() req: AuthRequest, @Body() body: CreateProductDto): Promise<ProductResponse> {
-        const userId = req.user?.sub;
-        return this.productsService.create(body,userId);
+    //Aggiornamento di un prodotto
+    @Patch(':id')
+    update(@Param('int', ParseIntPipe) id: number,@Body() updateProductDto:UpdateProductDto) {
+        return this.productsService.update(+id, updateProductDto);
     }
 
+    @Delete('id')
+    remove(@Param('id', ParseIntPipe) id: number) {
+        return this.productsService.remove(id);
+    }
 }

@@ -1,78 +1,69 @@
-import {
-    IsString,
-    IsOptional,
-    IsNumber,
-    Min,
-    IsUrl,
-    IsIn,
-    IsNotEmpty,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsNumber, Min, MaxLength } from 'class-validator';
 
 export class CreateProductDto {
     @IsString()
-    @IsNotEmpty({ message: "Il nome del prodotto è obbligatorio" })
+    @IsNotEmpty()
+    @MaxLength(150)
     name: string;
 
     @IsString()
+    @IsNotEmpty()
+    @MaxLength(50)
+    barcode: string;
+
     @IsOptional()
-    barcode?: string;
+    @IsString()
+    @MaxLength(150)
+    brand?: string;
 
     @IsString()
     @IsOptional()
-    brand?: string;
+    @MaxLength(20)
+    unit?: string;
 
-    @IsUrl({}, { message: "Formato URL immagine non valido" })
-    @IsOptional()
-    imageUrl?: string;
-
-    @IsNumber({ allowNaN: false, allowInfinity: false }, { message: "Le calorie devono essere un numero" })
+    @IsNumber()
     @Min(0)
     calories: number;
 
-    @IsNumber({ allowNaN: false, allowInfinity: false }, { message: "Le proteine devono essere un numero" })
+    @IsNumber()
     @Min(0)
     proteins: number;
 
-    @IsNumber({ allowNaN: false, allowInfinity: false }, { message: "I carboidrati devono essere un numero" })
+    @IsNumber()
     @Min(0)
     carbs: number;
 
-    @IsNumber({ allowNaN: false, allowInfinity: false }, { message: "I grassi devono essere un numero" })
+    @IsNumber()
     @Min(0)
     fats: number;
 
-    // Nuovi macro accessori opzionali
-    @IsNumber({ allowNaN: false, allowInfinity: false })
-    @Min(0)
+    // --- Nuovi campi opzionali per i dettagli nutrizionali ---
     @IsOptional()
-    fiber?: number;
-
-    @IsNumber({ allowNaN: false, allowInfinity: false })
+    @IsNumber()
     @Min(0)
-    @IsOptional()
     sugar?: number;
 
-    @IsNumber({ allowNaN: false, allowInfinity: false })
-    @Min(0)
     @IsOptional()
+    @IsNumber()
+    @Min(0)
     saturatedFat?: number;
 
-    @IsNumber({ allowNaN: false, allowInfinity: false })
-    @Min(0)
     @IsOptional()
+    @IsNumber()
+    @Min(0)
+    fiber?: number;
+
+    @IsOptional()
+    @IsNumber()
+    @Min(0)
     salt?: number;
 
-    @IsNumber({ allowNaN: false, allowInfinity: false })
-    @Min(0.001)
-    @IsOptional()
-    nutritionBaseValue?: number;
-
     @IsString()
-    @IsIn(['g', 'ml'])
-    @IsOptional()
-    nutritionBaseUnit?: string;
+    @IsNotEmpty()
+    category: string;
 
-    @IsString()
     @IsOptional()
-    dataSource?: string;
+    @IsString()
+    @MaxLength(500)
+    imageUrl?: string;
 }

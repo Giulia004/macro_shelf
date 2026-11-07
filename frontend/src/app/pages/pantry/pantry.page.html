@@ -1,59 +1,83 @@
-<ion-header class="ion-no-border pantry-header">
-  <ion-toolbar class="pantry-toolbar">
-    <div class="pantry-heading">
-      <div>
-        <span class="eyebrow">LA TUA CUCINA, SOTTO CONTROLLO</span>
-        <ion-title>La mia dispensa</ion-title>
-        <p>Organizza gli ingredienti e riduci gli sprechi.</p>
+<ion-content class="pantry-bg" [fullscreen]="true">
+
+  <main class="pantry-page">
+
+    <!-- HEADER -->
+    <section class="pantry-intro">
+      <div class="intro-content">
+        <h1>La mia dispensa</h1>
+        <p>Tieni sotto controllo i tuoi alimenti e riduci gli sprechi.</p>
       </div>
 
-      <div class="pantry-heading-icon">
-        <ion-icon name="basket-outline"></ion-icon>
+      <div class="intro-actions" style="display: flex; gap: 10px; align-items: center;">
+        <!--Pulsante per aprire la lista della spesa-->
+        <ion-button fill="clear" class="shopping-nav-bar" (click)="openShoppingList()" title="Lista della spesa">
+          <ion-icon name="cart-outline" slot="icon-only"></ion-icon>
+        </ion-button>
       </div>
-    </div>
-  </ion-toolbar>
+    </section>
 
-  <ion-toolbar class="pantry-toolbar pantry-search-toolbar">
-    <app-searchbar [placeholder]="'Cerca per nome o brand'" (searchChange)="onSearchInput($event)">
-    </app-searchbar>
+    <!-- RICERCA E AGGIUNTA -->
+    <section class="pantry-controls">
 
-    <ion-button expand="block" class="add-product-button" (click)="openAddModal()">
-      <ion-icon name="add-outline" slot="start"></ion-icon>
-      Aggiungi prodotto
-    </ion-button>
-  </ion-toolbar>
-</ion-header>
+      <div class="search-container">
+        <app-searchbar [placeholder]="'Cerca per nome o brand'" (searchChange)="onSearchInput($event)">
+        </app-searchbar>
+      </div>
 
-<ion-content class="pantry-bg">
-  <main class="pantry-container">
+      <ion-button expand="block" class="add-product-button" (click)="openAddModal()">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        Aggiungi prodotto
+      </ion-button>
 
+    </section>
+
+    <!-- CARICAMENTO -->
     @if (isLoading()) {
-    <div class="pantry-state">
+
+    <section class="pantry-state">
       <ion-spinner name="crescent" color="success"></ion-spinner>
-      <p>Caricamento della dispensa...</p>
-    </div>
-    } @else if (pantryItems().length === 0) {
+      <h3>Prepariamo la tua dispensa...</h3>
+      <p>Stiamo recuperando i tuoi prodotti.</p>
+    </section>
+
+    }
+
+    <!-- DISPENSA VUOTA -->
+    @else if (pantryItems().length === 0) {
+
     <section class="pantry-empty">
+
       <div class="empty-icon">
         <ion-icon name="basket-outline"></ion-icon>
       </div>
 
       <span class="eyebrow">SI COMINCIA DA QUI</span>
+
       <h2>La tua dispensa è vuota</h2>
 
       <p>
-        Aggiungi gli alimenti che hai in casa per tenerli organizzati
-        e trovare più facilmente idee per i tuoi pasti.
+        Aggiungi gli alimenti che hai in casa per organizzare
+        meglio la tua cucina e ridurre gli sprechi.
       </p>
 
       <ion-button class="add-product-button empty-add-button" (click)="openAddModal()">
         <ion-icon name="add-outline" slot="start"></ion-icon>
         Aggiungi il primo prodotto
       </ion-button>
+
     </section>
-    } @else {
+
+    }
+
+    <!-- DISPENSA CON PRODOTTI -->
+    @else {
+
+    <!-- RIEPILOGO -->
     <section class="pantry-summary">
-      <div>
+
+      <div class="summary-content">
+
         <span class="eyebrow">IL TUO INVENTARIO</span>
 
         <h2>
@@ -61,135 +85,234 @@
           {{ pantryItems().length === 1 ? 'prodotto' : 'prodotti' }}
         </h2>
 
-        <p>Quello che hai già a disposizione.</p>
+        <p>Gli alimenti disponibili nella tua cucina.</p>
+
       </div>
 
       <div class="summary-icon">
         <ion-icon name="leaf-outline"></ion-icon>
       </div>
+
     </section>
 
-    <app-filter [item]="pantryItems()" (filterChange)="onFilterChange($event)">
-    </app-filter>
+    <!-- FILTRI -->
+    <section class="filter-section">
+      <app-filter [item]="pantryItems()" (filterChange)="onFilterChange($event)">
+      </app-filter>
+    </section>
 
+    <!-- RICERCA SENZA RISULTATI -->
     @if (filteredItems().length === 0) {
+
     <section class="pantry-empty search-empty">
+
       <div class="empty-icon">
         <ion-icon name="search-outline"></ion-icon>
       </div>
 
       <h2>Nessun prodotto trovato</h2>
+
       <p>
-        Prova a modificare la ricerca per trovare quello che cerchi.
+        Non abbiamo trovato alimenti corrispondenti.
+        Prova a modificare la ricerca o i filtri.
       </p>
+
     </section>
-    } @else {
-    <div class="products-heading">
-      <h2>I tuoi alimenti</h2>
-      <span>{{ filteredItems().length }} risultati</span>
-    </div>
 
-    <div class="pantry-product-list">
-      @for (item of filteredItems(); track item.id) {
-      <ion-card class="pantry-product-card">
+    }
 
-        <div class="product-top">
-          <div class="product-icon">
-            <ion-icon name="nutrition-outline"></ion-icon>
-          </div>
+    <!-- LISTA PRODOTTI -->
+    @else {
 
-          <div class="product-info">
-            <h3>{{ item.name }}</h3>
+    <section class="products-section">
 
-            @if (item.brand) {
-            <p class="product-brand">
-              <ion-icon name="business-outline"></ion-icon>
-              {{ item.brand }}
-            </p>
-            }
-          </div>
+      <div class="products-heading">
 
-          <div class="quantity-badge">
-            <strong>
-              Quantità: {{ item.quantity }} {{ item.unit }}
-            </strong>
-          </div>
+        <div>
+          <span class="eyebrow">LA TUA CUCINA</span>
+          <h2>I tuoi alimenti</h2>
         </div>
 
-        @if (item.expiryDate) {
-        <div class="expiry-row">
-          <ion-icon name="calendar-outline"></ion-icon>
-          <span>Scadenza</span>
-          <strong>
-            {{ item.expiryDate | date:'dd/MM/yyyy' }}
-          </strong>
-        </div>
+        <span class="results-count">
+          {{ filteredItems().length }}
+          {{ filteredItems().length === 1 ? 'risultato' : 'risultati' }}
+        </span>
+
+      </div>
+
+      <div class="pantry-product-grid">
+
+        @for (item of filteredItems(); track item.id) {
+
+        <ion-card class="pantry-product-card">
+
+          <!-- PARTE SUPERIORE (Miniatura/Icona, Nome, Brand, Quantità) -->
+          <div class="product-top">
+
+            <div class="product-thumbnail">
+              @if (item.imageUrl) {
+              <img [src]="item.imageUrl" [alt]="item.name" />
+              } @else {
+              <div class="product-icon-fallback">
+                <ion-icon
+                  [name]="item.name.toLowerCase().includes('acqua') || item.name.toLowerCase().includes('water') ? 'water-outline' : 'nutrition-outline'"></ion-icon>
+              </div>
+              }
+            </div>
+
+            <div class="product-info">
+              @if (item.category) {
+              <span class="product-category-tag">{{ item.category }}</span>
+              }
+              <h3>{{ item.name }}</h3>
+
+              @if (item.brand) {
+              <p class="product-brand">
+                <ion-icon name="business-outline"></ion-icon>
+                {{ item.brand }}
+              </p>
+              }
+            </div>
+
+            <div class="quantity-badge">
+              <span>Disponibile</span>
+              <strong>{{ item.quantity }}</strong>
+            </div>
+
+          </div>
+
+          <!-- SCADENZA -->
+          @if (item.expiryDate) {
+
+          <div class="expiry-row">
+
+            <div class="expiry-icon">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+
+            <div class="expiry-info">
+              <span>Data di scadenza</span>
+              <strong>
+                {{ item.expiryDate | date:'dd/MM/yyyy' }}
+              </strong>
+            </div>
+
+          </div>
+
+          }
+
+          <!-- VALORI NUTRIZIONALI (Mostrati SOLO SE NON È ACQUA) -->
+          @if (item.name.toLowerCase() !== 'acqua' && item.name.toLowerCase() !== 'water') {
+
+          <div class="nutrition-section">
+
+            <div class="nutrition-heading">
+              <div class="nutrition-title">
+                <ion-icon name="analytics-outline"></ion-icon>
+                <strong>Valori nutrizionali</strong>
+              </div>
+
+              <span>Per 100 g</span>
+            </div>
+
+            <div class="nutrition-grid">
+
+              <div class="nutrition-item calories-item">
+                <div class="nutrition-label">
+                  <ion-icon name="flame-outline"></ion-icon>
+                  <span>Calorie</span>
+                </div>
+
+                <strong>
+                  {{ item.calories | number:'1.0-0' }}
+                  <small>kcal</small>
+                </strong>
+              </div>
+
+              <div class="nutrition-item protein-item">
+                <div class="nutrition-label">
+                  <ion-icon name="fitness-outline"></ion-icon>
+                  <span>Proteine</span>
+                </div>
+
+                <strong>
+                  {{ item.proteins }}
+                  <small>g</small>
+                </strong>
+              </div>
+
+              <div class="nutrition-item carbs-item">
+                <div class="nutrition-label">
+                  <ion-icon name="nutrition-outline"></ion-icon>
+                  <span>Carboidrati</span>
+                </div>
+
+                <strong>
+                  {{ item.carbs }}
+                  <small>g</small>
+                </strong>
+              </div>
+
+              <div class="nutrition-item sugars-item">
+                <div class="nutrition-label">
+                  <ion-icon name="cube-outline"></ion-icon>
+                  <span>Zuccheri</span>
+                </div>
+
+                <strong>
+                  {{ item.sugar ?? 0 }}
+                  <small>g</small>
+                </strong>
+              </div>
+
+              <div class="nutrition-item fats-item">
+                <div class="nutrition-label">
+                  <ion-icon name="water-outline"></ion-icon>
+                  <span>Grassi</span>
+                </div>
+
+                <strong>
+                  {{ item.fats }}
+                  <small>g</small>
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+          } @else {
+
+          <!-- VISTA MINIMAL PER L'ACQUA -->
+          <div class="water-card-note"
+            style="padding: 12px 16px; color: var(--ion-color-medium); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+            <ion-icon name="water-outline" color="primary"></ion-icon>
+            <span>Idratazione pura (Nessun valore nutrizionale)</span>
+          </div>
+
+          }
+
+          <!-- AZIONI -->
+          <div class="product-actions">
+
+            <ion-button fill="outline" color="danger" class="remove-button" size="small" (click)="consumeItem(item)">
+              Consuma
+            </ion-button>
+
+          </div>
+
+        </ion-card>
+
         }
 
-        <div class="nutrition-section">
-          <div class="nutrition-heading">
-            <ion-icon name="analytics-outline"></ion-icon>
-            <span>Valori nutrizionali</span>
-            <span>Per 100 g</span>
-          </div>
+      </div>
 
-          <div class="nutrition-grid">
-            <div class="nutrition-item calories-item">
-              <span>Calorie</span>
-              <strong>
-                {{ item.calories | number:'1.0-0' }}
-                <small>kcal</small>
-              </strong>
-            </div>
+    </section>
 
-            <div class="nutrition-item protein-item">
-              <span>Proteine</span>
-              <strong>
-                {{ item.proteins }}
-                <small>g</small>
-              </strong>
-            </div>
-
-            <div class="nutrition-item carbs-item">
-              <span>Carboidrati</span>
-              <strong>
-                {{ item.carbs }}
-                <small>g</small>
-              </strong>
-            </div>
-
-            <div class="nutrition-item fats-item">
-              <span>Grassi</span>
-              <strong>
-                {{ item.fats }}
-                <small>g</small>
-              </strong>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-actions">
-          <ion-button fill="clear" class="remove-button" size="small" (click)="removeItem(item)">
-            <ion-icon name="trash-outline" slot="start"></ion-icon>
-            Rimuovi
-          </ion-button>
-        </div>
-
-      </ion-card>
-      }
-    </div>
     }
+
     }
 
   </main>
+
 </ion-content>
-
-<!-- Modal per aggiungere un prodotto alla dispensa -->
-<ion-modal [isOpen]="isAddModalOpen()" [breakpoints]="[0, 0.85, 1]" [initialBreakpoint]="0.85" [handle]="true"
-  [backdropDismiss]="false" (didDismiss)="onAddModalDismiss($event)">
-
-  <ng-template>
-    <app-add-pantry-product></app-add-pantry-product>
-  </ng-template>
-
-</ion-modal>

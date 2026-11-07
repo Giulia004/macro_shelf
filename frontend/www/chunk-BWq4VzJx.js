@@ -1,0 +1,1 @@
+import{r as U}from"./chunk-Cc0Iem_E.js";var t=window.location.hostname;var a={production:!0,apiUrl:`http://${U.isNativePlatform()?`192.168.1.114`:t}:3000`};export{a as t};

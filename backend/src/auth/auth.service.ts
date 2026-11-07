@@ -2,14 +2,14 @@ import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { RegisterDto } from "./dto/register.dto.js";
-import { PrismaService } from "../prisma/prisma.service.js";
 import { LoginDto } from "./dto/login.dto.js";
 import { JwtPayload } from "./interfaces/jwt-payload.interface.js";
+import { UsersService } from "../users/users.service.js";
 
 @Injectable()
 export class AuthService {
     constructor(
-        private prismaService: PrismaService,
+        private userService: UsersService,
         private jwtService: JwtService
     ) { }
 
@@ -17,9 +17,7 @@ export class AuthService {
         const normalizedEmail = register.email.toLowerCase().trim();
 
         // Verifico se l'email esiste già
-        const existingUser = await this.prismaService.user.findUnique({
-            where: { email: normalizedEmail }
-        });
+        const existingUser = await this.userService.findByEmail(normalizedEmail);
 
         if (existingUser) {
             throw new BadRequestException("Email già associata ad un account");
@@ -27,14 +25,13 @@ export class AuthService {
 
         const hashedPassword = await bcrypt.hash(register.password, 10);
 
-        // Creazione dell'utente su database con i default da schema Prisma
-        const user = await this.prismaService.user.create({
-            data: {
-                email: normalizedEmail,
-                password: hashedPassword,
-                name: register.name.trim(),
-                surname: register.surname.trim(),
-            },
+        // Create a free-tier account with a hashed password.
+        const user = await this.userService.create({
+            email: normalizedEmail,
+            passwordHash: hashedPassword,
+            name: register.name.trim(),
+            surname: register.surname.trim(),
+            isPremium: false,
         });
 
         const payload: JwtPayload = { sub: user.id, email: user.email };
@@ -47,7 +44,8 @@ export class AuthService {
                 email: user.email,
                 name: user.name,
                 surname: user.surname,
-                isOnboardingCompleted: user.isOnboardingCompleted,
+                age: user.age,
+                gender:user.gender,
                 isPremium: user.isPremium,
             }
         };
@@ -60,20 +58,21 @@ export class AuthService {
 
         const normalizedEmail = login.email.toLowerCase().trim();
 
-        const user = await this.prismaService.user.findUnique({
-            where: { email: normalizedEmail }
-        });
+        const user = await this.userService.findByEmail(normalizedEmail);
+        if (!user) {
+            throw new UnauthorizedException("Credenziali non valide");
+        }
 
         if (!user) {
             throw new UnauthorizedException("Credenziali non valide");
         }
 
-        const isPasswordValid = await bcrypt.compare(login.password, user.password);
+        const isPasswordValid = await bcrypt.compare(login.password, user.passwordHash);
         if (!isPasswordValid) {
             throw new UnauthorizedException("Credenziali non valide");
         }
 
-        const payload: JwtPayload = { sub: user.id, email: user.email };
+        const payload: JwtPayload = { sub:user.id,email:user.email };
         const access_token = this.jwtService.sign(payload);
 
         return {
@@ -83,7 +82,8 @@ export class AuthService {
                 email: user.email,
                 name: user.name,
                 surname: user.surname,
-                isOnboardingCompleted: user.isOnboardingCompleted,
+                age: user.age,
+                gender:user.gender,
                 isPremium: user.isPremium,
             }
         };

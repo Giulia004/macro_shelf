@@ -1,0 +1,106 @@
+<ion-content class="shopping-bg" [fullscreen]="true">
+
+  <main class="shopping-page">
+
+    <!-- HEADER -->
+    <section class="shopping-intro">
+      <div class="intro-actions-left">
+        <ion-button fill="clear" class="back-btn" (click)="goBack()">
+          <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="intro-content">
+        <span class="eyebrow">MACROSHELF</span>
+        <h1>Lista della spesa</h1>
+        <p>Segna ciò che manca e acquista con ordine.</p>
+      </div>
+
+      <div class="intro-icon">
+        <ion-icon name="cart-outline"></ion-icon>
+      </div>
+    </section>
+
+    <!-- AGGIUNTA RAPIDA -->
+    <section class="shopping-controls">
+      <div class="input-container">
+        <ion-input [(ngModel)]="newItemName" placeholder="Aggiungi un prodotto alla spesa..." clearInput="true"
+          (keyup.enter)="addItem()">
+        </ion-input>
+      </div>
+
+      <ion-button class="add-shopping-button" (click)="addItem()">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        Aggiungi
+      </ion-button>
+    </section>
+
+    <!-- CARICAMENTO -->
+    @if (isLoading()) {
+    <section class="shopping-state">
+      <ion-spinner name="crescent" color="success"></ion-spinner>
+      <h3>Caricamento spesa...</h3>
+    </section>
+    }
+
+    <!-- LISTA VUOTA -->
+    @else if (shoppingItems().length === 0) {
+    <section class="shopping-empty">
+      <div class="empty-icon">
+        <ion-icon name="cart-outline"></ion-icon>
+      </div>
+      <span class="eyebrow">TUTTO DISPONIBILE</span>
+      <h2>La lista è vuota</h2>
+      <p>Non hai inserito alcun articolo da acquistare per il momento.</p>
+    </section>
+    }
+
+    <!-- LISTA CON ELEMENTI -->
+    @else {
+    <section class="shopping-list-section">
+
+      <div class="list-heading">
+        <div>
+          <span class="eyebrow">ARTICOLI</span>
+          <h2>Da comprare</h2>
+        </div>
+
+        @if (shoppingItems().length > 0) {
+        <ion-button fill="clear" color="medium" size="small" (click)="clearCompleted()">
+          <ion-icon name="trash-outline" slot="start"></ion-icon>
+          Pulisci acquistati
+        </ion-button>
+        }
+      </div>
+
+      <div class="shopping-items-container">
+        @for (item of shoppingItems(); track item.id) {
+        <div class="shopping-item-card" [class.checked]="item.isChecked">
+
+          <div class="item-checkbox" (click)="toggleItem(item)">
+            <ion-icon [name]="item.isChecked ? 'checkbox-outline' : 'square-outline'"></ion-icon>
+          </div>
+
+          <div class="item-details" (click)="toggleItem(item)">
+            <h3>{{ item.name }}</h3>
+            @if (item.brand) {
+            <span class="item-brand">{{ item.brand }}</span>
+            }
+          </div>
+
+          <div class="item-actions">
+            <ion-button fill="clear" color="danger" size="small" (click)="removeItem(item)">
+              <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+          </div>
+
+        </div>
+        }
+      </div>
+
+    </section>
+    }
+
+  </main>
+
+</ion-content>

@@ -4,10 +4,18 @@ import { Product } from "./product.service";
 
 export type PantryItem = PantryItemRecord;
 
+// Funzione di supporto sicura per generare UUID ovunque (compatibile con WebView Android)
+function generateUUID(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 @Injectable({
     providedIn: 'root'
 })
-
 export class PantryService {
     private databaseService = inject(DatabaseService);
 
@@ -28,29 +36,44 @@ export class PantryService {
             throw new RangeError('La quantità da aggiungere deve essere un numero positivo.');
         }
 
-        const prod = await this.databaseService.getItemByProductId(product.id);
-        if (prod) await this.databaseService.adjustQuantity(prod.id, quantity);
-        else {
+        const barcode = product.barcode?.trim();
+        if (barcode && product.id) {
+            await this.databaseService.cacheProduct({ ...product, barcode });
+        }
+
+        const productIdStr = String(product.id);
+
+        // Controllo esistenza prima per barcode (se presente) e poi per ID prodotto
+        let prod = barcode ? await this.databaseService.getItemByBarcode(barcode) : null;
+        if (!prod) {
+            prod = await this.databaseService.getItemByProductId(productIdStr);
+        }
+
+        if (prod) {
+            // Se esiste già nella dispensa, aggiorniamo la quantità sommando il delta
+            await this.databaseService.adjustQuantity(prod.id, quantity);
+        } else {
+            // Altrimenti creiamo un nuovo record con UUID sicuro
             await this.databaseService.addPantryItem({
-                id: 'pantry_' + Date.now(),
-                productId: product.id,
+                id: generateUUID(),
+                productId: productIdStr,
                 name: product.name,
                 brand: product.brand ?? undefined,
-                barcode: product.barcode ?? undefined,
+                barcode: barcode || undefined,
                 imageUrl: product.imageUrl ?? undefined,
                 quantity,
                 expiryDate,
                 minThreshold,
-                calories: product.calories,
-                proteins: product.proteins,
-                carbs: product.carbs,
-                fats: product.fats,
+                calories: product.calories ?? 0,
+                proteins: product.proteins ?? 0,
+                carbs: product.carbs ?? 0,
+                fats: product.fats ?? 0,
                 fiber: product.fiber ?? undefined,
                 sugar: product.sugar ?? undefined,
                 saturatedFat: product.saturatedFat ?? undefined,
                 salt: product.salt ?? undefined,
                 unit,
-                category: product.category
+                category: product.category ?? 'dispensa'
             });
         }
     }

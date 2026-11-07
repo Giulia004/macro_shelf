@@ -1,0 +1,310 @@
+/* =========================================
+   CONFIGURAZIONE GENERALE
+========================================= */
+
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+ion-content.shopping-bg {
+    --background: #f6f7f2;
+    --color: #29392e;
+}
+
+.shopping-page {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    width: 100%;
+    max-width: 900px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 25px 18px 55px;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   TESTI E ACCENTI
+========================================= */
+
+.eyebrow {
+    display: block;
+    color: #66846a;
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.shopping-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.back-btn {
+    --color: #527a62;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid #dce8d7;
+    background: #ffffff;
+}
+
+.intro-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.intro-content h1 {
+    margin: 6px 0 5px;
+    color: #293b30;
+    font-size: clamp(1.5rem, 4vw, 1.9rem);
+    font-weight: 850;
+    letter-spacing: -0.8px;
+}
+
+.intro-content p {
+    margin: 0;
+    color: #7c887d;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.intro-icon {
+    display: flex;
+    flex: 0 0 54px;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 19px;
+    background: #e5eee1;
+    color: #527a62;
+}
+
+.intro-icon ion-icon {
+    font-size: 28px;
+}
+
+/* =========================================
+   CONTROLLI DI AGGIUNTA
+========================================= */
+
+.shopping-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    border: 1px solid #e9ede5;
+    border-radius: 19px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(38, 52, 43, 0.035);
+}
+
+.input-container {
+    width: 100%;
+    background: #f7f9f5;
+    border-radius: 13px;
+    border: 1px solid #e2e8df;
+    padding: 2px 12px;
+}
+
+.input-container ion-input {
+    --color: #2c3c31;
+    --placeholder-color: #899389;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.add-shopping-button {
+    --background: #527a62;
+    --background-hover: #42664e;
+    --background-activated: #365641;
+    --color: #ffffff;
+    --border-radius: 13px;
+    --box-shadow: none;
+    min-height: 44px;
+    margin: 0;
+    font-size: 0.87rem;
+    font-weight: 750;
+    text-transform: none;
+}
+
+/* =========================================
+   LISTA ARTICOLI
+========================================= */
+
+.shopping-list-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.list-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.list-heading h2 {
+    margin: 6px 0 0;
+    color: #293b30;
+    font-size: 1.25rem;
+    font-weight: 850;
+}
+
+.shopping-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.shopping-item-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #e8ece4;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgba(39, 55, 42, 0.03);
+    transition: all 0.2s ease;
+}
+
+.shopping-item-card:hover {
+    border-color: #d1dccd;
+}
+
+.shopping-item-card.checked {
+    background: #f4f6f2;
+    border-color: #e5e9e0;
+    opacity: 0.7;
+}
+
+.shopping-item-card.checked .item-details h3 {
+    text-decoration: line-through;
+    color: #899389;
+}
+
+.item-checkbox {
+    font-size: 24px;
+    color: #527a62;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.item-details {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.item-details h3 {
+    margin: 0 0 2px;
+    color: #2c3c31;
+    font-size: 0.95rem;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.item-brand {
+    color: #899389;
+    font-size: 0.75rem;
+}
+
+.item-actions {
+    flex-shrink: 0;
+}
+
+/* =========================================
+   STATO VUOTO E CARICAMENTO
+========================================= */
+
+.shopping-empty,
+.shopping-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 22px;
+    border: 1px solid #e7ece2;
+    border-radius: 23px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+    margin-bottom: 20px;
+    border-radius: 24px;
+    background: #eaf2e7;
+    color: #527a62;
+}
+
+.empty-icon ion-icon {
+    font-size: 35px;
+}
+
+.shopping-empty h2 {
+    margin: 8px 0 0;
+    color: #293b30;
+    font-size: 1.3rem;
+    font-weight: 850;
+}
+
+.shopping-empty p {
+    max-width: 350px;
+    margin: 12px 0 0;
+    color: #7c887d;
+    font-size: 0.86rem;
+    line-height: 1.6;
+}
+
+.shopping-state ion-spinner {
+    width: 35px;
+    height: 35px;
+}
+
+.shopping-state h3 {
+    margin: 14px 0 0;
+    color: #35483a;
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+/* =========================================
+   MEDIA QUERIES (Tablet / Desktop)
+========================================= */
+
+@media (min-width: 650px) {
+    .shopping-controls {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .input-container {
+        flex: 1;
+    }
+
+    .add-shopping-button {
+        flex: 0 0 160px;
+    }
+}
