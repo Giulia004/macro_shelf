@@ -1,819 +1,825 @@
-/* =========================================
-   CONFIGURAZIONE GENERALE
-========================================= */
+/* ==========================================
+   PANTRY PAGE - MODERN NATURAL UI
+   File: pantry.page.css
+========================================== */
 
 :host {
-  display: block;
+  --pantry-green: #496b4b;
+  --pantry-green-dark: #29432f;
+  --pantry-green-soft: #edf3e9;
+  --pantry-text: #26372b;
+  --pantry-muted: #899488;
+  --pantry-bg: #f6f8f3;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   min-height: 0;
 }
 
-ion-content.pantry-bg {
-  --background: #f6f7f2;
-  --color: #29392e;
-  --overflow: auto;
+/* HEADER */
+
+.pantry-header {
+  background: #ffffff;
+}
+
+.pantry-toolbar {
+  --background: #ffffff;
+  --border-width: 0;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+.main-toolbar {
+  min-height: 68px;
+  padding-top: env(safe-area-inset-top);
+}
+
+.main-toolbar ion-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-inline: 8px;
+}
+
+.header-eyebrow {
+  display: block;
+  margin-bottom: 3px;
+  color: #96a28f;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.header-title {
+  display: block;
+  color: var(--pantry-text);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.back-btn,
+.shopping-nav-btn {
+  --color: var(--pantry-text);
+  --border-radius: 13px;
+  width: 42px;
+  height: 42px;
+}
+
+.back-btn ion-icon,
+.shopping-nav-btn ion-icon {
+  font-size: 21px;
+}
+
+.header-icon-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shopping-badge {
+  position: absolute;
+  top: -9px;
+  right: -11px;
+  min-width: 17px;
+  height: 17px;
+  padding: 2px 4px;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  font-size: 9px;
+}
+
+/* SEARCH AND FILTERS */
+
+.controls-toolbar {
+  padding-top: 5px;
+  padding-bottom: 12px;
+}
+
+.search-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.add-quick-btn {
+  --background: var(--pantry-green);
+  --background-activated: var(--pantry-green-dark);
+  --color: #fff;
+  --border-radius: 14px;
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  flex: 0 0 46px;
+  box-shadow: 0 5px 12px rgba(73, 107, 75, .18);
+}
+
+.add-quick-btn ion-icon {
+  font-size: 23px;
+}
+
+.filter-wrap {
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+/* PAGE BACKGROUND */
+
+.pantry-bg {
+  flex: 1;
+  --background: var(--pantry-bg);
 }
 
 .pantry-page {
-  display: flex;
-  flex-direction: column;
-  gap: 23px;
-
   width: 100%;
-  max-width: 1250px;
+  max-width: 760px;
   min-height: 100%;
-
   margin: 0 auto;
-  padding: 25px 18px 55px;
-
-  box-sizing: border-box;
+  padding: 20px 16px calc(95px + env(safe-area-inset-bottom, 0px));
 }
 
-/* =========================================
-   COLORI E TESTI
-========================================= */
+/* COMMON TYPOGRAPHY */
 
+.section-kicker,
 .eyebrow {
-  display: block;
-  color: #66846a;
-  font-size: 0.67rem;
+  color: #899985;
+  font-size: 9px;
   font-weight: 800;
-  letter-spacing: 1.3px;
-  text-transform: uppercase;
+  letter-spacing: 1.35px;
 }
 
-/* =========================================
-   HEADER
-========================================= */
+/* OVERVIEW */
 
-.pantry-intro {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-.intro-content {
-  min-width: 0;
-}
-
-.intro-content h1 {
-  margin: 6px 0 5px;
-  color: #293b30;
-  font-size: clamp(1.65rem, 5vw, 2rem);
-  font-weight: 850;
-  letter-spacing: -0.8px;
-}
-
-.intro-content p {
-  max-width: 390px;
-  margin: 0;
-  color: #7c887d;
-  font-size: 0.86rem;
-  line-height: 1.5;
-}
-
-.intro-icon {
-  display: flex;
-  flex: 0 0 54px;
-  align-items: center;
-  justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 19px;
-  background: #e5eee1;
-  color: #527a62;
-}
-
-.intro-icon ion-icon {
-  font-size: 29px;
-}
-
-/* =========================================
-   RICERCA E PULSANTE
-========================================= */
-
-.pantry-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 15px;
-  border: 1px solid #e9ede5;
-  border-radius: 19px;
-  background: #ffffff;
-  box-shadow: 0 4px 15px rgba(38, 52, 43, 0.035);
-}
-
-.search-container {
-  width: 100%;
-  min-width: 0;
-}
-
-.search-container app-searchbar {
-  display: block;
-  width: 100%;
-}
-
-.add-product-button {
-  --background: #527a62;
-  --background-hover: #42664e;
-  --background-activated: #365641;
-  --color: #ffffff;
-  --border-radius: 13px;
-  --box-shadow: none;
-
-  min-height: 46px;
-  margin: 0;
-  font-size: 0.87rem;
-  font-weight: 750;
-  text-transform: none;
-}
-
-.add-product-button ion-icon {
-  font-size: 20px;
-}
-
-/* =========================================
-   RIEPILOGO
-========================================= */
-
-.pantry-summary {
+.pantry-overview {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  min-height: 132px;
+  padding: 21px;
   overflow: hidden;
-  padding: 22px;
-  border: 1px solid #dce8d7;
-  border-radius: 22px;
-  background: linear-gradient(120deg, #e9f1e5, #f1f5eb);
+  border-radius: 23px;
+  background: linear-gradient(120deg, #eaf1e5 0%, #f3f6ed 100%);
 }
 
-.summary-content {
+.overview-copy {
   position: relative;
   z-index: 1;
 }
 
-.summary-content h2 {
-  margin: 8px 0 5px;
-  color: #294d37;
-  font-size: 1.65rem;
-  font-weight: 850;
-}
-
-.summary-content p {
-  margin: 0;
-  color: #728274;
-  font-size: 0.82rem;
-  line-height: 1.5;
-}
-
-.summary-icon {
+.overview-count {
   display: flex;
-  flex: 0 0 55px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.overview-count strong {
+  color: var(--pantry-green-dark);
+  font-size: 37px;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -1.5px;
+}
+
+.overview-count span {
+  color: #536b53;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.overview-copy p {
+  margin: 8px 0 0;
+  color: #84917f;
+  font-size: 11px;
+}
+
+.overview-decoration {
+  position: absolute;
+  top: 50%;
+  right: 23px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 55px;
-  height: 55px;
-  border-radius: 19px;
-  background: rgba(255, 255, 255, 0.85);
-  color: #527a62;
+  width: 91px;
+  height: 91px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .55);
+  color: #86a17d;
 }
 
-.summary-icon ion-icon {
-  font-size: 29px;
+.overview-decoration ion-icon {
+  position: relative;
+  z-index: 1;
+  font-size: 49px;
 }
 
-/* =========================================
-   FILTRI
-========================================= */
-
-.filter-section {
-  width: 100%;
-  min-width: 0;
+.overview-decoration span {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  width: 24px;
+  height: 24px;
+  border: 5px solid #eaf1e5;
+  border-radius: 50%;
+  background: #c3d3b9;
 }
 
-/* =========================================
-   SEZIONE PRODOTTI
-========================================= */
+/* LIST HEADING */
 
-.products-section {
+.list-heading {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.products-heading {
-  display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
+  margin: 27px 1px 15px;
 }
 
-.products-heading h2 {
-  margin: 6px 0 0;
-  color: #293b30;
-  font-size: 1.28rem;
+.list-heading h2 {
+  margin: 5px 0 0;
+  color: var(--pantry-text);
+  font-size: 22px;
   font-weight: 850;
-  letter-spacing: -0.3px;
+  letter-spacing: -.6px;
 }
 
-.results-count {
-  flex-shrink: 0;
-  padding: 7px 11px;
-  border: 1px solid #e1e9dc;
-  border-radius: 20px;
-  background: #edf3e9;
-  color: #527a62;
-  font-size: 0.73rem;
+.recipes-shortcut-btn {
+  --color: var(--pantry-green);
+  --background: #eaf1e6;
+  --background-hover: #e0eadb;
+  --border-radius: 12px;
+  height: 37px;
+  margin: 0;
+  font-size: 11px;
   font-weight: 750;
 }
 
-/* =========================================
-   GRIGLIA CARD
-========================================= */
+/* PRODUCT GRID AND CARDS */
+
+.products-section {
+  width: 100%;
+}
 
 .pantry-product-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 17px;
-  width: 100%;
+  grid-template-columns: 1fr;
+  gap: 13px;
 }
-
-/* =========================================
-   CARD PRODOTTO
-========================================= */
 
 .pantry-product-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 100%;
-  min-width: 0;
+  position: relative;
   margin: 0;
-  padding: 18px;
-  border: 1px solid #e8ece4;
+  padding: 15px;
+  overflow: hidden;
+  border: 1px solid #edf0e9;
   border-radius: 21px;
-  background: #ffffff;
-  box-shadow: 0 5px 19px rgba(39, 55, 42, 0.055);
-  box-sizing: border-box;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(39, 55, 42, 0.08);
-  }
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(37, 58, 39, .045);
+  transition: transform .18s ease, box-shadow .18s ease;
 }
 
-/* =========================================
-   INFORMAZIONI PRODOTTO (Con Miniature)
-========================================= */
+.pantry-product-card:active {
+  transform: scale(.99);
+}
 
-.product-top {
+.pantry-product-card.is-expiring {
+  border-color: #f0d8c3;
+}
+
+/* PRODUCT MAIN */
+
+.product-main {
   display: flex;
   align-items: center;
   gap: 12px;
   min-width: 0;
 }
 
-/* Miniatura immagine prodotto */
-.product-thumbnail {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+.product-thumb {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
   overflow: hidden;
-  flex-shrink: 0;
-  background: #edf3e9;
+  border-radius: 17px;
+  background: #f1f5ed;
+}
+
+.product-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-fallback {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(82, 122, 98, 0.15);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  width: 100%;
+  height: 100%;
+  color: #78936f;
 }
 
-.product-icon-fallback,
-.product-icon {
-  display: flex;
-  flex: 0 0 52px;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: #edf3e9;
-  color: #527a62;
+.thumb-fallback ion-icon {
+  font-size: 31px;
 }
 
-.product-icon ion-icon,
-.product-icon-fallback ion-icon {
-  font-size: 26px;
-}
-
-.product-info {
+.product-details {
   flex: 1;
   min-width: 0;
-
-  h3 {
-    margin: 0 0 4px;
-    overflow-wrap: anywhere;
-    color: #2c3c31;
-    font-size: 0.98rem;
-    font-weight: 800;
-    line-height: 1.35;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }
 
-.product-category-tag {
-  display: inline-block;
-  font-size: 0.6rem;
-  font-weight: 750;
+.category-chip {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  margin-bottom: 6px;
+  padding: 4px 8px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #edf3e9;
+  color: #5e7958;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .45px;
+  text-overflow: ellipsis;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 1px 6px;
-  background: rgba(82, 122, 98, 0.12);
-  color: #527a62;
-  border-radius: 5px;
-  margin-bottom: 3px;
+  white-space: nowrap;
 }
 
-.product-brand {
+.product-details h3 {
+  margin: 0;
+  color: #293b2e;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.brand-text {
+  margin: 4px 0 0;
+  color: #929c90;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.expiry-inline {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 5px;
-  margin: 0;
-  color: #899389;
-  font-size: 0.76rem;
-  line-height: 1.4;
-
-  ion-icon {
-    flex-shrink: 0;
-    font-size: 15px;
-  }
+  margin-top: 8px;
+  color: #8a9586;
+  font-size: 10px;
 }
 
-/* =========================================
-   QUANTITÀ
-========================================= */
+.expiry-inline ion-icon {
+  font-size: 13px;
+}
 
-.quantity-badge {
+.expiry-inline.alert {
+  color: #b97743;
+}
+
+.expiry-label {
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: #fff0e3;
+  color: #a96532;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* QUANTITY */
+
+.qty-control {
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  max-width: 105px;
-  padding: 9px 11px;
-  border-radius: 13px;
-  background: #edf4e9;
-  color: #42664e;
-  text-align: center;
-
-  span {
-    font-size: 0.57rem;
-    font-weight: 800;
-    letter-spacing: 0.6px;
-  }
-
-  strong {
-    overflow-wrap: anywhere;
-    font-size: 0.85rem;
-    font-weight: 850;
-
-    small {
-      font-size: 0.65rem;
-      font-weight: normal;
-      color: #6b8271;
-    }
-  }
+  justify-content: center;
+  gap: 5px;
+  min-width: 61px;
+  padding-left: 7px;
+  border-left: 1px solid #f0f2ed;
 }
 
-/* =========================================
-   SCADENZA
-========================================= */
+.qty-label {
+  color: #9aa397;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .55px;
+  white-space: nowrap;
+}
 
-.expiry-row {
+.qty-number {
+  color: #304b35;
+  font-size: 22px;
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.qty-number small {
+  margin-left: 2px;
+  color: #929d8e;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.qty-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 16px;
-  padding: 11px 12px;
-  border: 1px solid #f3e5d0;
-  border-radius: 13px;
-  background: #fff8ed;
-
-  .expiry-icon {
-    display: flex;
-    flex: 0 0 34px;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: #ffeed6;
-    color: #a66d2e;
-
-    ion-icon {
-      font-size: 19px;
-    }
-  }
-
-  .expiry-info {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    gap: 3px;
-    min-width: 0;
-
-    span {
-      color: #a17b4d;
-      font-size: 0.67rem;
-    }
-
-    strong {
-      color: #875b2d;
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-  }
+  gap: 3px;
 }
 
-/* =========================================
-   VALORI NUTRIZIONALI (Griglia a 5 colonne ottimizzata)
-========================================= */
-
-.nutrition-section {
-  margin-top: 17px;
-  padding-top: 14px;
-  border-top: 1px solid #edf0e9;
-
-  .nutrition-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 11px;
-
-    .nutrition-title {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      color: #35483a;
-      font-size: 0.8rem;
-
-      ion-icon {
-        color: #527a62;
-        font-size: 18px;
-      }
-
-      strong {
-        font-weight: 800;
-      }
-    }
-
-    >span {
-      color: #939c91;
-      font-size: 0.68rem;
-      font-weight: 600;
-    }
-  }
-
-  /* Ora la griglia ospita perfettamente tutti i 5 valori (Kcal, Pro, Carb, Zuc, Grassi) */
-  .nutrition-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 5px;
-
-    .nutrition-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      min-width: 0;
-      padding: 8px 4px;
-      border: 1px solid rgba(0, 0, 0, 0.025);
-      border-radius: 12px;
-      background: #f7f9f5;
-      text-align: center;
-
-      .nutrition-label {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-        color: #788478;
-        font-size: 0.58rem;
-        font-weight: 700;
-        text-transform: uppercase;
-
-        ion-icon {
-          font-size: 14px;
-        }
-      }
-
-      >strong {
-        overflow-wrap: anywhere;
-        color: #34473a;
-        font-size: 0.82rem;
-        font-weight: 850;
-
-        small {
-          font-size: 0.55rem;
-          font-weight: 650;
-        }
-      }
-    }
-  }
+.qty-icon-btn {
+  --color: #527451;
+  --background: #f0f5ed;
+  --background-hover: #e5eee0;
+  --border-radius: 8px;
+  width: 27px;
+  height: 27px;
+  min-height: 27px;
+  margin: 0;
 }
 
-/* Tonalità cromatiche dedicate per ciascun macronutriente */
-.calories-item {
-  background: #fff5ec !important;
-
-  .nutrition-label,
-  >strong {
-    color: #98632c !important;
-  }
+.qty-icon-btn ion-icon {
+  font-size: 15px;
 }
 
-.protein-item {
-  background: #edf4e9 !important;
-
-  .nutrition-label,
-  >strong {
-    color: #42694c !important;
-  }
+.qty-icon-btn[disabled] {
+  opacity: .35;
 }
 
-.carbs-item {
-  background: #fbf5e6 !important;
+/* CONSUME ACTION */
 
-  .nutrition-label,
-  >strong {
-    color: #94702d !important;
-  }
+.consume-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 13px;
+  padding-top: 11px;
+  border-top: 1px solid #f0f2ed;
 }
 
-.sugars-item {
-  background: #fde8e8 !important;
-
-  .nutrition-label,
-  >strong {
-    color: #a54848 !important;
-  }
+.consume-caption {
+  color: #929c90;
+  font-size: 10px;
 }
 
-.fats-item {
-  background: #f2effa !important;
-
-  .nutrition-label,
-  >strong {
-    color: #72609a !important;
-  }
+.consume-btn {
+  --background: #eaf2e6;
+  --background-activated: #dce9d6;
+  --color: #456b47;
+  --border-radius: 10px;
+  --box-shadow: none;
+  height: 32px;
+  margin: 0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1px;
 }
 
-/* Nota minimal per l'acqua */
-.water-card-note {
-  margin-top: 14px;
-  background: rgba(82, 122, 98, 0.08);
-  border-radius: 12px;
-  padding: 10px 14px;
+.consume-btn ion-icon {
+  font-size: 15px;
+}
+
+.consume-btn[disabled] {
+  opacity: .4;
+}
+
+/* NUTRITION */
+
+.nutrition-box {
+  margin-top: 11px;
+  padding: 9px 10px;
+  border-radius: 14px;
+  background: #f7f9f5;
+  border: 1px solid #edf0ea;
+}
+
+.nutrition-header-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed #e3e8df;
+}
+
+.nutrition-label-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #496b4b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.nutrition-label-tag ion-icon {
+  font-size: 13px;
+  color: #527a62;
+}
+
+.nutrition-ref {
+  color: #929b90;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.macros-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+.macro-calories,
+.macro-item {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.macro-calories {
+  color: #c8874c;
+}
+
+.macro-calories ion-icon {
+  font-size: 14px;
+}
+
+.macro-calories strong,
+.macro-item strong {
+  color: #3c4c3d;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.macro-calories span,
+.macro-item span:last-child {
+  color: #929b90;
+  font-size: 9px;
+}
+
+.macro-item {
+  flex-wrap: wrap;
+}
+
+.macro-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+}
+
+.macro-dot.protein {
+  background: #78a5c8;
+}
+
+.macro-dot.carbs {
+  background: #d5ad64;
+}
+
+.macro-dot.fats {
+  background: #a48bc5;
+}
+
+.water-note {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.8rem;
-  color: #3f614d;
-  font-weight: 600;
-
-  ion-icon {
-    font-size: 18px;
-    color: #527a62;
-  }
+  margin-top: 11px;
+  padding: 11px;
+  border-radius: 12px;
+  background: #eff7fa;
+  color: #608b9c;
+  font-size: 11px;
+  font-weight: 650;
 }
 
-/* =========================================
-   RIMOZIONE PRODOTTO
-========================================= */
+.water-note ion-icon {
+  font-size: 16px;
+}
 
-.product-actions {
+/* CARD FOOTER */
+
+.card-footer-actions {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 13px;
-  padding-top: 9px;
-  border-top: 1px solid #eff1ec;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
 }
 
-.remove-button {
-  --color: #c35b53;
-  --background-hover: rgba(195, 91, 83, 0.08);
-  --border-radius: 10px;
-  min-height: 32px;
+.product-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #95a08f;
+  font-size: 10px;
+}
+
+.product-status ion-icon {
+  color: #7da078;
+  font-size: 14px;
+}
+
+.delete-btn {
+  --padding-start: 7px;
+  --padding-end: 7px;
+  height: 29px;
   margin: 0;
-  font-size: 0.75rem;
-  font-weight: 750;
-  text-transform: none;
 }
 
-.shopping-nav-btn {
-  --color: #527a62;
-  --background-hover: rgba(82, 122, 98, 0.08);
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  border: 1px solid #dce8d7;
-  background: #ffffff;
+/* EMPTY AND LOADING STATES */
 
-  ion-icon {
-    font-size: 22px;
-  }
-}
-
-/* =========================================
-   STATO VUOTO E CARICAMENTO
-========================================= */
-
-.pantry-empty,
-.pantry-state {
+.pantry-state,
+.pantry-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 48px 22px;
-  border: 1px solid #e7ece2;
-  border-radius: 23px;
-  background: #ffffff;
   text-align: center;
 }
 
-.empty-icon {
+.state-icon,
+.empty-icon,
+.empty-illustration {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 75px;
-  height: 75px;
-  margin-bottom: 20px;
-  border-radius: 24px;
-  background: #eaf2e7;
-  color: #527a62;
-
-  ion-icon {
-    font-size: 35px;
-  }
+  width: 105px;
+  height: 105px;
+  margin-bottom: 19px;
+  border-radius: 32px;
+  background: #eaf1e5;
+  color: #72916b;
 }
 
-.pantry-empty h2 {
-  margin: 8px 0 0;
-  color: #293b30;
-  font-size: 1.3rem;
-  font-weight: 850;
+.state-icon ion-spinner {
+  width: 34px;
+  height: 34px;
 }
 
-.pantry-empty p {
-  max-width: 390px;
-  margin: 12px 0 0;
-  color: #7c887d;
-  font-size: 0.86rem;
-  line-height: 1.7;
+.empty-illustration>ion-icon {
+  font-size: 53px;
 }
 
-.empty-add-button {
-  margin-top: 22px;
+.empty-sparkle {
+  position: absolute;
+  color: #a5b99a;
 }
 
-.search-empty {
-  padding: 40px 20px;
+.sparkle-one {
+  top: 12px;
+  right: 12px;
+  font-size: 20px;
 }
 
-.pantry-state ion-spinner {
-  width: 37px;
-  height: 37px;
+.sparkle-two {
+  bottom: 14px;
+  left: 13px;
+  font-size: 17px;
 }
 
+.empty-icon ion-icon {
+  font-size: 37px;
+}
+
+.pantry-empty h2,
 .pantry-state h3 {
-  margin: 15px 0 0;
-  color: #35483a;
-  font-size: 1rem;
+  margin: 7px 0;
+  color: var(--pantry-text);
+  font-size: 20px;
   font-weight: 800;
 }
 
+.pantry-empty p,
 .pantry-state p {
-  margin: 7px 0 0;
-  color: #879187;
-  font-size: 0.82rem;
+  max-width: 310px;
+  margin: 5px 0 0;
+  color: #899488;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-/* =========================================
-   MEDIA QUERIES (Responsive Tablet / Desktop)
-========================================= */
+.empty-add-button {
+  --background: var(--pantry-green);
+  --background-activated: var(--pantry-green-dark);
+  --border-radius: 13px;
+  margin-top: 22px;
+  font-size: 12px;
+  font-weight: 750;
+  text-transform: none;
+}
 
-@media (min-width: 650px) {
+.search-empty {
+  padding: 35px 18px;
+}
+
+.search-empty .empty-icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 12px;
+  border-radius: 22px;
+}
+
+.search-empty .empty-icon ion-icon {
+  font-size: 28px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 390px) {
   .pantry-page {
-    padding: 30px 27px 60px;
-    gap: 25px;
-  }
-
-  .pantry-controls {
-    flex-direction: row;
-    align-items: center;
-    gap: 13px;
-  }
-
-  .search-container {
-    flex: 1;
-  }
-
-  .add-product-button {
-    flex: 0 0 215px;
-  }
-
-  .pantry-product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    padding-inline: 12px;
   }
 
   .pantry-product-card {
-    padding: 20px;
-  }
-
-  .pantry-summary {
-    padding: 26px;
-  }
-}
-
-@media (min-width: 1100px) {
-  .pantry-page {
-    padding: 34px 32px 70px;
-    gap: 27px;
-  }
-
-  .pantry-product-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
-  }
-
-  .intro-content h1 {
-    font-size: 2.1rem;
-  }
-}
-
-@media (max-width: 380px) {
-  .pantry-page {
-    padding: 19px 12px 45px;
-    gap: 18px;
-  }
-
-  .intro-icon {
-    flex-basis: 45px;
-    width: 45px;
-    height: 45px;
-  }
-
-  .intro-content h1 {
-    font-size: 1.5rem;
-  }
-
-  .pantry-controls {
     padding: 12px;
   }
 
-  .pantry-product-card {
-    padding: 15px;
+  .product-main {
+    gap: 9px;
   }
 
-  .product-top {
-    gap: 10px;
+  .product-thumb {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+    border-radius: 14px;
   }
 
-  .product-thumbnail,
-  .product-icon {
-    flex-basis: 44px;
-    width: 44px;
-    height: 44px;
+  .product-details h3 {
+    font-size: 13px;
   }
 
-  .quantity-badge {
-    max-width: 88px;
-    padding: 8px;
+  .qty-control {
+    min-width: 54px;
+    padding-left: 5px;
   }
 
-  .nutrition-section .nutrition-grid {
+  .qty-number {
+    font-size: 19px;
+  }
+
+  .qty-label {
+    font-size: 7px;
+  }
+
+  .macros-strip {
+    gap: 4px;
+    padding: 9px 6px;
+  }
+
+  .macro-calories,
+  .macro-item {
     gap: 3px;
   }
 
-  .nutrition-section .nutrition-grid .nutrition-item {
-    padding: 6px 2px;
+  .macro-calories strong,
+  .macro-item strong {
+    font-size: 9px;
   }
 
-  .nutrition-section .nutrition-grid .nutrition-item>strong {
-    font-size: 0.73rem;
+  .macro-calories span,
+  .macro-item span:last-child {
+    font-size: 8px;
+  }
+
+  .consume-caption {
+    font-size: 9px;
+  }
+}
+
+@media (min-width: 600px) {
+  .pantry-page {
+    padding-top: 25px;
+  }
+
+  .pantry-product-grid {
+    gap: 15px;
+  }
+
+  .pantry-product-card {
+    padding: 18px;
   }
 }

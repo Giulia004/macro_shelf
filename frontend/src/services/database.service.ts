@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { SQLiteConnection, CapacitorSQLite, SQLiteDBConnection } from '@capacitor-community/sqlite';
 
@@ -54,6 +54,9 @@ export class DatabaseService {
     private db!: SQLiteDBConnection;
     private isDbReady: boolean = false;
     private initPromise: Promise<void> | null = null;
+
+    //Siagnal per il contatore della spesa
+    readonly shoppingBadgeCount = signal<number>(0);
 
     constructor() { }
 
@@ -455,6 +458,16 @@ export class DatabaseService {
             await this.db.run(query, values);
             await this.persistIfWeb();
             return true;
+        }
+    }
+
+    async loadShoppingBadgeCount() {
+        try {
+            const items = await this.getShopList();
+            const unCheckedCount = items.filter(item => !item.isChecked).length;
+            this.shoppingBadgeCount.set(unCheckedCount);
+        } catch (e) {
+            console.error("Errore aggiornamento badge spesa", e);
         }
     }
 }

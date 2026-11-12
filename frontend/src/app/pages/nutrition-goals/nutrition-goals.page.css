@@ -1,0 +1,474 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+}
+
+.goals-header {
+    box-shadow: none;
+}
+
+.goals-toolbar {
+    --background: #f6f7f2;
+    --border-width: 0;
+    --color: #29392e;
+
+    min-height: 60px;
+    padding: 8px 12px;
+}
+
+.goals-toolbar ion-title {
+    color: #29392e;
+    font-size: 18px;
+    font-weight: 750;
+    letter-spacing: -0.3px;
+}
+
+.goals-toolbar ion-button {
+    --color: #29392e;
+    --background: transparent;
+    --box-shadow: none;
+
+    width: 42px;
+    height: 42px;
+}
+
+.goals-toolbar ion-button ion-icon {
+    font-size: 22px;
+}
+
+.goals-toolbar ion-button[disabled] {
+    opacity: 0.4;
+}
+
+.goals-bg {
+    --background: #f6f7f2;
+}
+
+.goals-page {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 24px 20px calc(100px + env(safe-area-inset-bottom));
+    box-sizing: border-box;
+}
+
+ion-content.goals-bg {
+    --background: #f6f7f2;
+    --padding-bottom: 0px;
+}
+
+.goals-intro {
+    margin-bottom: 20px;
+}
+
+.intro-eyebrow {
+    display: block;
+    margin-bottom: 9px;
+    padding: 0;
+    color: #527a62;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.goals-intro h1 {
+    margin: 0;
+    color: #29392e;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.9px;
+    line-height: 1.2;
+}
+
+.goals-intro p {
+    max-width: 360px;
+    margin: 9px;
+    color: #858e84;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.goals-section {
+    display: block;
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.goals-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: #29392e;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.section-heading p {
+    margin: 5px 0 0;
+    color: #858e84;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.goals-card {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #edf0e9;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 5px 18px rgba(41, 57, 46, 0.04);
+}
+
+.calorie-card {
+    position: relative;
+    overflow: auto;
+    padding: 21px;
+    border: none;
+    border-radius: 24px;
+    background: #29392e;
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(41, 57, 46, 0.13);
+}
+
+.calorie-card::after {
+    content: "";
+    position: absolute;
+    top: -90px;
+    right: -65px;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.055);
+    pointer-events: none;
+}
+
+.calorie-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.macro-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 14px;
+}
+
+.macro-icon ion-icon {
+    font-size: 21px;
+}
+
+.calories-icon {
+    background: rgba(255, 255, 255, 0.13);
+    color: #ffd19b;
+}
+
+.calorie-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.calorie-info h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.calorie-info p {
+    margin: 4px 0 0;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 11px;
+}
+
+.target-badge {
+    flex-shrink: 0;
+    padding: 7px 9px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.09);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+}
+
+
+.calorie-value {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 27px;
+}
+
+.value-number {
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: 850;
+    letter-spacing: -1.8px;
+    line-height: 1.1;
+}
+
+.value-unit {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.calorie-footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 11px;
+}
+
+.calorie-footer ion-icon {
+    color: #a9d4ae;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.macros-card {
+    padding: 6px 10px;
+}
+
+.macro-group {
+    display: block;
+    padding: 18px 0;
+}
+
+/* ========================================
+   INFORMAZIONI MACRO
+======================================== */
+
+.macro-main {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.macro-main .macro-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.macro-info h3 {
+    margin: 0;
+    color: #29392e;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.macro-info p {
+    margin: 4px 0 0;
+    color: #858e84;
+    font-size: 11px;
+}
+
+.protein-icon {
+    background: #e8eee8;
+    color: #527a62;
+}
+
+.carbs-icon {
+    background: #f8f0df;
+    color: #c4933e;
+}
+
+.fats-icon {
+    background: #f0eaf5;
+    color: #9b83b8;
+}
+
+/* ========================================
+   VALORI MACRO
+======================================== */
+
+.macro-value {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.macro-value strong {
+    color: #29392e;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+}
+
+.macro-value span {
+    color: #858e84;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ========================================
+   PROGRESS BAR
+======================================== */
+
+.macro-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.progress-track {
+    flex: 1;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #f0f1ed;
+}
+
+.progress-fill {
+    display: block;
+    height: 100%;
+    min-width: 0;
+    max-width: 100%;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+.protein-fill {
+    background: #527a62;
+}
+
+.carbs-fill {
+    background: #d5a34f;
+}
+
+.fats-fill {
+    background: #9b83b8;
+}
+
+.macro-progress>span {
+    width: 35px;
+    flex-shrink: 0;
+    color: #858e84;
+    font-size: 11px;
+    font-weight: 750;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   DIVISORI E NOTA MACRO
+======================================== */
+
+.macro-divider {
+    width: 100%;
+    height: 1px;
+    background: #edf0e9;
+}
+
+.macro-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin: 12px 3px 0;
+    color: #858e84;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.macro-note ion-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: #527a62;
+    font-size: 15px;
+}
+
+/* ========================================
+   TABLET E DESKTOP
+======================================== */
+
+@media (min-width: 600px) {
+    .goals-page {
+        padding: 30px 24px 80px;
+    }
+
+    .goals-intro h1 {
+        font-size: 34px;
+    }
+
+    .calorie-card {
+        padding: 26px;
+    }
+
+    .value-number {
+        font-size: 50px;
+    }
+
+    .macros-card {
+        padding-right: 22px;
+        padding-left: 22px;
+    }
+}
+
+@media (max-width: 360px) {
+    .goals-page {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .goals-intro h1 {
+        font-size: 26px;
+    }
+
+    .calorie-card {
+        padding: 18px;
+    }
+
+    .target-badge {
+        font-size: 8px;
+        padding: 6px 7px;
+    }
+
+    .value-number {
+        font-size: 39px;
+    }
+
+    .macros-card {
+        padding-right: 13px;
+        padding-left: 13px;
+    }
+
+    .macro-main {
+        gap: 8px;
+    }
+
+    .macro-value strong {
+        font-size: 16px;
+    }
+}

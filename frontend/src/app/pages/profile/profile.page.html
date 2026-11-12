@@ -1,68 +1,87 @@
-<ion-content class="fitness-bg ion-padding">
-  <main class="profile-container mx-auto">
-    <header class="profile-heading">
-      <div class="profile-icon">
-        <ion-icon name="person-circle-outline" aria-hidden="true"></ion-icon>
+<ion-header class="ion-no-border profile-header">
+  <ion-toolbar class="profile-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" class="back-btn" (click)="goBack()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Il tuo account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-bg" [fullscreen]="true">
+  <main class="profile-page">
+
+    <!-- INTRODUZIONE / AVATAR -->
+    <section class="profile-intro-card">
+      <div class="profile-avatar-box">
+        <ion-icon name="person-outline"></ion-icon>
       </div>
-      <div>
-        <p class="eyebrow">ACCOUNT</p>
-        <h1>Il tuo profilo</h1>
-        <p class="profile-description">Aggiorna i tuoi dati personali.</p>
-      </div>
-    </header>
+      <h2>{{ name ? (name + ' ' + surname) : 'Utente MacroShelf' }}</h2>
+      <p>{{ email }}</p>
+    </section>
 
-    <ion-card class="profile-card">
-      <ion-card-content>
-        <div class="profile-fields">
-          <ion-item class="profile-field" lines="none">
-            <ion-icon name="person-outline" slot="start" aria-hidden="true"></ion-icon>
-            <ion-input
-              label="Nome"
-              labelPlacement="stacked"
-              name="name"
-              autocomplete="given-name"
-              maxlength="80"
-              [(ngModel)]="name"
-              placeholder="Inserisci il tuo nome"
-              [disabled]="isLoading || isSaving">
-            </ion-input>
-          </ion-item>
+    <!-- FORM DATI PERSONALI -->
+    <section class="profile-section">
+      <h2 class="section-title">Informazioni personali</h2>
 
-          <ion-item class="profile-field" lines="none">
-            <ion-icon name="person-outline" slot="start" aria-hidden="true"></ion-icon>
-            <ion-input
-              label="Cognome"
-              labelPlacement="stacked"
-              name="surname"
-              autocomplete="family-name"
-              maxlength="80"
-              [(ngModel)]="surname"
-              placeholder="Inserisci il tuo cognome"
-              [disabled]="isLoading || isSaving">
-            </ion-input>
-          </ion-item>
-
-          <ion-item class="profile-field email-field" lines="none">
-            <ion-icon name="mail-outline" slot="start" aria-hidden="true"></ion-icon>
-            <ion-input
-              label="Email"
-              labelPlacement="stacked"
-              type="email"
-              [value]="email"
-              readonly>
-            </ion-input>
-          </ion-item>
+      <div class="profile-card">
+        <div class="input-group">
+          <label>Nome</label>
+          <div class="input-wrapper readonly-field">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input [value]="name" readonly placeholder="Non impostato"></ion-input>
+          </div>
         </div>
 
-        <ion-button
-          expand="block"
-          class="save-profile-button"
-          (click)="saveProfile()"
-          [disabled]="isLoading || isSaving">
-          <ion-icon name="save-outline" slot="start" aria-hidden="true"></ion-icon>
-          {{ isSaving ? 'SALVATAGGIO...' : 'SALVA PROFILO' }}
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
+        <div class="input-divider"></div>
+
+        <div class="input-group">
+          <label>Cognome</label>
+          <div class="input-wrapper readonly-field">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input [value]="surname" readonly placeholder="Non impostato"></ion-input>
+          </div>
+        </div>
+
+        <div class="input-divider"></div>
+
+        <div class="input-group">
+          <label>Indirizzo Email</label>
+          <div class="input-wrapper readonly-field">
+            <ion-icon name="mail-outline"></ion-icon>
+            <ion-input [value]="email" readonly></ion-input>
+          </div>
+        </div>
+
+        <!-- PULSANTE APERTURA MODALE MODIFICA -->
+        <div class="profile-actions-row">
+          <ion-button expand="block" class="edit-profile-button" (click)="openEditModal()" [disabled]="isLoading">
+            <ion-icon name="create-outline" slot="start"></ion-icon>
+            Modifica informazioni
+          </ion-button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SICUREZZA -->
+    <section class="profile-section">
+      <h2 class="section-title">Sicurezza</h2>
+
+      <div class="profile-card security-card" role="button" tabindex="0">
+        <div class="security-info">
+          <div class="security-icon">
+            <ion-icon name="key-outline"></ion-icon>
+          </div>
+          <div class="security-text">
+            <h3>Modifica password</h3>
+            <p>Aggiorna le credenziali di accesso al tuo account</p>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="item-chevron"></ion-icon>
+        </div>
+      </div>
+    </section>
+
   </main>
 </ion-content>

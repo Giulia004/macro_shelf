@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { basketOutline, homeOutline, libraryOutline, logOutOutline, personOutline } from 'ionicons/icons';
+import { basketOutline, homeOutline, libraryOutline, logOutOutline, personOutline, settingsOutline } from 'ionicons/icons';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class BottomNavbarComponent {
 
   constructor(private authService: AuthService, private router: Router) {
     addIcons({
-      homeOutline, basketOutline, libraryOutline, personOutline, logOutOutline
+      homeOutline, basketOutline, libraryOutline, personOutline, logOutOutline,settingsOutline
     });
   }
 
@@ -33,6 +33,12 @@ export class BottomNavbarComponent {
     this.isProfileMenuOpen.set(false);
   }
 
+  //Metodo per navigare alle impostazioni e chiudere il menu
+  goToSettings(): void{
+    this.closeProfileMenu();
+    this.router.navigate(['/settings']);
+  }
+  
   logout() {
     this.authService.logout();
     this.router.navigateByUrl("/login");

@@ -1,0 +1,168 @@
+<ion-header class="ion-no-border goals-header">
+  <ion-toolbar class="goals-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" class="back-btn" (click)="goBack()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Il tuo obiettivo</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="edit-btn" (click)="openEditModal()" [disabled]="isLoading()">
+        <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="goals-bg">
+  <main class="goals-page">
+
+    <!-- INTRO -->
+    <section class="goals-intro">
+      <span class="intro-eyebrow">IL TUO PERCORSO NUTRIZIONALE</span>
+      <h1>I tuoi obiettivi</h1>
+      <p>Monitora e gestisci il tuo fabbisogno nutrizionale quotidiano.</p>
+    </section>
+
+    <!-- CALORIE -->
+    <section class="goals-section">
+      <div class="section-heading">
+        <h2>Fabbisogno energetico</h2>
+      </div>
+
+      <div class="goals-card calorie-card">
+        <div class="calorie-top">
+          <div class="macro-icon calories-icon">
+            <ion-icon name="flame-outline"></ion-icon>
+          </div>
+
+          <div class="calorie-info">
+            <h3>Calorie giornaliere</h3>
+            <p>Il tuo target energetico</p>
+          </div>
+
+          <span class="target-badge">GIORNALIERO</span>
+        </div>
+
+        <div class="calorie-value">
+          <span class="value-number">
+            {{ goals.calories | number:'1.0-0' }}
+          </span>
+          <span class="value-unit">kcal</span>
+        </div>
+
+        <div class="calorie-footer">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          Il tuo obiettivo calorico quotidiano
+        </div>
+      </div>
+    </section>
+
+    <!-- MACRONUTRIENTI -->
+    <section class="goals-section">
+      <div class="section-heading">
+        <div>
+          <h2>Macronutrienti</h2>
+          <p>La distribuzione dei tuoi nutrienti</p>
+        </div>
+      </div>
+
+      <div class="goals-card macros-card">
+
+        <!-- PROTEINE -->
+        <div class="macro-group">
+          <div class="macro-main">
+            <div class="macro-icon protein-icon">
+              <ion-icon name="fitness-outline"></ion-icon>
+            </div>
+
+            <div class="macro-info">
+              <h3>Proteine</h3>
+              <p>Supporto muscolare</p>
+            </div>
+
+            <div class="macro-value">
+              <strong>{{ goals.proteins }}</strong>
+              <span>g</span>
+            </div>
+          </div>
+
+          <div class="macro-progress">
+            <div class="progress-track">
+              <div class="progress-fill protein-fill" [style.width.%]="proteinPercent">
+              </div>
+            </div>
+            <span>{{ proteinPercent }}%</span>
+          </div>
+        </div>
+
+        <div class="macro-divider"></div>
+
+        <!-- CARBOIDRATI -->
+        <div class="macro-group">
+          <div class="macro-main">
+            <div class="macro-icon carbs-icon">
+              <ion-icon name="nutrition-outline"></ion-icon>
+            </div>
+
+            <div class="macro-info">
+              <h3>Carboidrati</h3>
+              <p>Energia quotidiana</p>
+            </div>
+
+            <div class="macro-value">
+              <strong>{{ goals.carbs }}</strong>
+              <span>g</span>
+            </div>
+          </div>
+
+          <div class="macro-progress">
+            <div class="progress-track">
+              <div class="progress-fill carbs-fill" [style.width.%]="carbsPercent">
+              </div>
+            </div>
+            <span>{{ carbsPercent }}%</span>
+          </div>
+        </div>
+
+        <div class="macro-divider"></div>
+
+        <!-- GRASSI -->
+        <div class="macro-group">
+          <div class="macro-main">
+            <div class="macro-icon fats-icon">
+              <ion-icon name="water-outline"></ion-icon>
+            </div>
+
+            <div class="macro-info">
+              <h3>Grassi</h3>
+              <p>Funzioni cellulari</p>
+            </div>
+
+            <div class="macro-value">
+              <strong>{{ goals.fats }}</strong>
+              <span>g</span>
+            </div>
+          </div>
+
+          <div class="macro-progress">
+            <div class="progress-track">
+              <div class="progress-fill fats-fill" [style.width.%]="fatsPercent">
+              </div>
+            </div>
+            <span>{{ fatsPercent }}%</span>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="macro-note">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Percentuali calcolate sulla ripartizione energetica dei macronutrienti.
+      </p>
+    </section>
+
+  </main>
+</ion-content>

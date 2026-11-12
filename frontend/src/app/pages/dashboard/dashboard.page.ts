@@ -2,12 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon } from '@ionic/angular';
-import { UserService } from '../../../services/user.service';
+import { User, UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { BottomNavbarComponent } from '../../components/bottom-navbar/bottom-navbar.component';
 import { addIcons } from 'ionicons';
-import { arrowForwardOutline, basketOutline, flameOutline, informationCircleOutline, leafOutline, nutritionOutline, restaurantOutline, sparklesOutline } from 'ionicons/icons';
+import { arrowForwardOutline, basketOutline, createOutline, eyeOutline, flameOutline, informationCircleOutline, leafOutline, nutritionOutline, restaurantOutline, sparklesOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,16 +26,15 @@ export class DashboardPage implements OnInit {
   //Statistiche con valori di fallback nel caso in cui il DB non abbia ancora i dati
   stats = {
     caloriesConsumed: 0,
-    caloriesTarget: 2000,
-    protein: 120,
-    carbs: 200,
-    fats: 60
+    protein: 0,
+    carbs: 0,
+    fats: 0
   };
 
   readonly Math = Math;
   constructor() {
     addIcons({
-      arrowForwardOutline,basketOutline,flameOutline,informationCircleOutline,leafOutline,nutritionOutline,restaurantOutline,sparklesOutline
+      arrowForwardOutline,basketOutline,flameOutline,informationCircleOutline,leafOutline,nutritionOutline,restaurantOutline,sparklesOutline,eyeOutline
     });
   }
 
@@ -57,13 +56,8 @@ export class DashboardPage implements OnInit {
 
   loadUserProfile() {
     this.userService.getProfile().subscribe({
-      next: (userData:any) => {
+      next: (userData: User) => {
         this.authService.setUserProfile(userData);
-
-        if (userData.targetCalories) this.stats.caloriesTarget = userData.targetCalories;
-        if (userData.targetProtein) this.stats.protein = userData.targetProtein;
-        if (userData.targetCarbs) this.stats.carbs = userData.targetCarbs;
-        if (userData.targetFats) this.stats.fats = userData.targetFats;
       },
       error: (err) => {
         console.error('Errore nel recupero del profilo utente', err);

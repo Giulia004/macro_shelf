@@ -44,10 +44,18 @@ export const routes: Routes = [
         path: 'shopping-list',
         loadComponent: () => import('./pages/shopping-list/shopping-list.page').then((m) => m.ShoppingListPage)
       },
-      /*{
+      {
+        path: 'settings',
+        loadComponent: () => import('./pages/settings/settings.page').then((m) => m.SettingsPage)
+      },
+      {
         path: 'profile',
         loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage)
-      }*/
+      },
+      {
+        path: 'goals',
+        loadComponent: () => import('./pages/nutrition-goals/nutrition-goals.page').then(m => m.NutritionGoalsPage)
+      }
     ]
   },
 
@@ -59,5 +67,13 @@ export const routes: Routes = [
   {
     path: 'shopping-list',
     loadComponent: () => import('./pages/shopping-list/shopping-list.page').then( m => m.ShoppingListPage)
+  },
+  {
+    path: 'settings',
+    loadComponent: () => import('./pages/settings/settings.page').then( m => m.SettingsPage)
+  },
+  {
+    path: 'nutrition-goals',
+    loadComponent: () => import('./pages/nutrition-goals/nutrition-goals.page').then( m => m.NutritionGoalsPage)
   }
 ];

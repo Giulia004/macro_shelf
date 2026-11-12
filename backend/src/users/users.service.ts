@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./user.entity.js";
 import { Repository } from "typeorm";
+import { UpdateNutritionGoalsDto } from "./dto/update-nutrition-goals.dto.js";
 
 export type Gender = 'MALE' | 'FEMALE';
 export interface UserResponse {
@@ -14,6 +15,10 @@ export interface UserResponse {
     isPremium: boolean;
     createdAt: Date;
     updatedAt: Date;
+    calories: number;
+    proteins: number;
+    carbs: number;
+    fats: number;
 }
 
 @Injectable()
@@ -32,7 +37,7 @@ export class UsersService {
         };
     }
 
-    async create(userData: Partial<User>): Promise<User>{
+    async create(userData: Partial<User>): Promise<User> {
         const newUser = this.userRepository.create(userData);
         return await this.userRepository.save(newUser);
     }
@@ -58,6 +63,10 @@ export class UsersService {
                 isPremium: true,
                 createdAt: true,
                 updatedAt: true,
+                calories: true,
+                proteins: true,
+                carbs: true,
+                fats:true
             },
         });
     }
@@ -66,7 +75,7 @@ export class UsersService {
         return await this.findById(userId);
     }
 
-    async updateProfile(userId: number, name: string, surname: string) {
+    async updateProfile(userId: number, name: string, surname: string): Promise<Pick<UserResponse, "name" | "surname">> {
         const normalizedName = name?.trim();
         const normalizedSurname = surname?.trim();
 
@@ -79,5 +88,48 @@ export class UsersService {
             name: normalizedName,
             surname: normalizedSurname
         });
+
+        return {
+            name: normalizedName,
+            surname: normalizedSurname
+        };
+    }
+
+    //Recupero dei target nutrizionali dell'utente
+    async getNutritionGoals(userId: number) {
+        const user = await this.userRepository.findOneBy({ id: userId });
+        if (!user) {
+            throw new NotFoundException("Utente non trovato");
+        }
+
+        return {
+            calories: user.calories,
+            proteins: user.proteins,
+            carbs: user.carbs,
+            fats: user.fats
+        };
+    }
+
+    //Aggiornamento dei target nutrizionali modificati dall'utente
+    async updateNutritionGoals(userId: number, dto: UpdateNutritionGoalsDto) {
+        const user = await this.userRepository.findOneBy({ id: userId });
+        if (!user) {
+            throw new NotFoundException("Utente non trovato");
+        }
+
+        user.calories = dto.calories;
+        user.proteins = dto.proteins;
+        user.carbs = dto.carbs;
+        user.fats = dto.fats;
+
+        await this.userRepository.save(user);
+
+        return {
+            message: 'Obiettivi nutrizionali aggiornati con successo',
+            calories: user.calories,
+            proteins: user.proteins,
+            carbs: user.carbs,
+            fats: user.fats,
+        };
     }
 }

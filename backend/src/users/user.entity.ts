@@ -20,7 +20,7 @@ export class User {
 
     @Column({ type: 'varchar', length: 50, nullable: true })
     age: string;
-    
+
     @Column({ type: 'varchar', length: 20, nullable: true })
     gender: Gender;
 
@@ -32,4 +32,16 @@ export class User {
 
     @CreateDateColumn()
     updatedAt: Date;
+
+    @Column({ type: 'int', default: 2000 })
+    calories: number;
+
+    @Column({ type: 'int', default: 150 })
+    proteins: number;
+
+    @Column({ type: 'int', default: 200 })
+    carbs: number;
+
+    @Column({ type: 'int', default: 65 })
+    fats: number;
 }

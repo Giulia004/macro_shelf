@@ -25,19 +25,27 @@
     <span class="online-dot"></span>
   </button>
 
-  <!-- Menu profilo -->
+  <!-- Menu profilo / account -->
   @if (isProfileMenuOpen()) {
   <div class="profile-menu" role="menu">
 
     <div class="profile-menu-header">
       <div class="profile-avatar">
-        <ion-icon name="person-outline"></ion-icon>
+        <ion-icon name="person-outline" routerLink="/profile"></ion-icon>
       </div>
       <div class="profile-heading">
         <strong>Il mio account</strong>
         <span>Sessione attiva</span>
       </div>
     </div>
+
+    <div class="profile-menu-divider"></div>
+
+    <!-- Pulsante Impostazioni -->
+    <button type="button" class="profile-menu-item" role="menuitem" (click)="goToSettings()">
+      <ion-icon name="settings-outline"></ion-icon>
+      <span>Impostazioni</span>
+    </button>
 
     <div class="profile-menu-divider"></div>
 

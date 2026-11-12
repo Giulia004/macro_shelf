@@ -1,167 +1,158 @@
-/* =========================================
-   CONFIGURAZIONE GENERALE
-========================================= */
-
 :host {
     display: block;
     width: 100%;
     height: 100%;
-    min-height: 0;
 }
 
 ion-content.shopping-bg {
-    --background: #f6f7f2;
-    --color: #29392e;
+    --background: var(--app-background, #f7f7f2);
+    --color: var(--app-text, #26342b);
+}
+
+.shopping-header {
+    background: var(--app-background, #f7f7f2);
+    padding-top: var(--ion-safe-area-top, 0px);
+}
+
+.shopping-toolbar {
+    --background: var(--app-background, #f7f7f2);
+    --color: var(--app-text, #26342b);
+    --border-color: transparent;
+    padding: 0 12px;
+}
+
+.shopping-toolbar ion-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--app-text, #26342b);
+    padding: 0;
+}
+
+.header-icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--app-primary-light, #e8f0e8);
+    color: var(--app-primary, #527a62);
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.shopping-toolbar ion-button {
+    --color: var(--app-primary-dark, #365641);
 }
 
 .shopping-page {
     display: flex;
     flex-direction: column;
-    gap: 23px;
+    gap: 20px;
     width: 100%;
-    max-width: 900px;
-    min-height: 100%;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 25px 18px 55px;
+    padding: 20px 16px 80px;
     box-sizing: border-box;
 }
 
-/* =========================================
-   TESTI E ACCENTI
-========================================= */
-
-.eyebrow {
-    display: block;
-    color: #66846a;
-    font-size: 0.67rem;
-    font-weight: 800;
-    letter-spacing: 1.3px;
-    text-transform: uppercase;
-}
-
-/* =========================================
-   HEADER
-========================================= */
-
-.shopping-intro {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.back-btn {
-    --color: #527a62;
-    margin: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    border: 1px solid #dce8d7;
-    background: #ffffff;
-}
-
-.intro-content {
-    flex: 1;
-    min-width: 0;
-}
-
-.intro-content h1 {
-    margin: 6px 0 5px;
-    color: #293b30;
-    font-size: clamp(1.5rem, 4vw, 1.9rem);
-    font-weight: 850;
-    letter-spacing: -0.8px;
-}
-
-.intro-content p {
-    margin: 0;
-    color: #7c887d;
-    font-size: 0.85rem;
-    line-height: 1.5;
-}
-
-.intro-icon {
-    display: flex;
-    flex: 0 0 54px;
-    align-items: center;
-    justify-content: center;
-    width: 54px;
-    height: 54px;
-    border-radius: 19px;
-    background: #e5eee1;
-    color: #527a62;
-}
-
-.intro-icon ion-icon {
-    font-size: 28px;
-}
-
-/* =========================================
-   CONTROLLI DI AGGIUNTA
-========================================= */
-
+/* Controlli di aggiunta rapida */
 .shopping-controls {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 15px;
-    border: 1px solid #e9ede5;
-    border-radius: 19px;
-    background: #ffffff;
-    box-shadow: 0 4px 15px rgba(38, 52, 43, 0.035);
+    gap: 10px;
+    width: 100%;
 }
 
 .input-container {
-    width: 100%;
-    background: #f7f9f5;
-    border-radius: 13px;
-    border: 1px solid #e2e8df;
-    padding: 2px 12px;
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid var(--app-border, #e4e8df);
+    border-radius: 16px;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
 }
 
 .input-container ion-input {
-    --color: #2c3c31;
-    --placeholder-color: #899389;
+    --color: var(--app-text, #26342b);
     font-size: 0.95rem;
-    font-weight: 600;
 }
 
 .add-shopping-button {
-    --background: #527a62;
-    --background-hover: #42664e;
-    --background-activated: #365641;
-    --color: #ffffff;
-    --border-radius: 13px;
+    --background: var(--app-primary, #527a62);
+    --background-activated: var(--app-primary-dark, #365641);
+    --color: #fff;
+    --border-radius: 16px;
     --box-shadow: none;
-    min-height: 44px;
+    font-weight: 700;
+    height: 48px;
     margin: 0;
-    font-size: 0.87rem;
-    font-weight: 750;
-    text-transform: none;
 }
 
-/* =========================================
-   LISTA ARTICOLI
-========================================= */
+/* Card di riepilogo con la barra di progresso */
+.shopping-progress-card {
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid var(--app-border, #e4e8df);
+    box-shadow: 0 2px 10px rgba(39, 55, 42, 0.025);
+    box-sizing: border-box;
+}
 
+.progress-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+}
+
+.progress-info span {
+    color: var(--app-text-muted, #748075);
+    font-weight: 500;
+}
+
+.progress-info strong {
+    color: var(--app-text, #26342b);
+    font-weight: 800;
+}
+
+ion-progress-bar {
+    --background: var(--app-primary-light, #e8f0e8);
+    --progress-background: var(--app-primary, #527a62);
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+/* Sezione della lista */
 .shopping-list-section {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
 }
 
 .list-heading {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 12px;
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--app-primary, #527a62);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 1.2px;
 }
 
 .list-heading h2 {
-    margin: 6px 0 0;
-    color: #293b30;
+    margin: 0;
+    color: var(--app-text, #26342b);
     font-size: 1.25rem;
-    font-weight: 850;
+    font-weight: 800;
 }
 
 .shopping-items-container {
@@ -170,40 +161,35 @@ ion-content.shopping-bg {
     gap: 10px;
 }
 
+/* Card del singolo elemento */
 .shopping-item-card {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 16px;
-    border: 1px solid #e8ece4;
+    padding: 12px 16px;
     border-radius: 16px;
     background: #ffffff;
-    box-shadow: 0 3px 12px rgba(39, 55, 42, 0.03);
+    border: 1px solid var(--app-border, #e4e8df);
+    box-shadow: 0 2px 8px rgba(39, 55, 42, 0.02);
     transition: all 0.2s ease;
 }
 
-.shopping-item-card:hover {
-    border-color: #d1dccd;
-}
-
 .shopping-item-card.checked {
-    background: #f4f6f2;
-    border-color: #e5e9e0;
-    opacity: 0.7;
+    background: #f8f9f6;
+    opacity: 0.75;
 }
 
 .shopping-item-card.checked .item-details h3 {
     text-decoration: line-through;
-    color: #899389;
+    color: var(--app-text-muted, #748075);
 }
 
 .item-checkbox {
-    font-size: 24px;
-    color: #527a62;
+    font-size: 22px;
+    color: var(--app-primary, #527a62);
     display: flex;
     align-items: center;
     cursor: pointer;
-    flex-shrink: 0;
 }
 
 .item-details {
@@ -213,36 +199,33 @@ ion-content.shopping-bg {
 }
 
 .item-details h3 {
-    margin: 0 0 2px;
-    color: #2c3c31;
+    margin: 0;
     font-size: 0.95rem;
-    font-weight: 750;
+    font-weight: 700;
+    color: var(--app-text, #26342b);
     overflow-wrap: anywhere;
 }
 
 .item-brand {
-    color: #899389;
+    display: block;
+    margin-top: 2px;
     font-size: 0.75rem;
+    color: var(--app-text-muted, #748075);
 }
 
 .item-actions {
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
-/* =========================================
-   STATO VUOTO E CARICAMENTO
-========================================= */
-
-.shopping-empty,
-.shopping-state {
+/* Stati vuoti e di caricamento */
+.shopping-state,
+.shopping-empty {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 48px 22px;
-    border: 1px solid #e7ece2;
-    border-radius: 23px;
-    background: #ffffff;
+    padding: 50px 20px;
     text-align: center;
 }
 
@@ -250,61 +233,25 @@ ion-content.shopping-bg {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 75px;
-    height: 75px;
-    margin-bottom: 20px;
-    border-radius: 24px;
-    background: #eaf2e7;
-    color: #527a62;
-}
-
-.empty-icon ion-icon {
-    font-size: 35px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    border-radius: 22px;
+    background: var(--app-primary-light, #e8f0e8);
+    color: var(--app-primary, #527a62);
+    font-size: 30px;
 }
 
 .shopping-empty h2 {
-    margin: 8px 0 0;
-    color: #293b30;
-    font-size: 1.3rem;
-    font-weight: 850;
-}
-
-.shopping-empty p {
-    max-width: 350px;
-    margin: 12px 0 0;
-    color: #7c887d;
-    font-size: 0.86rem;
-    line-height: 1.6;
-}
-
-.shopping-state ion-spinner {
-    width: 35px;
-    height: 35px;
-}
-
-.shopping-state h3 {
-    margin: 14px 0 0;
-    color: #35483a;
-    font-size: 0.95rem;
+    margin: 4px 0 8px;
+    color: var(--app-text, #26342b);
+    font-size: 1.15rem;
     font-weight: 800;
 }
 
-/* =========================================
-   MEDIA QUERIES (Tablet / Desktop)
-========================================= */
-
-@media (min-width: 650px) {
-    .shopping-controls {
-        flex-direction: row;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .input-container {
-        flex: 1;
-    }
-
-    .add-shopping-button {
-        flex: 0 0 160px;
-    }
+.shopping-empty p {
+    margin: 0;
+    color: var(--app-text-muted, #748075);
+    font-size: 0.86rem;
+    line-height: 1.5;
 }

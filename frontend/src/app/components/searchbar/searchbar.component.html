@@ -1,2 +1,9 @@
-<ion-searchbar [placeholder]="placeholder" (ionInput)="onInput($event)" [debounce]="300">
-</ion-searchbar>
+<div class="searchbar-wrapper">
+  <ion-searchbar [placeholder]="placeholder" [value]="value" (ionInput)="onInput($event)" [debounce]="300">
+  </ion-searchbar>
+  @if (showBarcodeScan) {
+    <ion-button fill="clear" class="barcode-scan-btn" (click)="onBarcodeClick()" aria-label="Scansiona codice a barre">
+      <ion-icon name="barcode-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  }
+</div>

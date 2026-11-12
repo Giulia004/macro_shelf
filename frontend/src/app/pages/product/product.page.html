@@ -1,26 +1,19 @@
 <ion-header class="ion-no-border catalog-header">
   <ion-toolbar class="catalog-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard" text="" aria-label="Torna indietro"></ion-back-button>
+      <ion-back-button defaultHref="/dashboard" text="" aria-label="Torna indietro">
+      </ion-back-button>
+      <ion-title>Catalogo alimenti</ion-title>
     </ion-buttons>
-
-    <div class="catalog-heading">
-      <div>
-        <span class="eyebrow">LA TUA DISPENSA, PIÙ SMART</span>
-        <ion-title>Catalogo alimenti</ion-title>
-        <p>Trova un alimento e aggiungilo alla tua dispensa.</p>
-      </div>
-
-      <div class="catalog-heading-icon">
-        <ion-icon name="nutrition-outline"></ion-icon>
-      </div>
-    </div>
   </ion-toolbar>
 
   <ion-toolbar class="catalog-toolbar search-toolbar">
-    <app-searchbar [placeholder]="'Cerca alimenti, prodotti o brand...'" (searchChange)="onSearchInput($event)">
+    <app-searchbar [placeholder]="'Cerca alimenti, prodotti o brand...'" [value]="searchTerm()" [showBarcodeScan]="true"
+      (searchChange)="onSearchInput($event)" (barcodeClick)="scanBarcode()">
     </app-searchbar>
-    <app-filter [item]="products()" [showExpiring]="false" (filterChange)="onFilterChange($event)"></app-filter>
+
+    <app-filter [item]="products()" [showExpiring]="false" (filterChange)="onFilterChange($event)">
+    </app-filter>
   </ion-toolbar>
 </ion-header>
 
@@ -38,13 +31,17 @@
         <ion-icon name="search-outline"></ion-icon>
       </div>
       <h2>Nessun alimento trovato</h2>
-      <p>Prova con un altro nome o cerca un brand diverso.</p>
+      <p>Prova con un altro nome, un codice a barre o un brand diverso.</p>
     </div>
     } @else {
+
     <div class="results-heading">
       <div>
         <span class="eyebrow">ESPLORA GLI ALIMENTI</span>
-        <h2>I tuoi ingredienti</h2>
+        <h2>Lista prodotti</h2>
+        <p class="results-subtitle">
+          Seleziona un prodotto per aggiungerlo alla dispensa o scannerizzalo.
+        </p>
       </div>
 
       <span class="results-count">
@@ -55,14 +52,21 @@
 
     <div class="responsive-grid">
       @for (product of filteredProducts(); track product.id) {
+
       <ion-card class="product-card">
 
+        <!-- IMMAGINE E INFORMAZIONI -->
         <div class="product-main">
-          <div class="product-icon-box" aria-hidden="true">
+
+          <div class="product-image-frame">
             @if (product.imageUrl) {
-            <img class="product-image" [src]="product.imageUrl" [alt]="product.name" loading="lazy">
+            <img class="product-image" [src]="product.imageUrl" [alt]="'Confezione di ' + product.name" loading="lazy"
+              decoding="async">
             } @else {
-            <ion-icon name="nutrition-outline"></ion-icon>
+            <div class="product-image-placeholder">
+              <ion-icon name="nutrition-outline"></ion-icon>
+              <span>Foto non disponibile</span>
+            </div>
             }
           </div>
 
@@ -70,54 +74,71 @@
             <h3>{{ product.name }}</h3>
 
             @if (product.brand) {
-              <p class="product-brand">{{ product.brand }}</p>
+            <p class="product-brand">{{ product.brand }}</p>
             }
 
             <div class="product-meta">
-              <span class="category-badge">{{ getCategoryLabel(product.category) }}</span>
-              <span class="calorie-badge">
-                <ion-icon name="flame-outline" aria-hidden="true"></ion-icon>
-                <strong>{{ product.calories | number:'1.0-0' }} kcal</strong>
-                <span>per 100 {{ product.unit }}</span>
+              <span class="category-badge">
+                {{ getCategoryLabel(product.category) }}
               </span>
+            </div>
+
+            <div class="calorie-line">
+              <ion-icon name="flame-outline"></ion-icon>
+              <strong>
+                {{ product.calories | number:'1.0-0' }} kcal
+              </strong>
+              <span>per 100 {{ product.unit }}</span>
             </div>
           </div>
 
           <ion-button class="add-action-btn" fill="solid" size="small"
-            [attr.aria-label]="'Aggiungi ' + product.name + ' alla dispensa'"
-            (click)="addToPantry(product)">
+            [attr.aria-label]="'Aggiungi ' + product.name + ' alla dispensa'" (click)="addToPantry(product)">
             <ion-icon name="add-outline" slot="icon-only"></ion-icon>
           </ion-button>
+
         </div>
 
+        <!-- VALORI NUTRIZIONALI -->
         <div class="nutrition-divider"></div>
 
         <div class="nutrition-heading">
-          <ion-icon name="analytics-outline" aria-hidden="true"></ion-icon>
-          <span>Valori nutrizionali</span>
+          <div class="nutrition-heading-title">
+            <ion-icon name="analytics-outline"></ion-icon>
+            <span>Valori nutrizionali</span>
+          </div>
+
           <span class="nutrition-reference">
             per 100 {{ product.unit }}
           </span>
         </div>
 
         <div class="macro-grid">
+
           <div class="macro-item protein">
-            <span class="macro-dot"></span>
             <span class="macro-label">Proteine</span>
-            <strong>{{ product.proteins | number:'1.0-1' }} g</strong>
+            <strong>
+              {{ product.proteins | number:'1.0-1' }}
+              <small>g</small>
+            </strong>
           </div>
 
           <div class="macro-item carbs">
-            <span class="macro-dot"></span>
             <span class="macro-label">Carboidrati</span>
-            <strong>{{ product.carbs | number:'1.0-1' }} g</strong>
+            <strong>
+              {{ product.carbs | number:'1.0-1' }}
+              <small>g</small>
+            </strong>
           </div>
 
           <div class="macro-item fats">
-            <span class="macro-dot"></span>
             <span class="macro-label">Grassi</span>
-            <strong>{{ product.fats | number:'1.0-1' }} g</strong>
+            <strong>
+              {{ product.fats | number:'1.0-1' }}
+              <small>g</small>
+            </strong>
           </div>
+
         </div>
 
       </ion-card>

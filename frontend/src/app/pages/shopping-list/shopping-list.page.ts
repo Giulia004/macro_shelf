@@ -1,18 +1,17 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonButton, IonContent, IonIcon, IonInput, IonSpinner, ToastController } from '@ionic/angular';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonProgressBar, IonSpinner, IonTitle, IonToolbar} from '@ionic/angular';
 import { DatabaseService, ShoppingItem } from '../../../services/database.service';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { addOutline, arrowBackOutline, cartOutline, checkboxOutline, closeOutline, squareOutline, trashOutline } from 'ionicons/icons';
-import { PantryService } from '../../../services/pantry.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.page.html',
   styleUrls: ['./shopping-list.page.css'],
-  imports: [IonContent, CommonModule, FormsModule,IonButton,IonIcon,IonInput,IonSpinner]
+  imports: [IonContent, CommonModule, FormsModule,IonButton,IonIcon,IonInput,IonSpinner,IonProgressBar,IonTitle,IonButtons,IonHeader,IonToolbar]
 })
 export class ShoppingListPage implements OnInit {
 
@@ -90,6 +89,17 @@ export class ShoppingListPage implements OnInit {
       console.error("Errore pulizia elementi acquistati:", error);
     }
   }
+
+  getCompletedCount(): number{
+    return this.shoppingItems().filter(item => item.isChecked).length;
+  }
+
+  getProgressRatio(): number{
+    const total = this.shoppingItems().length;
+    if (total === 0) return 0;
+    return this.getCompletedCount() / total;
+  }
+
   goBack() {
     this.router.navigate(['/pantry']);
   }

@@ -1,25 +1,43 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonCard, IonContent, IonHeader, IonIcon, IonSpinner, IonTitle, IonToolbar, ToastController, IonButton, IonButtons, IonBackButton } from '@ionic/angular';
+import { IonCard, IonContent, IonHeader, IonIcon, IonSpinner, IonTitle, IonToolbar, ToastController, IonButton, IonButtons, IonBackButton, ModalController } from '@ionic/angular';
 import { Product, ProductService } from '../../../services/product.service';
 import { addIcons } from 'ionicons';
-import { addOutline, alertCircleOutline, barcodeOutline, businessOutline, flameOutline, nutritionOutline, searchOutline } from 'ionicons/icons';
+import { addOutline, alertCircleOutline, analyticsOutline, barcodeOutline, businessOutline, flameOutline, nutritionOutline, searchOutline } from 'ionicons/icons';
 import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
 import { PantryService } from '../../../services/pantry.service';
 import { FilterComponent, PantryFilter } from '../../components/filter/filter.component';
+import { AddPantryProductComponent } from '../../components/add-pantry-product/add-pantry-product.component';
+import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.page.html',
   styleUrls: ['./product.page.css'],
   standalone: true,
-  imports: [IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonToolbar, IonHeader, IonTitle, IonContent, IonCard, IonIcon, IonSpinner, SearchbarComponent, IonButtons, IonBackButton, SearchbarComponent, FilterComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonBackButton,
+    IonButton,
+    IonButtons,
+    IonCard,
+    IonContent,
+    IonHeader,
+    IonIcon,
+    IonSpinner,
+    IonTitle,
+    IonToolbar,
+    SearchbarComponent,
+    FilterComponent
+  ]
 })
 export class ProductPage implements OnInit {
   private productService = inject(ProductService);
   private pantryService = inject(PantryService);
   private toastController = inject(ToastController);
+  private modalCtrl = inject(ModalController);
 
   products = signal<Product[]>([]);
   searchTerm = signal<string>('');
@@ -46,7 +64,7 @@ export class ProductPage implements OnInit {
 
   constructor() {
     addIcons({
-      searchOutline, nutritionOutline, alertCircleOutline, barcodeOutline, businessOutline, addOutline, flameOutline
+      searchOutline, nutritionOutline, alertCircleOutline, barcodeOutline, businessOutline, addOutline, flameOutline,analyticsOutline
     });
   }
 
@@ -99,28 +117,66 @@ export class ProductPage implements OnInit {
 
   async addToPantry(product: Product): Promise<void> {
     try {
-      const expiryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-
-      await this.pantryService.addItem(product, 1, expiryDate, 50, product.unit || 'g');
-
-      const toast = await this.toastController.create({
-        message: `"${product.name}" aggiunto alla dispensa!`,
-        duration: 2000,
-        color: 'success',
-        position: 'bottom',
-        icon: 'add--outline'
+      const modal = await this.modalCtrl.create({
+        component: AddPantryProductComponent,
+        componentProps: {
+          initialProduct: product
+        },
+        backdropDismiss: false
       });
-      await toast.present();
-      
+
+      await modal.present();
+      const { role } = await modal.onDidDismiss();
+
+      if (role === 'saved') {
+        const toast = await this.toastController.create({
+          message: `"${product.name}" aggiunto alla dispensa!`,
+          duration: 2000,
+          color: 'success',
+          position: 'bottom',
+          icon: 'add-outline'
+        });
+        await toast.present();
+      }
     } catch (error: any) {
-      console.error("Errore salvataggio in dispensa:", error);
+      console.error("Errore aggiunta in dispensa:", error);
       const toast = await this.toastController.create({
-        // Mostra il messaggio reale dell'errore sullo schermo del telefono
         message: "Errore: " + (error?.message || JSON.stringify(error)),
-        duration: 5000,
+        duration: 4000,
         color: 'danger',
         position: 'bottom',
         icon: 'alert-circle-outline'
+      });
+      await toast.present();
+    }
+  }
+
+  async scanBarcode(): Promise<void> {
+    try {
+      const result = await CapacitorBarcodeScanner.scanBarcode({
+        hint: 17,
+        scanText: 'Inquadra il codice a barre',
+        scanInstructions: 'Mantieni il codice dentro l’area di scansione',
+        cameraDirection: 1
+      });
+
+      const barcode = result.ScanResult?.trim();
+      if (barcode) {
+        this.searchTerm.set(barcode);
+
+        // Se troviamo esattamente 1 prodotto corrispondente, apriamo direttamente la modale
+        const matched = this.products().find(p => p.barcode === barcode);
+        if (matched) {
+          await this.addToPantry(matched);
+        }
+      }
+    } catch (error) {
+      console.error('Errore scanner barcode:', error);
+      const toast = await this.toastController.create({
+        message: 'Scanner non disponibile o permesso negato.',
+        duration: 2500,
+        color: 'warning',
+        position: 'bottom'
       });
       await toast.present();
     }

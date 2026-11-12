@@ -5,7 +5,7 @@
     <header class="dashboard-header">
       <div class="header-copy">
         <span class="eyebrow">BENVENUTO SU MACROSHELF</span>
-        <h1>Ciao, {{ displayName }}! <span>👋</span></h1>
+        <h1>Ciao, {{ displayName }}!</h1>
         <p>Vediamo cosa c'è di buono oggi.</p>
       </div>
 
@@ -49,9 +49,11 @@
           <h2>Calorie di oggi</h2>
         </div>
 
-        <div class="section-icon">
-          <ion-icon name="flame-outline"></ion-icon>
-        </div>
+        <!-- PULSANTE RAPIDO MODIFICA OBIETTIVO -->
+        <ion-button fill="clear" size="small" class="edit-goal-btn" routerLink="/goals">
+          <ion-icon name="eye-outline" slot="start"></ion-icon>
+          Visualizza obiettivo
+        </ion-button>
       </div>
 
       <div class="calorie-card">
@@ -65,6 +67,7 @@
             <div class="calorie-value">
               {{ stats.caloriesConsumed | number:'1.0-0' }}
               <span>kcal</span>
+              <span class="calorie-target">/ {{currentUser()?.calories|number:'1.0-0'}}</span>
             </div>
           </div>
         </div>

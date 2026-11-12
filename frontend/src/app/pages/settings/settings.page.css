@@ -1,0 +1,399 @@
+/* =========================================
+   BASE
+========================================= */
+
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+ion-content.settings-bg {
+    --background: #f6f7f2;
+    --color: #29392e;
+}
+
+.settings-header {
+    background: #f6f7f2;
+    padding-top: var(--ion-safe-area-top, 0px);
+}
+
+.settings-toolbar {
+    --background: #f6f7f2;
+    --color: #29392e;
+    --border-color: transparent;
+
+    padding: 0 12px;
+}
+
+.settings-toolbar ion-title {
+    padding: 0;
+
+    color: #29392e;
+    font-size: 1.1rem;
+    font-weight: 750;
+}
+
+.back-btn {
+    --color: #527a62;
+    font-size: 21px;
+}
+
+
+/* =========================================
+   PAGE LAYOUT
+========================================= */
+
+.settings-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 650px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 24px 18px calc(90px + env(safe-area-inset-bottom));
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   INTRODUZIONE
+========================================= */
+
+.settings-intro {
+    margin-bottom: 24px;
+}
+
+.settings-intro h1 {
+    margin: 0 0 7px;
+
+    color: #29392e;
+
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+.settings-intro p {
+    margin: 0;
+
+    color: #858e84;
+
+    font-size: 0.84rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   ACCOUNT
+========================================= */
+
+.account-section {
+    margin-bottom: 29px;
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 15px;
+
+    background: #ffffff;
+    border: 1px solid #e9ede6;
+    border-radius: 17px;
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    transition: background 0.15s ease;
+}
+
+.account-item:active {
+    background: #f0f3ed;
+}
+
+.account-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    background: #edf2eb;
+    color: #527a62;
+
+    font-size: 23px;
+}
+
+.account-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.account-info h2 {
+    margin: 0 0 4px;
+
+    color: #29392e;
+
+    font-size: 0.9rem;
+    font-weight: 750;
+}
+
+.account-info p {
+    margin: 0;
+
+    color: #858e84;
+    font-size: 0.76rem;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================
+   SEZIONI
+========================================= */
+
+.settings-section {
+    margin-bottom: 27px;
+}
+
+.section-title {
+    margin: 0 0 11px 3px;
+
+    color: #69786b;
+
+    font-size: 0.78rem;
+    font-weight: 750;
+
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.settings-card {
+    padding: 3px 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ede6;
+    border-radius: 17px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   ELEMENTI DELLE IMPOSTAZIONI
+========================================= */
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    width: 100%;
+    min-height: 68px;
+
+    padding: 11px 0;
+
+    box-sizing: border-box;
+}
+
+.setting-item[role="button"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.setting-item[role="button"]:active {
+    opacity: 0.65;
+}
+
+
+/* ICONA */
+
+.setting-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #f0f3ee;
+    color: #607765;
+
+    font-size: 19px;
+}
+
+
+/* TESTI */
+
+.setting-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.setting-info h3 {
+    margin: 0 0 4px;
+
+    color: #29392e;
+
+    font-size: 0.87rem;
+    font-weight: 700;
+}
+
+.setting-info p {
+    margin: 0;
+
+    color: #858e84;
+
+    font-size: 0.73rem;
+    line-height: 1.4;
+}
+
+
+/* FRECCE */
+
+.item-chevron {
+    flex-shrink: 0;
+
+    color: #a3aba1;
+    font-size: 17px;
+}
+
+
+/* DIVISORI */
+
+.setting-divider {
+    width: 100%;
+    height: 1px;
+
+    background: #eef0eb;
+}
+
+
+/* =========================================
+   TOGGLE
+========================================= */
+
+ion-toggle {
+    flex-shrink: 0;
+
+    --track-background: #e3e8e1;
+    --track-background-checked: #527a62;
+
+    --handle-background: #ffffff;
+    --handle-background-checked: #ffffff;
+
+    padding: 0;
+}
+
+.logout-section {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 50px;
+    padding: 15px;
+    border: 1px solid #eee8e5;
+    border-radius: 15px;
+    background: #fff;
+    color: #b45b50;
+    font-family: inherit;
+    font-size: .86rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.logout-button ion-icon {
+    font-size: 19px;
+}
+
+.logout-button:active {
+    background: #faf2f0;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.settings-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 8px 10px 15px;
+
+    text-align: center;
+}
+
+.settings-footer span {
+    color: #718071;
+
+    font-size: 0.78rem;
+    font-weight: 750;
+}
+
+.settings-footer p {
+    margin: 5px 0;
+
+    color: #969e94;
+    font-size: 0.71rem;
+}
+
+.settings-footer small {
+    color: #aab0a7;
+    font-size: 0.66rem;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (min-width: 600px) {
+
+    .settings-page {
+        padding: 30px 24px 55px;
+    }
+
+    .settings-intro h1 {
+        font-size: 1.8rem;
+    }
+
+    .settings-card {
+        padding: 4px 19px;
+    }
+
+    .setting-item {
+        min-height: 73px;
+    }
+
+    .account-item {
+        padding: 18px;
+    }
+
+}

@@ -1,22 +1,23 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonButton, IonCard, IonContent, IonIcon, ToastController, IonSpinner, ModalController, ViewWillEnter } from '@ionic/angular';
+import { IonButton, IonCard, IonContent, IonIcon, ToastController, IonSpinner, ModalController, ViewWillEnter, IonBadge, IonTitle, IonHeader, IonToolbar, IonButtons } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { addOutline, analyticsOutline, arrowDownCircle, arrowDownOutline, businessOutline, calendarOutline, cartOutline, cubeOutline, fitnessOutline, flameOutline, leafOutline, nutritionOutline, searchOutline, trashOutline, waterOutline } from 'ionicons/icons';
+import { addOutline, alertCircleOutline, analyticsOutline, arrowBackOutline, businessOutline, calendarOutline, cartOutline, checkmarkCircleOutline, flameOutline, nutritionOutline, removeOutline, restaurantOutline, searchOutline, trashOutline, warningOutline, waterOutline } from 'ionicons/icons';
 import { PantryItem, PantryService } from '../../../services/pantry.service';
 import { FilterComponent, PantryFilter } from '../../components/filter/filter.component';
 import { SearchbarComponent } from '../../components/searchbar/searchbar.component';
 import { AddPantryProductComponent } from '../../components/add-pantry-product/add-pantry-product.component';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../../../services/database.service';
+import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
 
 @Component({
   selector: 'app-pantry',
   templateUrl: './pantry.page.html',
   styleUrls: ['./pantry.page.css'],
   standalone: true,
-  imports: [IonSpinner, IonContent, CommonModule, FormsModule, IonButton, IonIcon, IonCard, FilterComponent, SearchbarComponent]
+  imports: [IonSpinner, IonContent, CommonModule, FormsModule, IonButton, IonIcon, IonCard, FilterComponent, SearchbarComponent,IonBadge,IonTitle,IonHeader,IonToolbar,IonButtons]
 })
 export class PantryPage implements OnInit, ViewWillEnter {
   private pantryService = inject(PantryService);
@@ -46,10 +47,46 @@ export class PantryPage implements OnInit, ViewWillEnter {
     });
   });
 
-  constructor(private router: Router, private databaseService: DatabaseService) {
+  constructor(private router: Router, public databaseService: DatabaseService) {
     addIcons({
-      addOutline, leafOutline, searchOutline, nutritionOutline, businessOutline, calendarOutline, analyticsOutline, arrowDownOutline, flameOutline, fitnessOutline, waterOutline, cubeOutline, cartOutline
+      addOutline, removeOutline, searchOutline, nutritionOutline, businessOutline, calendarOutline, analyticsOutline, flameOutline, waterOutline, cartOutline, restaurantOutline, trashOutline, arrowBackOutline, alertCircleOutline, warningOutline, checkmarkCircleOutline
     });
+  }
+
+  isExpiringSoon(expiryDate?: string | null): boolean {
+    if (!expiryDate) return false;
+    const expiry = new Date(expiryDate).getTime();
+    const now = Date.now();
+    const diffDays = (expiry - now) / (1000 * 60 * 60 * 24);
+    return diffDays <= 3;
+  }
+
+  async scanBarcode(): Promise<void> {
+    try {
+      const result = await CapacitorBarcodeScanner.scanBarcode({
+        hint: 17,
+        scanText: 'Inquadra il codice a barre',
+        scanInstructions: 'Mantieni il codice dentro l’area di scansione',
+        cameraDirection: 1
+      });
+
+      const barcode = result.ScanResult?.trim();
+      if (barcode) {
+        this.searchTerm.set(barcode);
+      }
+    } catch (error) {
+      console.error('Errore scanner barcode dispensa:', error);
+    }
+  }
+
+  async increaseQuantity(item: PantryItem): Promise<void> {
+    try {
+      const newQuantity = (item.quantity || 0) + 1;
+      await this.pantryService.updateQuantity(item.id, newQuantity);
+      await this.loadPantry();
+    } catch (error) {
+      console.error('Errore incremento quantità:', error);
+    }
   }
 
   ngOnInit() {
@@ -194,7 +231,15 @@ export class PantryPage implements OnInit, ViewWillEnter {
     this.searchTerm.set(term);
   }
 
+  openRecipesModal() {
+    
+  }
+  
   openShoppingList() {
     this.router.navigate(['/shopping-list']);
+  }
+
+  goBack() {
+    this.router.navigate(['/dashboard']);
   }
 }

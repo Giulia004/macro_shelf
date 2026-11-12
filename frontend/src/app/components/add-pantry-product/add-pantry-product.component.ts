@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { PantryService } from '../../../services/pantry.service';
 import { CreateProductPayload, PantryCategory, Product, ProductService } from '../../../services/product.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -19,14 +19,21 @@ type MessageType = 'warning' | 'success';
   standalone: true,
   imports: [IonContent,IonFooter,IonHeader,IonToolbar,IonTitle,IonButtons,IonButton,IonSelectOption,IonSelect,IonIcon,IonInput,CommonModule,FormsModule,ReactiveFormsModule,IonSpinner],
 })
-export class AddPantryProductComponent {
+export class AddPantryProductComponent implements OnInit {
 
+  @Input() initialProduct: Product | null = null;
   @Output() onProductAdded = new EventEmitter();
 
   constructor() {
     addIcons({
       searchOutline, scanOutline,checkmarkCircleOutline,closeOutline,alertCircleOutline
     });
+  }
+
+  ngOnInit() {
+    if (this.initialProduct) {
+      this.populateFromProduct(this.initialProduct);
+    }
   }
   private readonly fb = inject(FormBuilder);
   private readonly products = inject(ProductService);
@@ -145,41 +152,45 @@ export class AddPantryProductComponent {
       }
 
       const product = result.product;
-      // The backend also saves Open Food Facts results in the local catalog.
-      this.existingProduct = product;
-      this.source.set(result.source);
-      this.foundProduct.set(true);
-
-      this.form.patchValue({
-        barcode: product.barcode ?? barcode,
-        name: product.name,
-        brand: product.brand ?? '',
-        imageUrl: product.imageUrl ?? '',
-        category: this.normalizeCategory(product.category),
-        calories: product.calories ?? 0,
-        proteins: product.proteins ?? 0,
-        carbs: product.carbs ?? 0,
-        fats: product.fats ?? 0,
-        fiber: product.fiber ?? null,
-        sugar: product.sugar ?? null,
-        saturatedFat: product.saturatedFat ?? null,
-        salt: product.salt ?? null,
-        nutritionBaseValue: product.nutritionBaseValue ?? 100,
-        nutritionBaseUnit: product.nutritionBaseUnit ?? 'g'
-      });
-
-      this.message.set(
-        result.source === 'catalog'
-          ? 'Prodotto trovato nel catalogo globale.'
-          : 'Prodotto trovato online. Controlla i dati prima di confermare.'
-      );
-      this.messageType.set('success');
+      this.populateFromProduct(product, result.source);
     } catch (error) {
       console.error('Ricerca barcode:', error);
       this.error.set('Ricerca non riuscita. Puoi compilare i dati manualmente.');
     } finally {
       this.loading.set(false);
     }
+  }
+
+  populateFromProduct(product: Product, source: ProductSource = 'catalog'): void {
+    this.existingProduct = product;
+    this.source.set(source);
+    this.foundProduct.set(true);
+
+    this.form.patchValue({
+      barcode: product.barcode ?? '',
+      name: product.name,
+      brand: product.brand ?? '',
+      imageUrl: product.imageUrl ?? '',
+      category: this.normalizeCategory(product.category),
+      calories: product.calories ?? 0,
+      proteins: product.proteins ?? 0,
+      carbs: product.carbs ?? 0,
+      fats: product.fats ?? 0,
+      fiber: product.fiber ?? null,
+      sugar: product.sugar ?? null,
+      saturatedFat: product.saturatedFat ?? null,
+      salt: product.salt ?? null,
+      nutritionBaseValue: product.nutritionBaseValue ?? 100,
+      nutritionBaseUnit: product.nutritionBaseUnit ?? 'g',
+      unit: product.unit ?? 'pz'
+    });
+
+    this.message.set(
+      source === 'catalog'
+        ? 'Prodotto selezionato dal catalogo.'
+        : 'Prodotto trovato online. Controlla i dati prima di confermare.'
+    );
+    this.messageType.set('success');
   }
 
   private normalizeCategory(value: string | null): PantryCategory {
