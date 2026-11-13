@@ -1,58 +1,82 @@
-<ion-content class="ion-padding home-bg">
+<ion-content class="home-bg" [fullscreen]="true">
   <main class="welcome-container">
 
-    <!-- Brand e presentazione -->
     <section class="hero-section">
 
-      <div class="icon-badge">
-        <ion-icon name="leaf-outline" class="welcome-icon">
-        </ion-icon>
+      <div class="hero-image-card">
+        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=85"
+          alt="Cucina luminosa con ingredienti freschi" />
+
+        <div class="image-overlay"></div>
+
+        <div class="floating-badge">
+          <ion-icon name="leaf-outline"></ion-icon>
+        </div>
+
+        <div class="image-caption">
+          <span>CUCINA SMART</span>
+          <strong>Ogni ingrediente conta.</strong>
+        </div>
       </div>
 
-      <span class="welcome-eyebrow">
-        LA TUA CUCINA, PIÙ SEMPLICE
-      </span>
+      <div class="brand-content">
+        <span class="welcome-eyebrow">
+          LA TUA CUCINA, PIÙ SEMPLICE
+        </span>
 
-      <h1>Macro<span>Shelf</span></h1>
+        <h1>Macro<span>Shelf</span></h1>
 
-      <p class="welcome-description">
-        Scopri cosa cucinare con quello che hai già in casa.
-        Organizza la tua dispensa, trova nuove ricette
-        e tieni sotto controllo calorie e macronutrienti.
-      </p>
+        <p class="welcome-description">
+          Organizza la tua dispensa, scopri nuove ricette
+          e prenditi cura della tua alimentazione.
+          Tutto in un unico posto.
+        </p>
+      </div>
 
-      <!-- Benefici principali -->
       <div class="welcome-features">
 
-        <div class="feature-item">
-          <ion-icon name="file-tray-stacked-outline"></ion-icon>
-          <div>
+        <article class="feature-item">
+          <div class="feature-icon-wrapper pantry-icon">
+            <ion-icon name="file-tray-stacked-outline"></ion-icon>
+          </div>
+
+          <div class="feature-text">
             <strong>La tua dispensa</strong>
-            <span>Ingredienti sempre sotto controllo</span>
+            <span>Tieni sempre sotto controllo ciò che hai in casa.</span>
           </div>
-        </div>
+        </article>
 
-        <div class="feature-item">
-          <ion-icon name="restaurant-outline"></ion-icon>
-          <div>
-            <strong>Idee per ogni pasto</strong>
-            <span>Ricette basate sugli ingredienti disponibili</span>
+        <article class="feature-item">
+          <div class="feature-icon-wrapper recipe-icon">
+            <ion-icon name="restaurant-outline"></ion-icon>
           </div>
-        </div>
 
-        <div class="feature-item">
-          <ion-icon name="nutrition-outline"></ion-icon>
-          <div>
-            <strong>Informazioni nutrizionali</strong>
-            <span>Calorie e macronutrienti per porzione</span>
+          <div class="feature-text">
+            <strong>Nuove ricette</strong>
+            <span>Trova idee per cucinare con i tuoi ingredienti.</span>
           </div>
-        </div>
+        </article>
+
+        <article class="feature-item">
+          <div class="feature-icon-wrapper nutrition-icon">
+            <ion-icon name="nutrition-outline"></ion-icon>
+          </div>
+
+          <div class="feature-text">
+            <strong>La tua nutrizione</strong>
+            <span>Monitora calorie e macronutrienti.</span>
+          </div>
+        </article>
 
       </div>
     </section>
 
-    <!-- Azioni principali -->
     <section class="welcome-actions">
+
+      <div class="actions-heading">
+        <h2>Pronto a iniziare?</h2>
+        <p>Entra in MacroShelf e organizza la tua cucina.</p>
+      </div>
 
       <ion-button expand="block" routerLink="/login" class="btn-primary-app">
         <ion-icon name="log-in-outline" slot="start"></ion-icon>
@@ -65,6 +89,7 @@
       </ion-button>
 
       <p class="welcome-footer">
+        <ion-icon name="heart-outline"></ion-icon>
         Meno sprechi, più idee in cucina.
       </p>
 

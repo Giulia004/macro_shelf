@@ -1,3 +1,131 @@
-<p>
-  calorie-calculator-modal works!
-</p>
+<ion-header class="ion-no-border modal-header">
+  <ion-toolbar class="modal-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" class="close-btn" (click)="dismiss()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Calcolatore Fabbisogno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-bg" [fullscreen]="true">
+  <main class="modal-page">
+
+    <div class="modal-intro">
+      <h2>Raccontaci qualcosa di te</h2>
+      <p>Useremo questi dati per stimare il tuo target calorico e i macronutrienti ideali.</p>
+    </div>
+
+    <!-- FORM DATI -->
+    <div class="calc-card">
+
+      <!-- Riga 1: Sesso ed Età affiancati -->
+      <div class="form-row-dual">
+        <div class="form-group">
+          <label>Sesso biologico</label>
+          <ion-select [(ngModel)]="formData.gender" interface="popover" class="custom-select">
+            <ion-select-option value="FEMALE">Donna</ion-select-option>
+            <ion-select-option value="MALE">Uomo</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="form-group">
+          <label>Età (anni)</label>
+          <ion-input type="number" [(ngModel)]="formData.age" placeholder="25" min="12" max="110"></ion-input>
+        </div>
+      </div>
+
+      <!-- Riga 2: Altezza e Peso affiancati -->
+      <div class="form-row-dual">
+        <div class="form-group">
+          <label>Altezza (cm)</label>
+          <ion-input type="number" [(ngModel)]="formData.height" placeholder="170" min="100" max="250"></ion-input>
+        </div>
+
+        <div class="form-group">
+          <label>Peso (kg)</label>
+          <ion-input type="number" [(ngModel)]="formData.weight" placeholder="65" min="30" max="300"></ion-input>
+        </div>
+      </div>
+
+      <!-- Livello di attività -->
+      <div class="form-group">
+        <label>Livello di attività fisica</label>
+        <ion-select [(ngModel)]="formData.activityLevel" interface="popover" class="custom-select">
+          <ion-select-option value="SEDENTARY">Sedentario (lavoro d'ufficio, poco esercizio)</ion-select-option>
+          <ion-select-option value="LIGHTLY_ACTIVE">Leggero (1-3 allenamenti a settimana)</ion-select-option>
+          <ion-select-option value="MODERATELY_ACTIVE">Moderato (3-5 allenamenti a settimana)</ion-select-option>
+          <ion-select-option value="VERY_ACTIVE">Intenso (6-7 allenamenti o lavoro fisico)</ion-select-option>
+        </ion-select>
+      </div>
+
+      <!-- Obiettivo -->
+      <div class="form-group">
+        <label>Il tuo obiettivo attuale</label>
+        <ion-select [(ngModel)]="formData.goal" interface="popover" class="custom-select">
+          <ion-select-option value="LOSE_WEIGHT">Dimagrimento (-400 kcal/die)</ion-select-option>
+          <ion-select-option value="MAINTAIN_WEIGHT">Mantenimento peso</ion-select-option>
+          <ion-select-option value="GAIN_WEIGHT">Aumento massa (+300 kcal/die)</ion-select-option>
+        </ion-select>
+      </div>
+
+    </div>
+
+    <!-- RISULTATO CALCOLATO (Se disponibile) -->
+    <div class="result-card" *ngIf="calculatedResult">
+      <div class="result-header">
+        <div class="result-header-title">
+          <ion-icon name="flame-outline"></ion-icon>
+          <h3>Target giornaliero stimato</h3>
+        </div>
+        <span class="result-badge">STIMA TDEE</span>
+      </div>
+
+      <div class="calorie-highlight">
+        <span class="cal-label">Fabbisogno Energetico</span>
+        <strong class="cal-value">{{ calculatedResult.calories }} <small>kcal / giorno</small></strong>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-item protein">
+          <div class="item-top">
+            <span class="macro-dot"></span>
+            <span>Proteine</span>
+          </div>
+          <strong>{{ calculatedResult.proteins }}g</strong>
+        </div>
+
+        <div class="result-item carbs">
+          <div class="item-top">
+            <span class="macro-dot"></span>
+            <span>Carboidrati</span>
+          </div>
+          <strong>{{ calculatedResult.carbs }}g</strong>
+        </div>
+
+        <div class="result-item fats">
+          <div class="item-top">
+            <span class="macro-dot"></span>
+            <span>Grassi</span>
+          </div>
+          <strong>{{ calculatedResult.fats }}g</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- PULSANTI DI AZIONE -->
+    <div class="modal-actions">
+      <ion-button expand="block" class="calc-button" (click)="calculateMacros()" *ngIf="!calculatedResult">
+        <ion-icon name="calculator-outline" slot="start"></ion-icon>
+        Calcola fabbisogno
+      </ion-button>
+
+      <ion-button expand="block" class="apply-button" (click)="applyCalculatedGoals()" *ngIf="calculatedResult">
+        Usa questi obiettivi
+      </ion-button>
+    </div>
+
+  </main>
+</ion-content>

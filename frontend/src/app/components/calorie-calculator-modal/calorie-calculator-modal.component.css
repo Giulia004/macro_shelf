@@ -1,0 +1,331 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+ion-content.modal-bg {
+    flex: 1;
+    --background: #f6f8f3;
+    --color: #26372b;
+}
+
+/* =========================================
+   HEADER & TOOLBAR
+========================================= */
+
+.modal-header {
+    background: #ffffff;
+    border-bottom: 1px solid #edf0ea;
+}
+
+.modal-toolbar {
+    --background: #ffffff;
+    --color: #26372b;
+    --border-color: transparent;
+    padding: 4px 8px;
+    min-height: 56px;
+}
+
+.modal-toolbar ion-title {
+    padding: 0;
+    color: #26372b;
+    font-size: 1.05rem;
+    font-weight: 850;
+    letter-spacing: -0.3px;
+}
+
+.close-btn {
+    --color: #527a62;
+    --border-radius: 12px;
+    width: 40px;
+    height: 40px;
+}
+
+.close-btn ion-icon {
+    font-size: 22px;
+}
+
+/* =========================================
+   PAGE CONTAINER & INTRO
+========================================= */
+
+.modal-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 18px 16px calc(32px + env(safe-area-inset-bottom, 0px));
+    box-sizing: border-box;
+    gap: 16px;
+}
+
+.modal-intro h2 {
+    margin: 0 0 4px;
+    color: #26372b;
+    font-size: 1.35rem;
+    font-weight: 850;
+    letter-spacing: -0.4px;
+}
+
+.modal-intro p {
+    margin: 0;
+    color: #7b887a;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+/* =========================================
+   CARD FORM
+========================================= */
+
+.calc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #ffffff;
+    border: 1px solid #e7ece2;
+    border-radius: 20px;
+    padding: 18px 16px;
+    box-shadow: 0 3px 14px rgba(39, 55, 42, 0.035);
+}
+
+.form-row-dual {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.form-group label {
+    color: #384d3c;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1px;
+}
+
+.form-group ion-input,
+.custom-select {
+    --background: #f8faf6;
+    --color: #26372b;
+    --placeholder-color: #9aa496;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    height: 46px;
+    min-height: 46px;
+    border: 1.5px solid #e6ece0;
+    border-radius: 13px;
+    background: #f8faf6;
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.form-group ion-input:focus-within,
+.custom-select:focus-within {
+    border-color: #527a62;
+    box-shadow: 0 0 0 3px rgba(82, 122, 98, 0.12);
+}
+
+/* =========================================
+   CARD RISULTATO ESTIMATO
+========================================= */
+
+.result-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #ffffff;
+    border: 1.5px solid #dbe6d6;
+    border-radius: 22px;
+    padding: 18px 16px;
+    box-shadow: 0 6px 20px rgba(82, 122, 98, 0.07);
+    animation: fadeInSlide 0.25s ease-out;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e1e8dc;
+}
+
+.result-header-title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #3b5f45;
+}
+
+.result-header-title ion-icon {
+    font-size: 19px;
+    color: #527a62;
+}
+
+.result-header-title h3 {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 850;
+    color: #26372b;
+}
+
+.result-badge {
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #eef5eb;
+    color: #496b4b;
+    font-size: 0.65rem;
+    font-weight: 850;
+    letter-spacing: 0.6px;
+}
+
+.calorie-highlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 10px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffeed9 100%);
+    border: 1px solid #fed8b1;
+    text-align: center;
+    gap: 2px;
+}
+
+.cal-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #ab6b24;
+}
+
+.cal-value {
+    font-size: 1.85rem;
+    font-weight: 900;
+    color: #8c4e0b;
+    line-height: 1.1;
+}
+
+.cal-value small {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ab6b24;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 8px;
+    border-radius: 14px;
+    background: #f8faf6;
+    border: 1px solid #edf0ea;
+    gap: 4px;
+    text-align: center;
+}
+
+.item-top {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.macro-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.protein .macro-dot {
+    background: #527a62;
+}
+
+.carbs .macro-dot {
+    background: #d99a58;
+}
+
+.fats .macro-dot {
+    background: #8d80c5;
+}
+
+.result-item span {
+    font-size: 0.7rem;
+    color: #7b887a;
+    font-weight: 750;
+}
+
+.result-item strong {
+    font-size: 1.05rem;
+    color: #26372b;
+    font-weight: 850;
+}
+
+/* =========================================
+   PULSANTI DI AZIONE
+========================================= */
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.calc-button {
+    --background: #527a62;
+    --background-hover: #42664e;
+    --background-activated: #365641;
+    --color: #ffffff;
+    --border-radius: 14px;
+    --box-shadow: 0 4px 14px rgba(82, 122, 98, 0.22);
+    min-height: 48px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-transform: none;
+    margin: 0;
+}
+
+.apply-button {
+    --background: #3e634b;
+    --background-hover: #314f3c;
+    --background-activated: #274030;
+    --color: #ffffff;
+    --border-radius: 14px;
+    --box-shadow: 0 4px 14px rgba(62, 99, 75, 0.25);
+    min-height: 48px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-transform: none;
+    margin: 0;
+}

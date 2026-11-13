@@ -1,57 +1,86 @@
-<ion-content class="register-bg">
+<ion-content class="register-bg" [fullscreen]="true">
   <main class="register-container">
+
+    <!-- Navigazione -->
     <div class="top-nav">
       <ion-button fill="clear" routerLink="/login" class="back-button" aria-label="Torna al login">
         <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
+
+      <span class="nav-label">MACROSHELF</span>
     </div>
 
+    <!-- Intestazione -->
     <section class="register-header">
+
       <div class="brand-mark">
         <ion-icon name="leaf-outline"></ion-icon>
       </div>
 
-      <span class="register-eyebrow">INDISPENSA</span>
-      <h1>Crea il tuo account</h1>
+      <span class="register-eyebrow">INIZIA IL TUO PERCORSO</span>
+
+      <h1>Entra in <span>MacroShelf</span></h1>
+
       <p>
-        Organizza la tua dispensa, scopri nuove ricette e riduci gli sprechi
-        alimentari.
+        Crea il tuo account e inizia a organizzare la dispensa,
+        scoprire ricette e ridurre gli sprechi.
       </p>
+
     </section>
 
+    <!-- Form -->
     <section class="register-card">
+
+      <div class="card-heading">
+        <h2>Crea il tuo account</h2>
+        <p>Compila i campi per iniziare.</p>
+      </div>
+
+      <!-- Nome -->
       <div class="form-field">
         <ion-item class="custom-item" lines="none">
           <ion-icon name="person-outline" slot="start"></ion-icon>
+
           <ion-input label="Nome" labelPlacement="floating" type="text" name="name" [(ngModel)]="name"
-            autocomplete="given-name" maxlength="80" placeholder="Il tuo nome" required></ion-input>
+            autocomplete="given-name" maxlength="80" placeholder="Il tuo nome" required>
+          </ion-input>
         </ion-item>
       </div>
 
+      <!-- Cognome -->
       <div class="form-field">
         <ion-item class="custom-item" lines="none">
           <ion-icon name="person-outline" slot="start"></ion-icon>
+
           <ion-input label="Cognome" labelPlacement="floating" type="text" name="surname" [(ngModel)]="surname"
-            autocomplete="family-name" maxlength="80" placeholder="Il tuo cognome" required></ion-input>
+            autocomplete="family-name" maxlength="80" placeholder="Il tuo cognome" required>
+          </ion-input>
         </ion-item>
       </div>
 
+      <!-- Email -->
       <div class="form-field">
         <ion-item class="custom-item" lines="none">
           <ion-icon name="mail-outline" slot="start"></ion-icon>
+
           <ion-input label="Email" labelPlacement="floating" type="email" name="email" [(ngModel)]="email"
-            autocomplete="email" inputmode="email" placeholder="nome@esempio.com" required></ion-input>
+            autocomplete="email" inputmode="email" placeholder="nome@esempio.com" required>
+          </ion-input>
         </ion-item>
       </div>
 
+      <!-- Password -->
       <div class="form-field">
         <ion-item class="custom-item" lines="none">
           <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+
           <ion-input label="Password" labelPlacement="floating" type="password" name="password" [(ngModel)]="password"
-            autocomplete="new-password" placeholder="Crea una password" required></ion-input>
+            autocomplete="new-password" placeholder="Crea una password" required>
+          </ion-input>
         </ion-item>
       </div>
 
+      <!-- Messaggio -->
       @if (registerMessage) {
       <p class="register-message" role="alert">
         <ion-icon name="alert-circle-outline"></ion-icon>
@@ -59,7 +88,9 @@
       </p>
       }
 
+      <!-- Registrazione -->
       <ion-button expand="block" class="register-submit" (click)="onRegister()" [disabled]="isRegistering">
+
         @if (isRegistering) {
         <ion-spinner name="crescent" slot="start"></ion-spinner>
         } @else {
@@ -67,16 +98,22 @@
         }
 
         {{ isRegistering ? 'Registrazione in corso...' : 'Crea account' }}
+
       </ion-button>
 
-      <p class="login-prompt">
-        Hai già un account?
+      <!-- Login -->
+      <div class="login-prompt">
+        <span>Hai già un account?</span>
         <a routerLink="/login">Accedi</a>
-      </p>
+      </div>
+
     </section>
 
+    <!-- Footer -->
     <footer class="register-footer">
-      Meno sprechi, più idee in cucina.
+      <ion-icon name="heart-outline"></ion-icon>
+      <span>Meno sprechi, più idee in cucina.</span>
     </footer>
+
   </main>
 </ion-content>

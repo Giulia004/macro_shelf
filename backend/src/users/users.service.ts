@@ -61,6 +61,7 @@ export class UsersService {
                 name: true,
                 passwordHash: true,
                 isPremium: true,
+                removeAds: true,
                 createdAt: true,
                 updatedAt: true,
                 calories: true,

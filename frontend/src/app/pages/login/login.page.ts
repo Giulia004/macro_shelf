@@ -7,7 +7,7 @@ import { TimeoutError} from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { lockClosedOutline, mailOutline, logInOutline, alertCircleOutline, arrowBackCircleOutline, leafOutline } from 'ionicons/icons';
+import { lockClosedOutline, mailOutline, logInOutline, alertCircleOutline, arrowBackCircleOutline, leafOutline, arrowBackOutline, arrowForwardOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,7 @@ export class LoginPage {
     private authService: AuthService,
     private router:Router
   ) {
-    addIcons({ mailOutline, lockClosedOutline, logInOutline,alertCircleOutline,arrowBackCircleOutline,leafOutline });
+    addIcons({ mailOutline, lockClosedOutline, logInOutline,alertCircleOutline,arrowBackOutline,leafOutline,arrowForwardOutline });
   }
 
   onLogin() {

@@ -13,31 +13,36 @@
 <ion-content class="modal-bg" [fullscreen]="true">
   <main class="modal-page">
 
-    <!-- INTRO -->
     <div class="modal-intro">
       <h2>I tuoi target</h2>
-      <p>
-        Aggiorna il fabbisogno calorico e la ripartizione
-        dei macronutrienti.
-      </p>
+      <p>Modifica i valori o usa il calcolatore guidato per stimarli.</p>
     </div>
 
-    <!-- CALORIE -->
+    <!-- CARD "HAI BISOGNO D'AIUTO?" -> APRE IL MODALE SEPARATO -->
+    <div class="help-card" (click)="openCalculatorModal()">
+      <div class="help-icon-wrapper">
+        <ion-icon name="help-circle-outline"></ion-icon>
+      </div>
+      <div class="help-content">
+        <h3>Hai bisogno d'aiuto?</h3>
+        <p>Calcola il fabbisogno ideale rispondendo a qualche domanda.</p>
+      </div>
+    </div>
+
+    <!-- INPUT CALORIE -->
     <div class="input-card">
       <div class="input-card-header">
         <div class="macro-icon calories-icon">
           <ion-icon name="flame-outline"></ion-icon>
         </div>
-        <span>Calorie giornaliere (kcal)</span>
+        <span>Calorie (kcal)</span>
       </div>
-
       <div class="input-wrapper">
-        <ion-input type="number" [(ngModel)]="editableGoals.calories" min="500" max="8000">
-        </ion-input>
+        <ion-input type="number" [(ngModel)]="editableGoals.calories" min="500" max="8000"></ion-input>
       </div>
     </div>
 
-    <!-- PROTEINE -->
+    <!-- INPUT PROTEINE -->
     <div class="input-card">
       <div class="input-card-header">
         <div class="macro-icon protein-icon">
@@ -45,14 +50,12 @@
         </div>
         <span>Proteine (g)</span>
       </div>
-
       <div class="input-wrapper">
-        <ion-input type="number" [(ngModel)]="editableGoals.proteins" min="0">
-        </ion-input>
+        <ion-input type="number" [(ngModel)]="editableGoals.proteins" min="0"></ion-input>
       </div>
     </div>
 
-    <!-- CARBOIDRATI -->
+    <!-- INPUT CARBOIDRATI -->
     <div class="input-card">
       <div class="input-card-header">
         <div class="macro-icon carbs-icon">
@@ -60,14 +63,12 @@
         </div>
         <span>Carboidrati (g)</span>
       </div>
-
       <div class="input-wrapper">
-        <ion-input type="number" [(ngModel)]="editableGoals.carbs" min="0">
-        </ion-input>
+        <ion-input type="number" [(ngModel)]="editableGoals.carbs" min="0"></ion-input>
       </div>
     </div>
 
-    <!-- GRASSI -->
+    <!-- INPUT GRASSI -->
     <div class="input-card">
       <div class="input-card-header">
         <div class="macro-icon fats-icon">
@@ -75,45 +76,16 @@
         </div>
         <span>Grassi (g)</span>
       </div>
-
       <div class="input-wrapper">
-        <ion-input type="number" [(ngModel)]="editableGoals.fats" min="0">
-        </ion-input>
+        <ion-input type="number" [(ngModel)]="editableGoals.fats" min="0"></ion-input>
       </div>
     </div>
 
-    <!-- CALCOLO GUIDATO -->
-    <section class="help-section">
-      <button type="button" class="help-card" (click)="openCaloriesCalculator()">
-
-        <div class="help-icon-wrapper">
-          <ion-icon name="calculator-outline"></ion-icon>
-        </div>
-
-        <div class="help-content">
-          <span>CALCOLO GUIDATO</span>
-          <h3>Non conosci il tuo fabbisogno?</h3>
-          <p>
-            Rispondi ad alcune domande e scopri il tuo
-            target calorico ideale.
-          </p>
-        </div>
-
-        <div class="help-chevron">
-          <ion-icon name="chevron-forward-outline"></ion-icon>
-        </div>
-
-      </button>
-    </section>
-
-    <!-- PULSANTE DI SALVATAGGIO -->
+    <!-- PULSANTE SALVA -->
     <div class="modal-actions">
       <ion-button expand="block" class="save-modal-button" (click)="save()" [disabled]="isSaving">
-
         <ion-icon name="save-outline" slot="start"></ion-icon>
-
         {{ isSaving ? 'Salvataggio in corso...' : 'Salva modifiche' }}
-
       </ion-button>
     </div>
 

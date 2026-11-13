@@ -27,6 +27,9 @@ export class User {
     @Column({ type: 'boolean', default: false })
     isPremium: boolean;
 
+    @Column({ type: 'boolean', default: false })
+    removeAds: boolean;
+    
     @CreateDateColumn()
     createdAt: Date;
 

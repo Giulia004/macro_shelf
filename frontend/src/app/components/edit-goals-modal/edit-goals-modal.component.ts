@@ -5,6 +5,7 @@ import { addIcons } from 'ionicons';
 import { calculatorOutline, chevronForwardOutline, closeOutline, fitnessOutline, flameOutline, nutritionOutline, saveOutline, waterOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CalorieCalculatorModalComponent } from '../calorie-calculator-modal/calorie-calculator-modal.component';
 
 @Component({
   selector: 'app-edit-goals-modal',
@@ -33,7 +34,7 @@ export class EditGoalsModalComponent implements OnInit {
 
   constructor() {
     addIcons({
-      closeOutline, saveOutline, flameOutline, fitnessOutline, nutritionOutline, waterOutline,chevronForwardOutline,calculatorOutline
+      closeOutline, saveOutline, flameOutline, fitnessOutline, nutritionOutline, waterOutline, chevronForwardOutline, calculatorOutline
     });
   }
 
@@ -46,12 +47,29 @@ export class EditGoalsModalComponent implements OnInit {
     this.modalController.dismiss();
   }
 
+  async openCalculatorModal() {
+    const modal = await this.modalController.create({
+      component: CalorieCalculatorModalComponent
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    if (data) {
+      this.editableGoals = { ...data };
+      this.showToast('Obiettivi calcolati applicati con successo!', 'success');
+    }
+  }
+
   save() {
     if (this.editableGoals.calories <= 0) {
       this.showToast('Inserisci un valore di calorie valido.', 'warning');
       return;
     }
 
+    this.isSaving = true;
+    
     //Chiamata al backend
     this.userService.updateNutritionGoals(this.editableGoals).subscribe({
       next: () => {
@@ -67,8 +85,6 @@ export class EditGoalsModalComponent implements OnInit {
       }
     });
   }
-
-  openCaloriesCalculator() { }
 
   private async showToast(message: string, color: 'warning' | 'success' | 'danger') {
     const toast = await this.toastController.create({

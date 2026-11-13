@@ -1,4 +1,4 @@
-import { IsEmail, IsString, MinLength } from "class-validator";
+import { IsBoolean, IsEmail, IsString, MinLength } from "class-validator";
 
 export class CreateUserDto{
     @IsEmail({}, { message: "Inserisci un'email valida" })
@@ -13,4 +13,10 @@ export class CreateUserDto{
 
     @IsString()
     surname: string;
+
+    @IsBoolean()
+    isPremium: boolean;
+
+    @IsBoolean()
+    removeAds: boolean;
 }
